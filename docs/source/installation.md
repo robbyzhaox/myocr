@@ -1,7 +1,7 @@
 Installation
 ============
 
-**myocr** supports Python >= 3.8.
+**myocr** supports Python >= 3.11.
 
 ## Installing with `pip`
 
