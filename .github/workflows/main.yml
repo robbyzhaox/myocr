@@ -27,37 +27,37 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.8", "3.10"]
+        python: ["3.11"]
         task:
           - name: Test
             run: |
               pytest -v --color=yes tests/
 
         include:
-          - python: "3.10"
+          - python: "3.11"
             task:
               name: Lint
               run: ruff check .
 
-          - python: "3.10"
+          - python: "3.11"
             task:
               name: Type check
               run: mypy .
 
-          - python: "3.10"
+          - python: "3.11"
             task:
               name: Build
               run: |
                 python -m build
 
-          - python: "3.10"
+          - python: "3.11"
             task:
               name: Style
               run: |
                 isort --check .
                 black --check .
 
-          - python: "3.10"
+          - python: "3.11"
             task:
               name: Docs
               run: cd docs && make html
@@ -135,6 +135,7 @@ jobs:
           python scripts/release_notes.py > ${{ github.workspace }}-RELEASE_NOTES.md
 
       - name: Publish package to PyPI
+        
         run: |
           twine upload -u '${{ secrets.PYPI_USERNAME }}' -p '${{ secrets.PYPI_PASSWORD }}' dist/*
 
