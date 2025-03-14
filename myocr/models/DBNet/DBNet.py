@@ -2,7 +2,7 @@
 Created by Jaided AI
 Released Date: 18/08/2022
 Description:
-DBNet text detection module. 
+DBNet text detection module.
 Many parts of the codes are adapted from https://github.com/MhLiao/DB
 """
 
@@ -83,9 +83,7 @@ class DBNet:
             self.backbone = backbone
         else:
             raise ValueError(
-                "Invalid backbone. Current support backbone are {}.".format(
-                    ",".join(self.configs.keys())
-                )
+                "Invalid backbone. Current support backbone are {}.".format(",".join(self.configs.keys()))
             )
 
         if weight_dir is not None:
@@ -95,13 +93,15 @@ class DBNet:
 
         if initialize_model:
             if weight_name in self.configs[backbone]["weight"].keys():
-                weight_path = os.path.join(
-                    self.weight_dir, self.configs[backbone]["weight"][weight_name]
+                weight_path = os.path.join(self.weight_dir, self.configs[backbone]["weight"][weight_name])
+                error_message = (
+                    "A weight with a name {} is found in DBNet_inference.yaml but cannot be find file: {}."
                 )
-                error_message = "A weight with a name {} is found in DBNet_inference.yaml but cannot be find file: {}."
             else:
                 weight_path = os.path.join(self.weight_dir, weight_name)
-                error_message = "A weight with a name {} is not found in DBNet_inference.yaml and cannot be find file: {}."
+                error_message = (
+                    "A weight with a name {} is not found in DBNet_inference.yaml and cannot be find file: {}."
+                )
 
             if not os.path.isfile(weight_path):
                 raise FileNotFoundError(error_message.format(weight_name, weight_path))
@@ -183,9 +183,7 @@ class DBNet:
         -------
         None.
         """
-        self.model = Configurable.construct_class_from_config(config).structure.builder.build(
-            self.device
-        )
+        self.model = Configurable.construct_class_from_config(config).structure.builder.build(self.device)
 
     def initialize_model(self, model_config, weight_path):
         """
@@ -269,9 +267,7 @@ class DBNet:
         """
         height, width, _ = img.shape
         if detection_size is None:
-            detection_size = max(
-                self.min_detection_size, min(height, width, self.max_detection_size)
-            )
+            detection_size = max(self.min_detection_size, min(height, width, self.max_detection_size))
 
         if height < width:
             new_height = int(math.ceil(detection_size / 32) * 32)
@@ -359,9 +355,7 @@ class DBNet:
         original_shape : tuple
             A list of tuples (height, width) of the original input image before resizing.
         """
-        images, original_shapes = zip(
-            *[self.load_image(image, detection_size=detection_size) for image in images]
-        )
+        images, original_shapes = zip(*[self.load_image(image, detection_size=detection_size) for image in images])
         return torch.cat(images, dim=0), original_shapes
 
     def hmap2bbox(
@@ -522,9 +516,7 @@ class DBNet:
         boxes = []
         scores = []
 
-        contours, _ = cv2.findContours(
-            (bitmap * 255).astype(np.uint8), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
-        )
+        contours, _ = cv2.findContours((bitmap * 255).astype(np.uint8), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
         if max_candidates > 0:
             contours = contours[:max_candidates]
@@ -609,9 +601,7 @@ class DBNet:
         bitmap = segmentation.cpu().numpy()[0]  # The first channel
         hmap = hmap.cpu().detach().numpy()[0]
         height, width = bitmap.shape
-        contours, _ = cv2.findContours(
-            (bitmap * 255).astype(np.uint8), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
-        )
+        contours, _ = cv2.findContours((bitmap * 255).astype(np.uint8), cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
         if max_candidates > 0:
             num_contours = min(len(contours), max_candidates)
         else:

@@ -8,9 +8,8 @@ class TextRecognizePredictor(BasePredictor):
 
 
 class TextDectectPredictor(BasePredictor):
-
     def __init__(self, model_path, device):
-        self.model
+        # self.model
         torch.load(model_path, map_location=device, weights_only=False)
 
 
