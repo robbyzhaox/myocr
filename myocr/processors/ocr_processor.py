@@ -1,12 +1,14 @@
 import os
+import re
 
 import torch
 import torch.backends.cudnn as cudnn
-
+import numpy as np
 from ..base import BaseProcessor
-from ..config import MODULE_PATH
+from ..config import MODULE_PATH, detection_models
 from ..models.DBNet.DBNet import DBNet
 from ..util import load_model
+
 
 
 class OcrProcessor(BaseProcessor):
@@ -16,24 +18,25 @@ class OcrProcessor(BaseProcessor):
 
 class OcrDetectionProcessor(OcrProcessor):
     def __init__(self, backbone="resnet18", device="cuda:0", model_storage_directory=None):
-        dbnet = DBNet(
+        self.dbnet = DBNet(
             initialize_model=False,
             dynamic_import_relative_path=os.path.join("myocr", "models", "DBNet"),
             device=device,
             verbose=0,
         )
-        print(dbnet.configs[backbone])
-        load_model(dbnet.configs[backbone])
+        load_model(detection_models['dbnet18'])
 
-        dbnet.initialize_model(dbnet.configs[backbone]["model"], weight_path=MODULE_PATH + "model")
+        resnet_pth = "/home/robby/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth"
 
-        dbnet.model = torch.nn.DataParallel(dbnet.model).to(device)  # type: ignore
+        self.dbnet.initialize_model(self.dbnet.configs[backbone]["model"], weight_path=resnet_pth)
+
+        self.dbnet.model = torch.nn.DataParallel(self.dbnet.model).to(device)  # type: ignore
         cudnn.benchmark = False
 
-        dbnet.model.eval()
+        self.dbnet.model.eval()
 
-    def process(self, input, **kwargs):
-        pass
+    def process(self, input:np.ndarray, **kwargs):
+        return self.dbnet.inference(input)
 
 
 p = OcrDetectionProcessor()

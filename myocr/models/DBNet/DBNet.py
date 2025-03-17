@@ -29,7 +29,7 @@ class DBNet:
         weight_name="pretrained",
         initialize_model=True,
         dynamic_import_relative_path=None,
-        device="cuda",
+        device="cpu",
         verbose=0,
     ):
         """
@@ -167,7 +167,8 @@ class DBNet:
         """
         if self.model is None:
             raise RuntimeError("model has not yet been constructed.")
-        self.model.load_state_dict(torch.load(weight_path, map_location=self.device), strict=False)
+        self.model.load_state_dict(torch.load(weight_path, map_location='cpu', weights_only=False), strict=False)
+        self.model.to(self.device)
         self.model.eval()
 
     def construct_model(self, config):
