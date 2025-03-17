@@ -9,7 +9,15 @@ run-checks :
 	black --check .
 	ruff check .
 	mypy .
-	CUDA_VISIBLE_DEVICES='' pytest -v --color=yes --doctest-modules tests/ myocr/
+	CUDA_VISIBLE_DEVICES='' pytest -v tests/
+
+.PHONY : format-and-test
+format-and-test : 
+	isort .
+	black .
+	ruff check .
+	mypy .
+	CUDA_VISIBLE_DEVICES='' pytest -v tests/
 
 .PHONY : build
 build :
