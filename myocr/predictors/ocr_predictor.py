@@ -1,4 +1,5 @@
-# import torch
+import torch
+
 from ..base import BasePredictor
 
 
@@ -9,7 +10,7 @@ class TextRecognizePredictor(BasePredictor):
 class TextDectectPredictor(BasePredictor):
     def __init__(self, model_path, device):
         # self.model
-        # torch.load(model_path, map_location=device, weights_only=False)
+        torch.load(model_path, map_location=device, weights_only=False)
         pass
 
 
