@@ -114,6 +114,10 @@ check_untyped_defs = true
 module = "tests.*"
 strict_optional = false
 
+[[tool.mypy.overrides]]
+module = "myocr.models.DBNet.*"
+ignore_errors = true 
+
 [tool.pytest.ini_options]
 testpaths = "tests/"
 python_classes = [

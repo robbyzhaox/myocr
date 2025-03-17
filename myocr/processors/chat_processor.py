@@ -1,4 +1,4 @@
-from ..base import BaseProcessor
+from base import BaseProcessor
 
 
 class ChatProcessor(BaseProcessor):

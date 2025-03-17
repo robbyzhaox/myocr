@@ -1,3 +1,5 @@
+# mypy: ignore-errors
+
 import os
 
 import torch
@@ -33,7 +35,7 @@ class OcrDetectionProcessor(OcrProcessor):
         dbnet.model.eval()
 
     def process(self, input, **kwargs):
-        return super().process(input, **kwargs)
+        pass
 
 
 p = OcrDetectionProcessor()

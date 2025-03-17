@@ -14,4 +14,7 @@ run-checks :
 .PHONY : build
 build :
 	rm -rf *.egg-info/
+	rm -rf .mypy_cache/
+	rm -rf .pytest_cache/
+	rm -rf .ruff_cache/
 	python -m build

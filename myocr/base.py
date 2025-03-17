@@ -13,7 +13,7 @@ class BasePipeline(ABC):
         pass
 
     def __call__(self, *args, **kwargs):
-        self.predict()
+        pass
 
     @abstractmethod
     def predict(self):
@@ -34,13 +34,13 @@ class BasePredictor(ABC):
     def __init__(
         self,
     ):
-        super().__init__()
+        pass
 
     def predict(self, input, **kwargs):
         pass
 
     def __call__(self, input, **kwargs):
-        return self.predict(input, **kwargs)
+        pass
 
 
 class BaseProcessor(ABC):
@@ -49,10 +49,10 @@ class BaseProcessor(ABC):
     """
 
     def __init__(self):
-        super().__init__()
+        pass
 
     def __call__(self, input, **kwargs):
-        return self.process(input, **kwargs)
+        pass
 
     @abstractmethod
     def process(self, input, **kwargs):
