@@ -1,14 +1,13 @@
 import os
-import re
 
+import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
-import numpy as np
+
 from ..base import BaseProcessor
-from ..config import MODULE_PATH, detection_models
+from ..config import detection_models
 from ..models.DBNet.DBNet import DBNet
 from ..util import load_model
-
 
 
 class OcrProcessor(BaseProcessor):
@@ -24,7 +23,7 @@ class OcrDetectionProcessor(OcrProcessor):
             device=device,
             verbose=0,
         )
-        load_model(detection_models['dbnet18'])
+        load_model(detection_models["dbnet18"])
 
         resnet_pth = "/home/robby/.cache/torch/hub/checkpoints/resnet18-5c106cde.pth"
 
@@ -35,7 +34,7 @@ class OcrDetectionProcessor(OcrProcessor):
 
         self.dbnet.model.eval()
 
-    def process(self, input:np.ndarray, **kwargs):
+    def process(self, input: np.ndarray, **kwargs):
         return self.dbnet.inference(input)
 
 

@@ -17,10 +17,10 @@ def load_model(model_config):
     model_storage_directory = MODULE_PATH + "/model"
     Path(model_storage_directory).mkdir(parents=True, exist_ok=True)
     model_path = os.path.join(model_storage_directory, model_config["filename"])
-    
+
     if os.path.exists("/home/robby/.MyOCR//model/pretrained_ic15_res18.pt"):
         return
-    
+
     download_and_unzip(
         model_config["url"],
         model_config["filename"],

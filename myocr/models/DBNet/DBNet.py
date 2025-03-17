@@ -167,7 +167,9 @@ class DBNet:
         """
         if self.model is None:
             raise RuntimeError("model has not yet been constructed.")
-        self.model.load_state_dict(torch.load(weight_path, map_location='cpu', weights_only=False), strict=False)
+        self.model.load_state_dict(
+            torch.load(weight_path, map_location="cpu", weights_only=False), strict=False
+        )
         self.model.to(self.device)
         self.model.eval()
 
