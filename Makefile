@@ -9,7 +9,7 @@ run-checks :
 	black --check .
 	ruff check .
 	mypy .
-	CUDA_VISIBLE_DEVICES='' pytest -v tests/
+	CUDA_VISIBLE_DEVICES='' pytest -v .
 
 .PHONY : build
 build :
