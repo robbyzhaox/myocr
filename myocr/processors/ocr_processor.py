@@ -65,7 +65,10 @@ class OcrDetectionProcessor(OcrProcessor):
 
 
 class OcrRecognizationProcessor(OcrProcessor):
-    def __init__(self):
+    def __init__(self, horizontal_list, free_list):
+        self.horizontal_list = horizontal_list
+        self.free_list = free_list
+
         model_config = recognition_models["gen2"]["zh_sim_g2"]
 
         device = "cuda:0"
@@ -83,31 +86,56 @@ class OcrRecognizationProcessor(OcrProcessor):
         model_path = "/home/robby/.MyOCR//model/zh_sim_g2.pth"
         # state_dict = torch.load(model_path, map_location=device, weights_only=False)
 
-        model = Model(num_class=len(self.character), **network_params)
-        model = torch.nn.DataParallel(model).to(device)
-        model.load_state_dict(torch.load(model_path, map_location=device, weights_only=False))
+        self.model = Model(num_class=len(self.character), **network_params)
+        self.model = torch.nn.DataParallel(self.model).to(device)
+        self.model.load_state_dict(torch.load(model_path, map_location=device, weights_only=False))
 
         print("init rec model")
 
     def process(self, input, **kwargs):
         # reformat image
         image = input
-        if type(image) is np.ndarray:
-            if len(image.shape) == 2:  # grayscale
-                img_cv_grey = image
-                img = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-            elif len(image.shape) == 3 and image.shape[2] == 1:
-                img_cv_grey = np.squeeze(image)
-                img = cv2.cvtColor(img_cv_grey, cv2.COLOR_GRAY2BGR)
-            elif len(image.shape) == 3 and image.shape[2] == 3:  # BGRscale
-                img = image
-                img_cv_grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            elif len(image.shape) == 3 and image.shape[2] == 4:  # RGBAscale
-                img = image[:, :, :3]
-                img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-                img_cv_grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        # if type(image) is np.ndarray:
+        if len(image.shape) == 2:  # grayscale
+            img_cv_grey = image
+            img = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
+        elif len(image.shape) == 3 and image.shape[2] == 1:
+            img_cv_grey = np.squeeze(image)
+            img = cv2.cvtColor(img_cv_grey, cv2.COLOR_GRAY2BGR)
+        elif len(image.shape) == 3 and image.shape[2] == 3:  # BGRscale
+            img = image
+            img_cv_grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        elif len(image.shape) == 3 and image.shape[2] == 4:  # RGBAscale
+            img = image[:, :, :3]
+            img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+            img_cv_grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        self.model.eval()
+
+        for bbox in self.horizontal_list:
+            h_list = [bbox]
+
+            for box in h_list:
+                x_min = max(0, box[0])
+                x_max = box[1]
+                y_min = max(0, box[2])
+                y_max = box[3]
+                crop_img = img_cv_grey[y_min:y_max, x_min:x_max]
+                # print(f"x_min={x_min},x_max={x_max},y_min={y_min},y_max={y_max}, crop_img.shape={crop_img.shape}")
+                image_list = []
+                image_list.append(
+                    ([[x_min, y_min], [x_max, y_min], [x_max, y_max], [x_min, y_max]], crop_img)
+                )
+                [item[0] for item in image_list]
+                img_list = [item[1] for item in image_list]
+                tensor = torch.tensor(img_list)
+                tensor = tensor.unsqueeze(0)
+                print(f"tensor shape:{tensor.shape}")
+
+                text_for_pred = torch.LongTensor(1, 1).fill_(0).to("cuda:0")
+
+                preds = self.model(tensor, text_for_pred)
+                print(f"preds is {preds}")
+        # with torch.no_grad():
 
         # return super().process(input, **kwargs)
-
-
-p = OcrRecognizationProcessor()
