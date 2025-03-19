@@ -1,11 +1,15 @@
+# ruff: noqa
 import hashlib
 import os
 from typing import Any
 from urllib.request import urlretrieve
 from zipfile import ZipFile
 
+import cv2
 import numpy as np
+import torch
 from pathlib2 import Path
+from PIL import Image
 
 from .config import MODULE_PATH
 
@@ -50,6 +54,34 @@ def calculate_md5(fname):
         for chunk in iter(lambda: f.read(4096), b""):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
+
+
+def calculate_ratio(width, height):
+    """
+    Calculate aspect ratio for normal use case (w>h) and vertical text (h>w)
+    """
+    ratio = width / height
+    if ratio < 1.0:
+        ratio = 1.0 / ratio
+    return ratio
+
+
+def compute_ratio_and_resize(img, width, height, model_height):
+    """
+    Calculate ratio and resize correctly for both horizontal text
+    and vertical case
+    """
+    ratio = width / height
+    if ratio < 1.0:
+        ratio = calculate_ratio(width, height)
+        img = cv2.resize(
+            img, (model_height, int(model_height * ratio)), interpolation=Image.Resampling.LANCZOS
+        )
+    else:
+        img = cv2.resize(
+            img, (int(model_height * ratio), model_height), interpolation=Image.Resampling.LANCZOS
+        )
+    return img, ratio
 
 
 def printProgressBar(prefix="", suffix="", decimals=1, length=100, fill="█"):
@@ -193,3 +225,76 @@ def group_text_box(
                     )
     # may need to check if box is really in image
     return merged_list, free_list
+
+
+class CTCLabelConverter(object):
+    """Convert between text-label and text-index"""
+
+    def __init__(self, character, separator_list={}, dict_pathlist={}):
+        # character (str): set of the possible characters.
+        dict_character = list(character)
+
+        self.dict = {}
+        for i, char in enumerate(dict_character):
+            self.dict[char] = i + 1
+
+        self.character = ["[blank]"] + dict_character  # dummy '[blank]' token for CTCLoss (index 0)
+
+        self.separator_list = separator_list
+        separator_char = []
+        for lang, sep in separator_list.items():
+            separator_char += sep
+        self.ignore_idx = [0] + [i + 1 for i, item in enumerate(separator_char)]
+
+        ####### latin dict
+        if len(separator_list) == 0:
+            dict_list = []
+            for lang, dict_path in dict_pathlist.items():
+                try:
+                    with open(dict_path, "r", encoding="utf-8-sig") as input_file:
+                        word_count = input_file.read().splitlines()
+                    dict_list += word_count
+                except:
+                    pass
+        else:
+            dict_list = {}
+            for lang, dict_path in dict_pathlist.items():
+                with open(dict_path, "r", encoding="utf-8-sig") as input_file:
+                    word_count = input_file.read().splitlines()
+                dict_list[lang] = word_count
+
+        self.dict_list = dict_list
+
+    def encode(self, text, batch_max_length=25):
+        """convert text-label into text-index.
+        input:
+            text: text labels of each image. [batch_size]
+
+        output:
+            text: concatenated text index for CTCLoss.
+                    [sum(text_lengths)] = [text_index_0 + text_index_1 + ... + text_index_(n - 1)]
+            length: length of each text. [batch_size]
+        """
+        length = [len(s) for s in text]
+        text = "".join(text)
+        text = [self.dict[char] for char in text]
+
+        return (torch.IntTensor(text), torch.IntTensor(length))
+
+    def decode_greedy(self, text_index, length):
+        """convert text-index into text-label."""
+        texts = []
+        index = 0
+        for l in length:
+            t = text_index[index : index + l]
+            # Returns a boolean array where true is when the value is not repeated
+            a = np.insert(~((t[1:] == t[:-1])), 0, True)
+            # Returns a boolean array where true is when the value is not in the ignore_idx list
+            b = ~np.isin(t, np.array(self.ignore_idx))
+            # Combine the two boolean array
+            c = a & b
+            # Gets the corresponding character according to the saved indexes
+            text = "".join(np.array(self.character)[t[c.nonzero()]])
+            texts.append(text)
+            index += l
+        return texts

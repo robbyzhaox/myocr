@@ -4,12 +4,20 @@ import cv2
 import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
+import torch.nn.functional as F
 
 from ..base import BaseProcessor
-from ..config import detection_models, recognition_models
+from ..config import BASE_PATH, detection_models, recognition_models
 from ..models.DBNet.DBNet import DBNet
 from ..models.vgg_model import Model
-from ..util import diff, group_text_box, load_model
+from ..util import (
+    CTCLabelConverter,
+    calculate_ratio,
+    compute_ratio_and_resize,
+    diff,
+    group_text_box,
+    load_model,
+)
 
 
 class OcrProcessor(BaseProcessor):
@@ -90,6 +98,13 @@ class OcrRecognizationProcessor(OcrProcessor):
         self.model = torch.nn.DataParallel(self.model).to(device)
         self.model.load_state_dict(torch.load(model_path, map_location=device, weights_only=False))
 
+        dict_list: dict = {}
+        for lang in ["ch_sim"]:
+            dict_list[lang] = os.path.join(BASE_PATH, "dict", lang + ".txt")
+
+        separator_list: dict = {}
+        self.converter = CTCLabelConverter(self.character, separator_list, dict_list)
+
         print("init rec model")
 
     def process(self, input, **kwargs):
@@ -111,31 +126,57 @@ class OcrRecognizationProcessor(OcrProcessor):
             img_cv_grey = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
         self.model.eval()
+        maximum_y, maximum_x = img_cv_grey.shape
 
         for bbox in self.horizontal_list:
             h_list = [bbox]
 
             for box in h_list:
                 x_min = max(0, box[0])
-                x_max = box[1]
+                x_max = min(box[1], maximum_x)
                 y_min = max(0, box[2])
-                y_max = box[3]
+                y_max = min(box[3], maximum_y)
                 crop_img = img_cv_grey[y_min:y_max, x_min:x_max]
-                # print(f"x_min={x_min},x_max={x_max},y_min={y_min},y_max={y_max}, crop_img.shape={crop_img.shape}")
+
+                width = x_max - x_min
+                height = y_max - y_min
+                ratio = calculate_ratio(width, height)
+                model_height = 64
+                if width <= 0 or height <= 0 or crop_img.shape[0] == 0 or crop_img.shape[1] == 0:
+                    continue
+                crop_img, ratio = compute_ratio_and_resize(crop_img, width, height, model_height)
+                print(
+                    f"width={width},height={height} crop_img.shape={crop_img.shape} ratio={ratio}"
+                )
                 image_list = []
                 image_list.append(
                     ([[x_min, y_min], [x_max, y_min], [x_max, y_max], [x_min, y_max]], crop_img)
                 )
-                [item[0] for item in image_list]
                 img_list = [item[1] for item in image_list]
                 tensor = torch.tensor(img_list)
+
                 tensor = tensor.unsqueeze(0)
-                print(f"tensor shape:{tensor.shape}")
 
                 text_for_pred = torch.LongTensor(1, 1).fill_(0).to("cuda:0")
 
                 preds = self.model(tensor, text_for_pred)
-                print(f"preds is {preds}")
+
+                preds_size = torch.IntTensor([preds.size(1)] * 1)
+
+                ######## filter ignore_char, rebalance
+                preds_prob = F.softmax(preds, dim=2)
+                preds_prob = preds_prob.cpu().detach().numpy()
+                preds_prob[:, :, 1] = 0.0
+                pred_norm = preds_prob.sum(axis=2)
+                preds_prob = preds_prob / np.expand_dims(pred_norm, axis=-1)
+                preds_prob = torch.from_numpy(preds_prob).float().to("cuda:0")
+                _, preds_index = preds_prob.max(2)
+                preds_index = preds_index.view(-1)
+                preds_str = self.converter.decode_greedy(
+                    preds_index.data.cpu().detach().numpy(), preds_size.data
+                )
+
+                print(f"preds_str is {preds_str}")
         # with torch.no_grad():
 
         # return super().process(input, **kwargs)

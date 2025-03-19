@@ -125,6 +125,10 @@ strict_optional = false
 module = "myocr.models.DBNet.*"
 ignore_errors = true 
 
+[[tool.mypy.overrides]]
+module = "myocr.util"
+ignore_errors = true 
+
 [tool.pytest.ini_options]
 testpaths = "tests/"
 python_classes = [

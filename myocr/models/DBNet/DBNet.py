@@ -318,7 +318,7 @@ class DBNet:
         """
         return (image - self.BGR_MEAN) / 255.0
 
-    def load_image(self, image_path, detection_size=0):
+    def load_image(self, image_path, detection_size=None):
         """
         Wrapper to load and convert an image to an image tensor
 
