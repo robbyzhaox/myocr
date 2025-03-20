@@ -145,9 +145,6 @@ class OcrRecognizationProcessor(OcrProcessor):
                 if width <= 0 or height <= 0 or crop_img.shape[0] == 0 or crop_img.shape[1] == 0:
                     continue
                 crop_img, ratio = compute_ratio_and_resize(crop_img, width, height, model_height)
-                print(
-                    f"width={width},height={height} crop_img.shape={crop_img.shape} ratio={ratio}"
-                )
                 image_list = []
                 image_list.append(
                     ([[x_min, y_min], [x_max, y_min], [x_max, y_max], [x_min, y_max]], crop_img)
@@ -176,7 +173,7 @@ class OcrRecognizationProcessor(OcrProcessor):
                     preds_index.data.cpu().detach().numpy(), preds_size.data
                 )
 
-                print(f"preds_str is {preds_str}")
+                print(preds_str.pop())
         # with torch.no_grad():
 
         # return super().process(input, **kwargs)
