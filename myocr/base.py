@@ -1,4 +1,14 @@
 from abc import ABC, abstractmethod
+from typing import Generic, Optional, TypeVar
+
+import numpy as np
+
+from myocr.models.model import Model
+
+
+class Device:
+    def __init__(self, device_name):
+        self.name = device_name
 
 
 class BasePipeline(ABC):
@@ -23,7 +33,22 @@ class BasePipeline(ABC):
         pass
 
 
-class BasePredictor(ABC):
+InputType = TypeVar("InputType")
+OutputType = TypeVar("OutputType")
+
+
+class ParamConverter(ABC, Generic[InputType, OutputType]):
+    def __init__(self):
+        super().__init__()
+
+    def convert_input(self, input: InputType) -> Optional[np.ndarray]:
+        pass
+
+    def convert_output(self, internal_result: np.ndarray) -> Optional[OutputType]:
+        pass
+
+
+class Predictor(ABC):
     """
     A predictor is a step of a pipeline, for example, text detetion
     and text recognization are specific steps for OCR
@@ -31,10 +56,10 @@ class BasePredictor(ABC):
     by some certain predictors.
     """
 
-    def __init__(
-        self,
-    ):
-        pass
+    def __init__(self, model: Model, device, converter: Optional[ParamConverter] = None):
+        self.model = model
+        self.device = model.device
+        self.converter = converter
 
     def predict(self, input, **kwargs):
         pass

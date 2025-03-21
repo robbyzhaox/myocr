@@ -1,18 +1,18 @@
 import torch
 
-from ..base import BasePredictor
+from ..base import Predictor
 
 
-class TextRecognizePredictor(BasePredictor):
+class TextRecognizePredictor(Predictor):
     pass
 
 
-class TextDectectPredictor(BasePredictor):
+class TextDectectPredictor(Predictor):
     def __init__(self, model_path, device):
         # self.model
         torch.load(model_path, map_location=device, weights_only=False)
         pass
 
 
-class TableRecgnizePredictor(BasePredictor):
+class TableRecgnizePredictor(Predictor):
     pass
