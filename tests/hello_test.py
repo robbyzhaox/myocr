@@ -1,3 +1,5 @@
+import os
+
 import pytest
 import torch
 from PIL import Image
@@ -15,4 +17,5 @@ def test_model(iteration):
 
     model = ModelZoo.load_model("pt", "resnet18", "cuda:0" if torch.cuda.is_available() else "cpu")
     p = model.predictor(ImageClassificationParamConverter())
-    print(p.predict(Image.open("/home/robby/code/myocr/tests/flower.png").convert("RGB")))
+    print(os.getcwd())
+    print(p.predict(Image.open("tests/flower.png").convert("RGB")))
