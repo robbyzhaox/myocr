@@ -20,8 +20,9 @@ class Classification:
 
 
 class ImageClassificationParamConverter(ParamConverter[Image, Classification]):
-    def __init__(self, cls_name_mapping: dict = {}):
+    def __init__(self, device, cls_name_mapping: dict = {}):
         super().__init__()
+        self.device = device
         self.transforms = transforms.Compose(
             [
                 transforms.Resize(256),
@@ -33,7 +34,7 @@ class ImageClassificationParamConverter(ParamConverter[Image, Classification]):
         self.name = self.__class__
 
     def convert_input(self, input: Image) -> Optional[Tensor]:
-        tensor = self.transforms(input).to("cuda:0")
+        tensor = self.transforms(input).to(self.device)  # type: ignore
         batch_tensor = tensor.unsqueeze(0)
         return batch_tensor
 

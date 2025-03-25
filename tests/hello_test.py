@@ -1,5 +1,3 @@
-import os
-
 import pytest
 import torch
 from PIL import Image
@@ -14,8 +12,6 @@ def test_hello():
 
 @pytest.mark.parametrize("iteration", range(1))
 def test_model(iteration):
-
-    model = ModelZoo.load_model("pt", "resnet18", "cuda:0" if torch.cuda.is_available() else "cpu")
-    p = model.predictor(ImageClassificationParamConverter())
-    print(os.getcwd())
+    model = ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
+    p = model.predictor(ImageClassificationParamConverter(model.device))
     print(p.predict(Image.open("tests/flower.png").convert("RGB")))
