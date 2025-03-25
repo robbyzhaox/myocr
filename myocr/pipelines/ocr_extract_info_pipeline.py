@@ -1,5 +1,5 @@
-from ..base import BasePipeline
+# from ..base import BasePipeline
 
 
-class StructuredOutputOCRPipeline(BasePipeline):
-    pass
+# class StructuredOutputOCRPipeline(BasePipeline):
+#     pass

@@ -1,36 +1,28 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import Generic, Optional, TypeVar
 
 import numpy as np
 
-from myocr.models.model import Model
+# class BasePipeline(ABC):
+#     """
+#     High level abstraction for this package, when we want to deal with a real problem
+#     we need to create a pipeline, a pipeline corresponding to a specific real problem.
 
+#     A pipeline can be nested to another pipeline.
+#     """
 
-class Device:
-    def __init__(self, device_name):
-        self.name = device_name
+#     def __init__(self):
+#         pass
 
+#     def __call__(self, *args, **kwargs):
+#         pass
 
-class BasePipeline(ABC):
-    """
-    High level abstraction for this package, when we want to deal with a real problem
-    we need to create a pipeline, a pipeline corresponding to a specific real problem.
+#     @abstractmethod
+#     def predict(self):
+#         raise NotImplementedError("Method `predict` has not been implemented.")
 
-    A pipeline can be nested to another pipeline.
-    """
-
-    def __init__(self):
-        pass
-
-    def __call__(self, *args, **kwargs):
-        pass
-
-    @abstractmethod
-    def predict(self):
-        raise NotImplementedError("Method `predict` has not been implemented.")
-
-    def create_pipeline(self, config: dict):
-        pass
+#     def create_pipeline(self, config: dict):
+#         pass
 
 
 InputType = TypeVar("InputType")
@@ -56,7 +48,7 @@ class Predictor(ABC):
     by some certain predictors.
     """
 
-    def __init__(self, model: Model, device, converter: Optional[ParamConverter] = None):
+    def __init__(self, model, device, converter: Optional[ParamConverter] = None):
         self.model = model
         self.device = model.device
         self.converter = converter
@@ -68,17 +60,17 @@ class Predictor(ABC):
         pass
 
 
-class BaseProcessor(ABC):
-    """
-    A processor do a specific thing for a predictor, such as route an image
-    """
+# class BaseProcessor(ABC):
+#     """
+#     A processor do a specific thing for a predictor, such as route an image
+#     """
 
-    def __init__(self):
-        pass
+#     def __init__(self):
+#         pass
 
-    def __call__(self, input, **kwargs):
-        pass
+#     def __call__(self, input, **kwargs):
+#         pass
 
-    @abstractmethod
-    def process(self, input, **kwargs):
-        pass
+#     @abstractmethod
+#     def process(self, input, **kwargs):
+#         pass
