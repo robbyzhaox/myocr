@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Generic, Optional, TypeVar
 
-import numpy as np
+from torch import Tensor
 
 # class BasePipeline(ABC):
 #     """
@@ -33,14 +33,14 @@ class ParamConverter(ABC, Generic[InputType, OutputType]):
     def __init__(self):
         super().__init__()
 
-    def convert_input(self, input: InputType) -> Optional[np.ndarray]:
+    def convert_input(self, input: InputType) -> Optional[Tensor]:
         pass
 
-    def convert_output(self, internal_result: np.ndarray) -> Optional[OutputType]:
+    def convert_output(self, internal_result: Tensor) -> Optional[OutputType]:
         pass
 
 
-class Predictor(ABC):
+class Predictor:
     """
     A predictor is a step of a pipeline, for example, text detetion
     and text recognization are specific steps for OCR
@@ -48,16 +48,21 @@ class Predictor(ABC):
     by some certain predictors.
     """
 
-    def __init__(self, model, device, converter: Optional[ParamConverter] = None):
+    def __init__(self, model, converter: Optional[ParamConverter] = None):
         self.model = model
         self.device = model.device
         self.converter = converter
 
     def predict(self, input, **kwargs):
-        pass
+        if self.converter:
+            arr = self.converter.convert_input(input)
+            res = self.model(arr)
+            return self.converter.convert_output(res)
+        else:
+            return self.model(input)
 
     def __call__(self, input, **kwargs):
-        pass
+        return self.predict(input, **kwargs)
 
 
 # class BaseProcessor(ABC):

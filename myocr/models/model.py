@@ -1,9 +1,19 @@
+import importlib.util
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
+import torch
+import torchvision
+from click import progressbar
+from torch import nn
+
 from ..base import ParamConverter, Predictor
+
+
+def is_cuda_available():
+    return torch.cuda.is_available()
 
 
 class Device:
@@ -12,8 +22,8 @@ class Device:
 
 
 class Model:
-    def __init__(self, model_name, device: Device | str) -> None:
-        self.name = model_name
+    def __init__(self, device: Device | str) -> None:
+        self.model_name_or_path = None
         self.device = device
         self.loaded_model = None
         self.loaded = False
@@ -25,39 +35,77 @@ class Model:
         predictor = Predictor(self, converter)
         return predictor
 
-    def load(self, model_path) -> None:
+    def __call__(self, *args, **kwds):
+        if self.loaded_model:
+            with torch.no_grad():
+                return self.loaded_model(*args, **kwds)
+        else:
+            raise RuntimeError("model not loaded")
+
+    def load(self, model_name_or_path) -> None:
         raise RuntimeError("method load should be implemented in sub class")
 
 
 class PyTorchModel(Model):
-    def __init__(self, model_name, device):
-        super().__init__(model_name, device)
+    def __init__(self, device):
+        super().__init__(device)
 
-    def load(self, model_path) -> None:
+    def load(self, model_name_or_path) -> None:
         if self.loaded:
             return
 
-        self.model_dir = model_path
-        file = Path(self.model_dir)  # .joinpath("model.pt")
-        if not file.exists():
-            raise FileNotFoundError(f"model not found in {self.model_dir}")
-        import torch
+        # self.model_dir = Path(model_name_or_path)
+        # file = Path(self.model_dir)  # .joinpath("model.pt")
+        # if not file.exists():
+        #     raise FileNotFoundError(f"model not found in {self.model_dir}")
 
         if isinstance(self.device, Device):
             self.device = self.device.name
 
-        self.loaded_model = torch.load(file, map_location=self.device, weights_only=False)
-        print(f"model loaded from {model_path} to {self.device}")
+        model_fn = getattr(torchvision.models, model_name_or_path)
+        self.loaded_model: nn.Module = model_fn()
+
+        # state_dict = torch.load(file, map_location=self.device, weights_only=False)
+        # load by config or name
+        self.loaded_model.to(self.device)
+        print(f"model {model_name_or_path} loaded to {self.device}")
         self.loaded = True
+
+
+class CustomModel(Model):
+    def __init__(self, device):
+        super().__init__(device)
+
+    def load(self, model_name_or_path, **kwargs) -> None:
+        if self.loaded:
+            return
+
+        model_path = Path(model_name_or_path)
+        spec = importlib.util.spec_from_file_location("custom_model", model_path)
+        if spec:
+            module = importlib.util.module_from_spec(spec)
+            if spec.loader:
+                spec.loader.exec_module(
+                    module,
+                )
+
+                # model name 'CustomModel'
+                model_class = getattr(module, "CustomModel")
+                model = model_class(**kwargs)
+
+        # model weights
+        # if pretrained:
+        #     weight_path = model_path.parent / "weights.pth"
+        #     model.load_state_dict(torch.load(weight_path))
 
 
 class ModelLoader(ABC):
     def __init__(self):
         super().__init__()
 
-    def load(self, model_name, model_path, device: Device | str) -> Model:
-        m = PyTorchModel(model_name, device)
-        m.load(model_path)
+    def load(self, model_name_path, device: Device | str) -> Model:
+        m = PyTorchModel(device)
+        m.load(model_name_path)
         return m
 
 
@@ -75,5 +123,5 @@ class ModelZoo:
         return loader
 
     @staticmethod
-    def load_model(group_id, name, path, device: Device | str = Device("cpu")) -> Model:
-        return ModelZoo._get_loader(group_id).load(name, path, device)
+    def load_model(group_id, model_name_or_path, device: Device | str = Device("cpu")) -> Model:
+        return ModelZoo._get_loader(group_id).load(model_name_or_path, device)
