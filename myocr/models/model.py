@@ -1,4 +1,5 @@
 import importlib.util
+import logging
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
@@ -11,8 +12,7 @@ from torch import nn
 
 from ..base import ParamConverter, Predictor
 
-import logging
-logging.basicConfig(level = logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 
 def is_cuda_available():

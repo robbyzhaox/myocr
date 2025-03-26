@@ -28,7 +28,7 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
         self.origin_w = input.size[0]
         self.origin_h = input.size[1]
         image_resized = input.resize(
-            ((self.origin_w // 32) * 32, (self.origin_w // 32) * 32), PIL.Resampling.BILINEAR
+            ((self.origin_w // 32) * 32, (self.origin_h // 32) * 32), PIL.Resampling.BILINEAR
         )
         image_np = np.array(image_resized).astype(np.float32) / 255.0
 
@@ -62,6 +62,7 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
             # scale back to origin
             scale_x = self.origin_w / binary_map.shape[1]
             scale_y = self.origin_h / binary_map.shape[0]
+            # print(f"{scale_x} -- {scale_y}")
             box = [
                 (min_y * scale_x, min_x * scale_y),
                 (max_y * scale_x, min_x * scale_y),
