@@ -6,7 +6,6 @@ from typing import Any, Dict, Optional, Union
 
 import torch
 import torchvision
-from click import progressbar
 from torch import nn
 
 from ..base import ParamConverter, Predictor

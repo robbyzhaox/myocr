@@ -21,7 +21,7 @@ def model():
 def test_model(iteration, model):
     start_time = time.time()
     p = model.predictor(ImageClassificationParamConverter(model.device))
-    print(p.predict(Image.open("tests/flower.png").convert("RGB")))
+    print(p.predict(Image.open("tests/images/flower.png").convert("RGB")))
     end_time = time.time()  # 记录循环结
     execution_time = end_time - start_time
     print(f"执行时间: {execution_time} 秒")
