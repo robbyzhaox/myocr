@@ -14,8 +14,7 @@ def test_hello():
 
 @pytest.fixture
 def model():
-    model = ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
-    return model
+    return ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 @pytest.mark.parametrize("iteration", range(100))
