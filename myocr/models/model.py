@@ -11,6 +11,9 @@ from torch import nn
 
 from ..base import ParamConverter, Predictor
 
+import logging
+logging.basicConfig(level = logging.INFO)
+
 
 def is_cuda_available():
     return torch.cuda.is_available()
@@ -108,12 +111,7 @@ class OrtModel(Model):
                 "outputs": output_info,
             }
 
-        print(
-            f"""Onnx model {model_name_or_path} loaded to {self.device}
-              inputs outputs info:
-              {get_input_output_info()}
-              """
-        )
+        logging.info(f"Onnx model {model_name_or_path} loaded to {self.device}")
         self.loaded = True
 
     def forward_internal(self, *args, **kwds):
