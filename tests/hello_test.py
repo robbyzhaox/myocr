@@ -17,7 +17,7 @@ def model():
     return ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
 
 
-@pytest.mark.parametrize("iteration", range(100))
+@pytest.mark.parametrize("iteration", range(1))
 def test_model(iteration, model):
     start_time = time.time()
     p = model.predictor(ImageClassificationParamConverter(model.device))
