@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import Generic, Optional, TypeVar
 
+import numpy as np
 from torch import Tensor
 
 # class BasePipeline(ABC):
@@ -33,10 +34,10 @@ class ParamConverter(ABC, Generic[InputType, OutputType]):
     def __init__(self):
         super().__init__()
 
-    def convert_input(self, input: InputType) -> Optional[Tensor]:
+    def convert_input(self, input: InputType) -> Optional[Tensor | np.ndarray]:
         pass
 
-    def convert_output(self, internal_result: Tensor) -> Optional[OutputType]:
+    def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[OutputType]:
         pass
 
 
