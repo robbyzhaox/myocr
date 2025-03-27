@@ -1,12 +1,16 @@
 class BoundingBox:
-    def __init__(self, text=None):
-        self.text = text
+    pass
 
 
 class RectBoundingBox(BoundingBox):
 
-    def __init__(self, left, bottom, right, top, text=None):
-        super().__init__(text)
+    def __init__(
+        self,
+        left,
+        bottom,
+        right,
+        top,
+    ):
         self.left = left
         self.bottom = bottom
         self.right = right
@@ -16,4 +20,10 @@ class RectBoundingBox(BoundingBox):
         return self.right - self.left
 
     def get_height(self):
-        return self.top - self.bottom
+        return self.bottom - self.top
+
+    def __str__(self):
+        return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top})"
+
+    def __repr__(self):
+        return self.__str__()

@@ -57,14 +57,14 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
             if len(points) < 10:  # 过滤小区域
                 continue
             # 计算最小外接矩形（替代OpenCV的minAreaRect）
-            min_y, min_x = np.min(points, axis=0)
-            max_y, max_x = np.max(points, axis=0)
+            min_y, min_x = np.min(points, axis=0) - (7, 7)  # 临时修复
+            max_y, max_x = np.max(points, axis=0) + (7, 7)
 
             box = RectBoundingBox(
-                left=min_x * scale_x,
-                bottom=min_y * scale_y,
-                right=max_x * scale_x,
-                top=max_y * scale_y,
+                left=round(min_x * scale_x),
+                bottom=round(max_y * scale_y),
+                right=round(max_x * scale_x),
+                top=round(min_y * scale_y),
             )
             boxes.append(box)
         return DetectedObjects(self.origin_image, self.binary_map, boundingBoxes=boxes)
