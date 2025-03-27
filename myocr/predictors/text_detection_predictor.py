@@ -10,10 +10,10 @@ from myocr.predictors.base import RectBoundingBox
 
 
 class DetectedObjects:
-    def __init__(self, image: Image, boxes, boundingBoxes: Optional[List[RectBoundingBox]]):
+    def __init__(self, image: Image, binary_map, boundingBoxes: Optional[List[RectBoundingBox]]):
         self.image = image
-        self.boundingBoxes = boundingBoxes
-        self.boxes = boxes
+        self.binary_map = binary_map
+        self.bounding_boxes = boundingBoxes
 
 
 class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
@@ -24,7 +24,6 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
 
     def convert_input(self, input: Image) -> Optional[np.ndarray]:
         self.origin_image = input
-
         self.origin_w = input.size[0]
         self.origin_h = input.size[1]
         image_resized = input.resize(
@@ -41,33 +40,31 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
     def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[DetectedObjects]:
         output = internal_result[0]
         output = output[0, 0]
+
         threshold = 0.3
         binary_map = (output > threshold).astype(np.uint8) * 255  # type: ignore
-
+        self.binary_map = binary_map
         from scipy.ndimage import label
 
         labeled_array, num_features = label(binary_map)  # type: ignore
 
-        # 提取bounding boxes
         boxes = []
+        scale_x = self.origin_w / binary_map.shape[1]
+        scale_y = self.origin_h / binary_map.shape[0]
+
         for i in range(1, num_features + 1):
-            # 获取当前连通域的坐标
             points = np.argwhere(labeled_array == i)
             if len(points) < 10:  # 过滤小区域
                 continue
             # 计算最小外接矩形（替代OpenCV的minAreaRect）
-            min_x, min_y = np.min(points, axis=0)
-            max_x, max_y = np.max(points, axis=0)
+            min_y, min_x = np.min(points, axis=0)
+            max_y, max_x = np.max(points, axis=0)
 
-            # scale back to origin
-            scale_x = self.origin_w / binary_map.shape[1]
-            scale_y = self.origin_h / binary_map.shape[0]
-            # print(f"{scale_x} -- {scale_y}")
-            box = [
-                (min_y * scale_x, min_x * scale_y),
-                (max_y * scale_x, min_x * scale_y),
-                (max_y * scale_x, max_x * scale_y),
-                (min_y * scale_x, max_x * scale_y),
-            ]
+            box = RectBoundingBox(
+                left=min_x * scale_x,
+                bottom=min_y * scale_y,
+                right=max_x * scale_x,
+                top=max_y * scale_y,
+            )
             boxes.append(box)
-        return DetectedObjects(self.origin_image, boxes, boundingBoxes=None)
+        return DetectedObjects(self.origin_image, self.binary_map, boundingBoxes=boxes)

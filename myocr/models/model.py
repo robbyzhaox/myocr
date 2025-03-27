@@ -116,7 +116,8 @@ class OrtModel(Model):
 
     def forward_internal(self, *args, **kwds):
         if args:
-            input_data = {"x": args[0]}
+            input_name = self.session.get_inputs()[0].name
+            input_data = {input_name: args[0]}
             outputs = self.session.run(None, input_data)
             return outputs
         else:
