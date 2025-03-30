@@ -85,6 +85,7 @@ class OrtModel(Model):
         sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
         sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
         sess_options.enable_profiling = False
+        sess_options.log_severity_level = 3
 
         self.session = ort.InferenceSession(
             self.model_path, sess_options=sess_options, providers=providers
