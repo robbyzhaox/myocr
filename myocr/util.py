@@ -1,3 +1,4 @@
+import numpy as np
 import PIL
 import PIL.Image
 from PIL.Image import Image
@@ -19,6 +20,11 @@ def crop_rectangle(image: Image, box, target_height=32):
     new_width = int(target_height * aspect_ratio)
     resized = cropped.resize((new_width, target_height), PIL.Image.Resampling.BICUBIC)
     return resized
+
+
+def softmax(x):
+    exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))  # prevent overflow
+    return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
 
 
 class LabelTranslator:
