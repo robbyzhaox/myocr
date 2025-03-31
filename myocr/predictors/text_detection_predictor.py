@@ -67,4 +67,6 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
                 top=round(min_y * scale_y),
             )
             boxes.append(box)
+        if not boxes:
+            return None
         return DetectedObjects(self.origin_image, self.binary_map, boundingBoxes=boxes)
