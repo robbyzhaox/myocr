@@ -1,6 +1,5 @@
 import importlib.util
 import logging
-import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
@@ -12,7 +11,7 @@ from torch import nn
 
 from ..base import ParamConverter, Predictor
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def is_cuda_available():
@@ -112,7 +111,10 @@ class OrtModel(Model):
                 "outputs": output_info,
             }
 
-        logging.info(f"Onnx model {model_name_or_path} loaded to {self.device}")
+        logger.info(
+            f"""Onnx model {model_name_or_path} loaded to {self.device},
+                    input output info: {get_input_output_info()}"""
+        )
         self.loaded = True
 
     def forward_internal(self, *args, **kwds):

@@ -4,28 +4,6 @@ from typing import Generic, Optional, TypeVar
 import numpy as np
 from torch import Tensor
 
-# class BasePipeline(ABC):
-#     """
-#     High level abstraction for this package, when we want to deal with a real problem
-#     we need to create a pipeline, a pipeline corresponding to a specific real problem.
-
-#     A pipeline can be nested to another pipeline.
-#     """
-
-#     def __init__(self):
-#         pass
-
-#     def __call__(self, *args, **kwargs):
-#         pass
-
-#     @abstractmethod
-#     def predict(self):
-#         raise NotImplementedError("Method `predict` has not been implemented.")
-
-#     def create_pipeline(self, config: dict):
-#         pass
-
-
 InputType = TypeVar("InputType")
 OutputType = TypeVar("OutputType")
 
@@ -66,17 +44,19 @@ class Predictor:
         return self.predict(input, **kwargs)
 
 
-# class BaseProcessor(ABC):
-#     """
-#     A processor do a specific thing for a predictor, such as route an image
-#     """
+class Pipeline(ABC):
+    """
+    High level abstraction for this package, when we want to deal with a real problem
+    we need to create a pipeline, a pipeline corresponding to a specific real problem.
 
-#     def __init__(self):
-#         pass
+    A pipeline can be nested to another pipeline.
+    """
 
-#     def __call__(self, input, **kwargs):
-#         pass
+    def __init__(self):
+        pass
 
-#     @abstractmethod
-#     def process(self, input, **kwargs):
-#         pass
+    def process(self):
+        raise NotImplementedError("Method `predict` has not been implemented.")
+
+    def create_pipeline(self, config: dict):
+        pass

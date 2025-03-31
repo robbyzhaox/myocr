@@ -1,3 +1,4 @@
+import logging
 from typing import List, Optional
 
 import numpy as np
@@ -7,6 +8,8 @@ from torch import Tensor
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import RectBoundingBox
+
+logger = logging.getLogger(__name__)
 
 
 class DetectedObjects:
@@ -40,7 +43,7 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
     def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[DetectedObjects]:
         output = internal_result[0]
         output = output[0, 0]
-
+        logger.debug(f"text detection output shape: {output.shape}")
         threshold = 0.3
         binary_map = (output > threshold).astype(np.uint8) * 255  # type: ignore
         self.binary_map = binary_map

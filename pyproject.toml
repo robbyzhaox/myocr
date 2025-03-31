@@ -123,10 +123,6 @@ module = "tests.*"
 strict_optional = false
 
 [[tool.mypy.overrides]]
-module = "myocr.models.DBNet.*"
-ignore_errors = true 
-
-[[tool.mypy.overrides]]
 module = "myocr.util"
 ignore_errors = true 
 

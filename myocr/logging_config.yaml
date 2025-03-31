@@ -1,0 +1,32 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  simple:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(module)s - %(funcName)s - %(lineno)d - %(message)s'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: detailed
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    level: INFO
+    formatter: simple
+    filename: app.log
+    mode: a
+
+loggers:
+  PIL.Image:
+    level: INFO
+    handlers: [console, file]
+    propagate: no
+
+root:
+  level: DEBUG
+  handlers: [console, file]
+    

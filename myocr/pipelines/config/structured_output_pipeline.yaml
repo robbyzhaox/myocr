@@ -1,0 +1,10 @@
+name: structured_output_pipeline
+
+model:
+  detection: dbnet++.onnx
+  recognition: crnn_lite_lstm.onnx
+
+chat_bot:
+  model: qwen2.5:14b
+  base_url: http://127.0.0.1:11434/v1
+  api_key: 'key'
