@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from tqdm import tqdm 
+from tqdm import tqdm
 
 from myocr.util import setup_plots, update_plots
 
@@ -88,7 +88,7 @@ class EasyTrain:
 
                 val_accuracy = 100 * correct / total
                 val_accuracies.append(val_accuracy)
-                
+
                 update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, epoch)
 
                 # print(

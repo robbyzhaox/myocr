@@ -52,7 +52,6 @@ class Model:
     def eval(self) -> None:
         raise RuntimeError("method load should be implemented in sub class")
 
-        
     def parameters(self) -> Any:
         raise RuntimeError("method load should be implemented in sub class")
 
@@ -206,11 +205,10 @@ class CustomModel(Model):
     def train(self) -> None:
         if self.loaded_model:
             self.loaded_model.train()
-    
+
     def eval(self) -> None:
         if self.loaded_model:
             self.loaded_model.eval()
-        
 
     def parameters(self):
         if self.loaded_model:

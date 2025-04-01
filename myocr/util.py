@@ -1,57 +1,62 @@
+import time
+
+import matplotlib.pyplot as plt
 import numpy as np
 import PIL
 import PIL.Image
-from PIL.Image import Image
-import matplotlib.pyplot as plt
 from IPython import display
-import time
 from IPython.display import clear_output
+from PIL.Image import Image
+
+
 def setup_plots():
     """初始化绘图区域"""
     # plt.close('all')  # 关闭之前的图形
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
-    
+
     # 训练损失子图
-    ax1.set_title('Training Loss')
-    ax1.set_xlabel('Epoch')
-    ax1.set_ylabel('Loss')
-    train_line, = ax1.plot([], [], 'b-', label='Train Loss')
+    ax1.set_title("Training Loss")
+    ax1.set_xlabel("Epoch")
+    ax1.set_ylabel("Loss")
+    (train_line,) = ax1.plot([], [], "b-", label="Train Loss")
     ax1.grid(True)
-    
+
     # 验证损失子图
-    ax2.set_title('Validation Loss')
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Loss')
-    val_line, = ax2.plot([], [], 'r-', label='Val Loss')
+    ax2.set_title("Validation Loss")
+    ax2.set_xlabel("Epoch")
+    ax2.set_ylabel("Loss")
+    (val_line,) = ax2.plot([], [], "r-", label="Val Loss")
     ax2.grid(True)
-    
+
     plt.tight_layout()
     plt.legend()
-    
+
     # 在Jupyter中显示初始空图
     display.display(fig)
-    
+
     return fig, ax1, ax2, train_line, val_line
+
 
 def update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, epoch):
     """更新损失曲线而不清除输出"""
     # 更新训练损失曲线
-    train_line.set_data(range(1, epoch+2), train_losses)
-    ax1.set_xlim(0, len(train_losses)+1)
-    ax1.set_ylim(0, max(train_losses)*1.1)
-    ax1.set_title(f'Training Loss (Epoch {epoch+1})')
-    
+    train_line.set_data(range(1, epoch + 2), train_losses)
+    ax1.set_xlim(0, len(train_losses) + 1)
+    ax1.set_ylim(0, max(train_losses) * 1.1)
+    ax1.set_title(f"Training Loss (Epoch {epoch+1})")
+
     # 更新验证损失曲线
-    val_line.set_data(range(1, epoch+2), val_losses)
-    ax2.set_xlim(0, len(val_losses)+1)
-    ax2.set_ylim(0, max(val_losses)*1.1)
-    ax2.set_title(f'Validation Loss (Epoch {epoch+1})')
-    
+    val_line.set_data(range(1, epoch + 2), val_losses)
+    ax2.set_xlim(0, len(val_losses) + 1)
+    ax2.set_ylim(0, max(val_losses) * 1.1)
+    ax2.set_title(f"Validation Loss (Epoch {epoch+1})")
+
     # 只更新图形而不清除输出
     clear_output(wait=True)
-    display.display(fig)    
+    display.display(fig)
     # 添加小的延迟让图形有时间更新
     time.sleep(0.1)
+
 
 def crop_rectangle(image: Image, box, target_height=32):
     left, top, right, bottom = map(int, (box.left, box.top, box.right, box.bottom))
