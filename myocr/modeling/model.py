@@ -1,15 +1,15 @@
 import importlib.util
 import logging
-from abc import ABC, abstractmethod
+from abc import ABC
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional
 
 import onnxruntime as ort
 import torch
 import torchvision
 from torch import nn
 
-from ..base import ParamConverter, Predictor
+from myocr.base import ParamConverter, Predictor
 
 logger = logging.getLogger(__name__)
 
@@ -44,6 +44,16 @@ class Model:
         return self.forward_internal(*args, **kwds)
 
     def load(self, model_name_or_path) -> None:
+        raise RuntimeError("method load should be implemented in sub class")
+
+    def train(self) -> None:
+        raise RuntimeError("method load should be implemented in sub class")
+
+    def eval(self) -> None:
+        raise RuntimeError("method load should be implemented in sub class")
+
+        
+    def parameters(self) -> Any:
         raise RuntimeError("method load should be implemented in sub class")
 
 
@@ -149,7 +159,7 @@ class PyTorchModel(Model):
         # state_dict = torch.load(file, map_location=self.device, weights_only=False)
         # load by config or name
         self.loaded_model.to(self.device)
-        print(f"Pytorch model {model_name_or_path} loaded to {self.device}")
+        logger.info(f"Pytorch model {model_name_or_path} loaded to {self.device}")
         self.loaded = True
 
     def forward_internal(self, *args, **kwds):
@@ -163,28 +173,48 @@ class PyTorchModel(Model):
 class CustomModel(Model):
     def __init__(self, device):
         super().__init__(device)
+        self.device = device
 
     def load(self, model_name_or_path, **kwargs) -> None:
         if self.loaded:
             return
 
         model_path = Path(model_name_or_path)
-        spec = importlib.util.spec_from_file_location("custom_model", model_path)
+        spec = importlib.util.spec_from_file_location("modeling", model_path)
         if spec:
             module = importlib.util.module_from_spec(spec)
             if spec.loader:
-                spec.loader.exec_module(
-                    module,
-                )
+                spec.loader.exec_module(module)
 
                 # model name 'CustomModel'
-                model_class = getattr(module, "CustomModel")
-                model = model_class(**kwargs)
+                model_class = getattr(module, "MLP")
+                logger.info(f"loaded custom model calss {model_class}")
+                self.loaded_model = model_class(**kwargs).to(self.device)
+                self.loaded = True
 
         # model weights
         # if pretrained:
         #     weight_path = model_path.parent / "weights.pth"
         #     model.load_state_dict(torch.load(weight_path))
+
+    def forward_internal(self, *args, **kwds):
+        if self.loaded_model:
+            return self.loaded_model(*args, **kwds)
+        else:
+            raise RuntimeError("model not loaded")
+
+    def train(self) -> None:
+        if self.loaded_model:
+            self.loaded_model.train()
+    
+    def eval(self) -> None:
+        if self.loaded_model:
+            self.loaded_model.eval()
+        
+
+    def parameters(self):
+        if self.loaded_model:
+            return self.loaded_model.parameters()
 
 
 class ModelLoader(ABC):
@@ -197,6 +227,8 @@ class ModelLoader(ABC):
             m = PyTorchModel(device)
         elif model_format == "onnx":
             m = OrtModel(device)
+        elif model_format == "custom":
+            m = CustomModel(device)
         else:
             raise RuntimeError(f"model format {model_format} not supported")
         m.load(model_name_path)
@@ -204,9 +236,11 @@ class ModelLoader(ABC):
 
 
 class ModelZoo:
+    default_loader = ModelLoader()
     model_loaders: Dict[str, ModelLoader] = {
-        "onnx": ModelLoader(),
-        "pt": ModelLoader(),
+        "onnx": default_loader,
+        "pt": default_loader,
+        "custom": default_loader,
     }
 
     @staticmethod

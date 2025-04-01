@@ -7,7 +7,7 @@ docs :
 run-format :
 	isort .
 	black .
-	ruff check .
+	ruff check . --fix
 	mypy .
 
 .PHONY : run-checks

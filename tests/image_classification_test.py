@@ -4,7 +4,7 @@ import pytest
 import torch
 from PIL import Image
 
-from myocr.models.model import ModelZoo
+from myocr.modeling.model import ModelZoo
 from myocr.predictors.classification_predictor import ImageClassificationParamConverter
 
 
