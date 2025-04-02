@@ -10,7 +10,7 @@ from myocr.modeling.model import ModelZoo
 from myocr.predictors.classification_predictor import ImageClassificationParamConverter
 
 
-def test_model():
+def test_restnet():
     model = ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
 
     start_time = time.time()
