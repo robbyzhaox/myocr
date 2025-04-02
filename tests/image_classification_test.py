@@ -21,9 +21,7 @@ def test_restnet():
     print(f"执行时间: {execution_time} 秒")
 
 
-@pytest.mark.skipif(
-    not os.path.exists(MODEL_PATH), reason=f"{MODEL_PATH} not exist, skip test."
-)
+@pytest.mark.skipif(not os.path.exists(MODEL_PATH), reason=f"{MODEL_PATH} not exist, skip test.")
 def test_mlp():
     model = ModelZoo.load_model(
         "custom", "myocr/modeling/mlp.py", "cuda:0" if torch.cuda.is_available() else "cpu"
