@@ -22,7 +22,7 @@ def test_restnet():
 
 
 @pytest.mark.skipif(
-    not os.path.exists(MODEL_PATH), reason=f"目录 {MODEL_PATH} 不存在，跳过此测试。"
+    not os.path.exists(MODEL_PATH), reason=f"{MODEL_PATH} not exist, skip test."
 )
 def test_mlp():
     model = ModelZoo.load_model(
