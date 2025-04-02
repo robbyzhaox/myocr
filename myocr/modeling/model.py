@@ -47,13 +47,16 @@ class Model:
         raise RuntimeError("method load should be implemented in sub class")
 
     def train(self) -> None:
-        raise RuntimeError("method load should be implemented in sub class")
+        raise RuntimeError("method train should be implemented in sub class")
 
     def eval(self) -> None:
-        raise RuntimeError("method load should be implemented in sub class")
+        raise RuntimeError("method eval should be implemented in sub class")
 
     def parameters(self) -> Any:
-        raise RuntimeError("method load should be implemented in sub class")
+        raise RuntimeError("method parameters should be implemented in sub class")
+
+    def to_onnx(self, file_path: str | Path, input_sample) -> None:
+        raise RuntimeError("method to_onnx should be implemented in sub class")
 
 
 class OrtModel(Model):
@@ -213,6 +216,10 @@ class CustomModel(Model):
     def parameters(self):
         if self.loaded_model:
             return self.loaded_model.parameters()
+
+    def to_onnx(self, file_path: str | Path, input_sample) -> None:
+        file_path = str(file_path) if isinstance(file_path, Path) else file_path
+        torch.onnx.export(self.loaded_model, input_sample, file_path, export_params=True)
 
 
 class ModelLoader(ABC):

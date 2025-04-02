@@ -26,21 +26,12 @@ class Trainer:
     def dataloader(self, dataset) -> DataLoader:
         return DataLoader(dataset, batch_size=self.batch_size, shuffle=True)
 
-
-class BatchData:
-    def __init__(self, data, labels):
-        self.data = data
-        self.labels = labels
-
-
-class EasyTrain:
-    @staticmethod
-    def fit(trainer: Trainer, trainingDataset, validateDataset):
-        device = trainer.device
+    def fit(self, trainingDataset, validateDataset):
+        device = self.device
         # train
-        train_loader = trainer.dataloader(trainingDataset)
+        train_loader = self.dataloader(trainingDataset)
         running_loss = 0.0
-        trainer.model.train()
+        self.model.train()
         train_losses = []
 
         val_losses = []
@@ -48,18 +39,18 @@ class EasyTrain:
 
         fig, ax1, ax2, train_line, val_line = setup_plots()
 
-        for epoch in range(trainer.num_epochs):
-            for data, labels in tqdm(train_loader, desc=f"Epoch {epoch+1}/{trainer.num_epochs}"):
+        for epoch in range(self.num_epochs):
+            for data, labels in tqdm(train_loader, desc=f"Epoch {epoch+1}/{self.num_epochs}"):
                 data, labels = data.to(device), labels.to(device)
 
                 # forward
-                outputs = trainer.model(data)
-                loss = trainer.loss_fn(outputs, labels)
+                outputs = self.model(data)
+                loss = self.loss_fn(outputs, labels)
 
                 # backward
-                trainer.optimizer.zero_grad()
+                self.optimizer.zero_grad()
                 loss.backward()
-                trainer.optimizer.step()
+                self.optimizer.step()
 
                 running_loss += loss.item()
 
@@ -67,16 +58,16 @@ class EasyTrain:
             train_losses.append(train_loss)
 
             # validation
-            trainer.model.eval()
+            self.model.eval()
             val_loss = 0.0
             correct = 0
             total = 0
             with torch.no_grad():
-                val_loader = trainer.dataloader(validateDataset)
+                val_loader = self.dataloader(validateDataset)
                 for data, labels in val_loader:
                     data, labels = data.to(device), labels.to(device)
-                    outputs = trainer.model(data)
-                    loss = trainer.loss_fn(outputs, labels)
+                    outputs = self.model(data)
+                    loss = self.loss_fn(outputs, labels)
 
                     val_loss += loss.item()
                     _, predicted = torch.max(outputs.data, 1)

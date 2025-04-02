@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 from myocr.config import MODEL_PATH
 from myocr.extractor.chat_extractor import OpenAiChatExtractor
-from myocr.models.model import ModelZoo
+from myocr.modeling.model import ModelZoo
 from myocr.predictors.text_detection_predictor import TextDetectionParamConverter
 from myocr.predictors.text_recognition_predictor import TextRecognitionParamConverter
 
