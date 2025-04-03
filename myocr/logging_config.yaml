@@ -21,7 +21,7 @@ handlers:
     mode: a
 
 loggers:
-  PIL.Image:
+  PIL:
     level: INFO
     handlers: [console, file]
     propagate: no
