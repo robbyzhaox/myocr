@@ -4,19 +4,23 @@ from typing import List, Optional
 import numpy as np
 from PIL import Image as PIL
 from PIL.Image import Image
+from sympy import polylog
 from torch import Tensor
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import RectBoundingBox
+import pyclipper
+import cv2
+from shapely.geometry import Polygon
 
 logger = logging.getLogger(__name__)
 
 
 class DetectedObjects:
-    def __init__(self, image: Image, binary_map, boundingBoxes: Optional[List[RectBoundingBox]]):
+    def __init__(self, image: Image, boundingBoxes: Optional[List[RectBoundingBox]]):
         self.image = image
-        self.binary_map = binary_map
         self.bounding_boxes = boundingBoxes
+
 
 
 class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
@@ -40,36 +44,92 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
         image_np = image_np.transpose(2, 0, 1)[np.newaxis, :, :, :]
         return image_np.astype(np.float32)
 
+    def _get_min_boxes(self, contour):
+        rect = cv2.minAreaRect(contour)
+        box_pts = cv2.boxPoints(rect)
+
+        box_pts = sorted(box_pts, key=lambda x: x[0])
+        if box_pts[0][1] > box_pts[1][1]:
+            box_pts[0], box_pts[1] = box_pts[1], box_pts[0]
+        if box_pts[2][1] < box_pts[3][1]:
+            box_pts[2], box_pts[3] = box_pts[3], box_pts[2]
+
+        return box_pts, min(rect[1])
+
+
+    def _unclip(self, box_points, unclip_ratio=1.5):
+        """输入多边形坐标[N,2]，返回扩展后的多边形坐标"""
+        poly = Polygon(box_points)
+        distance = poly.area * unclip_ratio / poly.length
+        offset = pyclipper.PyclipperOffset() # type: ignore
+        offset.AddPath(box_points, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON) # type: ignore
+        expanded = offset.Execute(distance)
+        if not expanded: return box_points
+        return np.array(expanded[0])
+
+
+    def _box_score_fast(self, bitmap, _box):
+        h, w = bitmap.shape[:2]
+        box = _box.copy()
+        coords_min = np.floor(box.min(axis=0)).astype(np.int32)
+        coords_max = np.ceil(box.max(axis=0)).astype(np.int32)
+        xmin, ymin = np.clip(coords_min, 0, [w - 1, h - 1])
+        xmax, ymax = np.clip(coords_max, 0, [w - 1, h - 1])
+
+        mask = np.zeros((ymax - ymin + 1, xmax - xmin + 1), dtype=np.uint8)
+        box[:, 0] = box[:, 0] - xmin
+        box[:, 1] = box[:, 1] - ymin
+        cv2.fillPoly(mask, box.reshape(1, -1, 2).astype(np.int32), 1) # type: ignore
+        return cv2.mean(bitmap[ymin:ymax + 1, xmin:xmax + 1], mask)[0]
+
+
     def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[DetectedObjects]:
         output = internal_result[0]
         output = output[0, 0]
         logger.debug(f"text detection output shape: {output.shape}")
         threshold = 0.3
         binary_map = (output > threshold).astype(np.uint8) * 255  # type: ignore
-        self.binary_map = binary_map
-        from scipy.ndimage import label
-
-        labeled_array, num_features = label(binary_map)  # type: ignore
-
+        
+        contours, _ = cv2.findContours(
+            binary_map, 
+            cv2.RETR_EXTERNAL,
+            cv2.CHAIN_APPROX_SIMPLE
+        )
         boxes = []
         scale_x = self.origin_w / binary_map.shape[1]
         scale_y = self.origin_h / binary_map.shape[0]
 
-        for i in range(1, num_features + 1):
-            points = np.argwhere(labeled_array == i)
-            if len(points) < 10:  # 过滤小区域
+        for cnt in contours:
+            if len(cnt) < 10:
                 continue
-            # 计算最小外接矩形（替代OpenCV的minAreaRect）
-            min_y, min_x = np.min(points, axis=0) - (7, 7)  # 临时修复
-            max_y, max_x = np.max(points, axis=0) + (7, 7)
-
+            
+            points, min_length = self._get_min_boxes(cnt)
+            if min_length < 3:
+                continue
+            
+            points = np.array(points)
+            score = self._box_score_fast(output, points.reshape(-1, 2)) # N * 2
+            if score < 0.3:
+                continue
+            
+            # 膨胀操作
+            box = self._unclip(points, unclip_ratio=2.3).reshape(-1, 1, 2)
+            box, min_length = self._get_min_boxes(box)
+            if min_length < 5:
+                continue
+            
+            # 等比例缩放
+            box = np.array(box).astype(np.int32)
+            box[:, 0] = np.clip(np.round(box[:, 0] * scale_x), 0, binary_map.shape[1])
+            box[:, 1] = np.clip(np.round(box[:, 1] * scale_y), 0, binary_map.shape[0])
             box = RectBoundingBox(
-                left=round(min_x * scale_x),
-                bottom=round(max_y * scale_y),
-                right=round(max_x * scale_x),
-                top=round(min_y * scale_y),
+                left= box[0][0],
+                bottom=box[2][1],
+                right=box[2][0],
+                top=box[0][1],
+                score=score,
             )
             boxes.append(box)
         if not boxes:
             return None
-        return DetectedObjects(self.origin_image, self.binary_map, boundingBoxes=boxes)
+        return DetectedObjects(self.origin_image, boundingBoxes=boxes)

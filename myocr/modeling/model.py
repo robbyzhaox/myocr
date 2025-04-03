@@ -83,7 +83,7 @@ class OrtModel(Model):
                 (
                     "CUDAExecutionProvider",
                     {
-                        "device_id": self.device,
+                        "device_id": 0,
                         "arena_extend_strategy": "kNextPowerOfTwo",
                         #  'gpu_mem_limit': 2 * 1024 * 1024 * 1024,  # 2GB
                         "cudnn_conv_algo_search": "EXHAUSTIVE",

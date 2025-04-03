@@ -10,11 +10,13 @@ class RectBoundingBox(BoundingBox):
         bottom,
         right,
         top,
+        score,
     ):
         self.left = left
         self.bottom = bottom
         self.right = right
         self.top = top
+        self.score = score
 
     def get_width(self):
         return self.right - self.left
@@ -23,7 +25,7 @@ class RectBoundingBox(BoundingBox):
         return self.bottom - self.top
 
     def __str__(self):
-        return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top})"
+        return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top}, score={self.score})"
 
     def __repr__(self):
         return self.__str__()

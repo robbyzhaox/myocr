@@ -61,7 +61,7 @@ def update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, 
 def crop_rectangle(image: Image, box, target_height=32):
     left, top, right, bottom = map(int, (box.left, box.top, box.right, box.bottom))
     width, height = image.size
-
+    
     left = max(0, min(left, width - 1))
     top = max(0, min(top, height - 1))
     right = max(left + 1, min(right, width))
