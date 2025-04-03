@@ -53,3 +53,7 @@ site/
 # logging
 
 app.log
+
+# app temporary directory
+
+.temp

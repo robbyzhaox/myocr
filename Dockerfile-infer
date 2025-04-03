@@ -1,0 +1,42 @@
+FROM --platform=linux/amd64 nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+
+RUN apt-get update -y && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get -y update
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1 \
+    libglib2.0-0 \
+    libsm6 \
+    libxrender1 \
+    libxext6 \
+    tzdata \
+    python3.11 \
+    python3.11-dev \
+    python3.11-distutils \
+    curl
+    
+RUN rm -rf /var/lib/apt/lists/* \
+    && unlink /usr/bin/python3 \
+    && ln -s /usr/bin/python3.11 /usr/bin/python3 \
+    && ln -s /usr/bin/python3 /usr/bin/python \
+    && curl -sS https://bootstrap.pypa.io/get-pip.py | python \
+    && pip3 install -U pip    
+
+COPY myocr /app/myocr
+COPY main.py /app/main.py
+
+RUN mkdir -p ~/.MyOCR/models
+COPY models ~/.MyOCR/models
+
+COPY pyproject.toml /app
+
+WORKDIR /app
+
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip setuptools wheel && \
+    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --ignore-installed .
+RUN pip install gunicorn
+
+EXPOSE 8000
+CMD ["gunicorn", "-w", "4", "-k", "threading", "-b", "0.0.0.0:8000", "main:app"]

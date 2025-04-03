@@ -124,4 +124,6 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
             boxes.append(box)
         if not boxes:
             return None
+        # sort box
+        boxes = sorted(boxes, key=lambda box: (box.top, box.left))
         return DetectedObjects(self.origin_image, boundingBoxes=boxes)

@@ -1,9 +1,12 @@
+import logging
 from typing import Optional
 
 from openai import OpenAI
 from pydantic import BaseModel
 
 from .base import Extractor
+
+logger = logging.getLogger(__name__)
 
 
 class OpenAiChatExtractor(Extractor):
@@ -13,6 +16,9 @@ class OpenAiChatExtractor(Extractor):
         self.chat_client = OpenAI(api_key=api_key, base_url=base_url)
 
     def extract_with_format(self, content, response_format: BaseModel) -> Optional[BaseModel]:
+        logger.debug(
+            f"Extract infomation via OpanAI client with format:{response_format} from OCR content: \n{content}"
+        )
         completion = self.chat_client.beta.chat.completions.parse(
             model=self.model,
             messages=[
