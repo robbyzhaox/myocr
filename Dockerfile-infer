@@ -26,9 +26,7 @@ RUN rm -rf /var/lib/apt/lists/* \
 
 COPY myocr /app/myocr
 COPY main.py /app/main.py
-
-RUN mkdir -p ~/.MyOCR/models
-COPY models ~/.MyOCR/models
+COPY models /app/models
 
 COPY pyproject.toml /app
 
