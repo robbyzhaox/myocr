@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import PIL
 import PIL.Image
+
 # from IPython import display
 # from IPython.display import clear_output
 from PIL.Image import Image
