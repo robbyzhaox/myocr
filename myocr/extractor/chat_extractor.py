@@ -18,7 +18,7 @@ class OpenAiChatExtractor(Extractor):
             messages=[
                 {
                     "role": "system",
-                    "content": "Extract the invoice information from the given texts recognized via OCR",
+                    "content": "You are good at extracting information from the invoice, please extract corresponding information from the given texts recognized via OCR",
                 },
                 {"role": "user", "content": content},
             ],

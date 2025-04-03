@@ -44,4 +44,4 @@ class StructuredOutputOCRPipeline(Pipeline):
 
         rec = self.rec_predictor.predict(detected)
         logger.debug(f"recognized texts is: {rec}")
-        return self.extractor.extract_with_format(rec.__str__(), self.response_format)
+        return self.extractor.extract_with_format(rec.get_content_text(), self.response_format)

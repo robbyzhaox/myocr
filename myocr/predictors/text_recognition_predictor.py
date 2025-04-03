@@ -37,6 +37,9 @@ class RecognizedTexts:
         item = TextItem(text, confidence, bounding_box)
         self.text_items.append(item)
 
+    def get_content_text(self):
+        return "\n".join(map(str, [item.text for item in self.text_items]))
+
     def __str__(self):
         return str(self.text_items)
 
