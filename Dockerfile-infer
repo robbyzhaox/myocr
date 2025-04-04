@@ -1,40 +1,49 @@
-FROM --platform=linux/amd64 nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+FROM --platform=linux/amd64 nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04 as builder
 
 RUN apt-get update -y && apt-get install -y software-properties-common \
     && add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get -y update
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libgl1 \
-    libglib2.0-0 \
-    libsm6 \
-    libxrender1 \
-    libxext6 \
-    tzdata \
-    python3.11 \
-    python3.11-dev \
-    python3.11-distutils \
-    curl
-    
-RUN rm -rf /var/lib/apt/lists/* \
+    && apt-get -y update \
+    && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get update && apt-get install -y --no-install-recommends \
+        libgl1 \
+        libglib2.0-0 \
+        libsm6 \
+        libxrender1 \
+        libxext6 \
+        tzdata \
+        python3.11 \
+        python3.11-dev \
+        python3.11-distutils \
+        curl \
+    && rm -rf /var/lib/apt/lists/* \
     && unlink /usr/bin/python3 \
     && ln -s /usr/bin/python3.11 /usr/bin/python3 \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && curl -sS https://bootstrap.pypa.io/get-pip.py | python \
-    && pip3 install -U pip    
+    && python3.11 -m pip install -U pip
 
 COPY myocr /app/myocr
-COPY main.py /app/main.py
 COPY models /app/models
-
-COPY pyproject.toml /app
+COPY main.py pyproject.toml /app/
 
 WORKDIR /app
 
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip setuptools wheel && \
-    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --ignore-installed .
-RUN pip install gunicorn
+    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --ignore-installed . && \
+    pip install -i https://pypi.tuna.tsinghua.edu.cn/simple gunicorn && \
+    rm -rf /root/.cache/pip
+
+FROM --platform=linux/amd64 nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
+COPY --from=builder /usr/bin/python3 /usr/bin/python3
+COPY --from=builder /usr/bin/python /usr/bin/python
+COPY --from=builder /usr/local/lib/python3.11 /usr/local/lib/python3.11
+
+COPY --from=builder /usr/local/bin/pip /usr/local/bin/pip
+COPY --from=builder /usr/local/bin/gunicorn /usr/local/bin/gunicorn
+COPY --from=builder /usr/local/bin/pip3 /usr/local/bin/pip3
+COPY --from=builder /usr/local/bin/pip3.11 /usr/local/bin/pip3.11
+
+COPY --from=builder /app /app
 
 EXPOSE 8000
-CMD ["gunicorn", "-w", "4", "-k", "threading", "-b", "0.0.0.0:8000", "main:app"]
+CMD ["gunicorn", "-w", "4", "-k", "gthread", "-b", "0.0.0.0:8000", "main:app"]
