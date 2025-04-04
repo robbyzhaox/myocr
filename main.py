@@ -4,12 +4,16 @@ import os
 import uuid
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from pydantic import BaseModel, Field
 
 from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
 
 app = Flask(__name__)
 logger = logging.getLogger(__name__)
+
+
+CORS(app, resources={r"/ocr": {"origins": "*"}})
 
 
 @app.route("/ping")
