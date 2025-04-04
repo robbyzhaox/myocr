@@ -16,6 +16,12 @@ echo "$VERSION"
 
 cd ..
 cp -r ~/.MyOCR/models/ ./models
-docker build --platform linux/amd64 -f Dockerfile-infer -t myocr .
+export DOCKER_BUILDKIT=1
+docker build \
+  --progress=plain \
+  --build-arg PIP_CACHE_DIR=/root/.cache/pip \
+  --build-arg APT_CACHE_DIR=/var/cache/apt \
+  --platform linux/amd64 -f Dockerfile-infer \
+  -t myocr .
 rm -rf ./models
 cd -
