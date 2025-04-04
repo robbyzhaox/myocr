@@ -4,10 +4,29 @@ import matplotlib.pyplot as plt
 import numpy as np
 import PIL
 import PIL.Image
-
-# from IPython import display
-# from IPython.display import clear_output
 from PIL.Image import Image
+
+
+def define_fallback_functions():
+    def clear_output(wait):
+        pass
+
+    def display(x):
+        print(x)
+
+    return clear_output, display
+
+
+try:
+    import IPython
+
+    if IPython.get_ipython() is not None:
+        from IPython import display
+        from IPython.display import clear_output
+    else:
+        clear_output, display = define_fallback_functions()
+except ImportError:
+    clear_output, display = define_fallback_functions()
 
 
 def setup_plots():
@@ -33,7 +52,7 @@ def setup_plots():
     plt.legend()
 
     # 在Jupyter中显示初始空图
-    # display.display(fig)
+    display.display(fig)
 
     return fig, ax1, ax2, train_line, val_line
 
@@ -53,8 +72,8 @@ def update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, 
     ax2.set_title(f"Validation Loss (Epoch {epoch+1})")
 
     # 只更新图形而不清除输出
-    # clear_output(wait=True)
-    # display.display(fig)
+    clear_output(wait=True)
+    display.display(fig)
     # 添加小的延迟让图形有时间更新
     time.sleep(0.1)
 

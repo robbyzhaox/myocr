@@ -22,6 +22,6 @@ docker build \
   --build-arg PIP_CACHE_DIR=/root/.cache/pip \
   --build-arg APT_CACHE_DIR=/var/cache/apt \
   --platform linux/amd64 -f Dockerfile-infer-GPU \
-  -t myocr .
+  -t myocr:myocr .
 rm -rf ./models
 cd -
