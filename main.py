@@ -87,13 +87,13 @@ def ocr():
                 f.write(image_bytes)
 
             result = pipeline(filename)
-            return jsonify({"result": result.to_dict()})
+            return jsonify({"data": result.to_dict()})
         finally:
             if os.path.exists(filename):
                 os.remove(filename)
     except Exception as e:
         logger.error("ocr error ", exc_info=True)
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"details": str(e)}), 500
 
 
 if __name__ == "__main__":
