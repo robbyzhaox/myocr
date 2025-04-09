@@ -2,7 +2,7 @@ name: structured_output_pipeline
 
 model:
   detection: dbnet++.onnx
-  recognition: crnn_lite_lstm.onnx
+  recognition: rec.onnx
 
 chat_bot:
   model: qwen2.5:14b
