@@ -32,7 +32,7 @@ dependencies = [
   "flask>=3.1.0",
   "PyYAML==6.0.2",
   "matplotlib==3.10.1",
-  "pydantic==2.11.2",
+  "pydantic==2.11.3",
   "openai==1.72.0",
   "flask-cors==5.0.1"
 ]
