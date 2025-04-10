@@ -7,6 +7,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pydantic import BaseModel, Field
 
+from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
 from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
 
 app = Flask(__name__)
@@ -46,6 +47,7 @@ class InvoiceModel(BaseModel):
         return self.__dict__
 
 
+common_ocr_pipeline = CommonOCRPipeline("cuda:0")
 pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
 
 
@@ -55,8 +57,7 @@ def check_temp_dir():
         os.makedirs(temp_dir)
 
 
-@app.route("/ocr", methods=["POST"])
-def ocr():
+def _do_ocr(pipeline):
     try:
         image_data = request.json.get("image")
         if not image_data:
@@ -94,6 +95,16 @@ def ocr():
     except Exception as e:
         logger.error("ocr error ", exc_info=True)
         return jsonify({"details": str(e)}), 500
+
+
+@app.route("/ocr", methods=["POST"])
+def ocr():
+    return _do_ocr(common_ocr_pipeline)
+
+
+@app.route("/ocr-json", methods=["POST"])
+def ocr_json():
+    return _do_ocr(pipeline)
 
 
 if __name__ == "__main__":

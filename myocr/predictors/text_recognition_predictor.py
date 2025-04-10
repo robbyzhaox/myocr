@@ -27,6 +27,9 @@ class TextItem:
 
     def __repr__(self):
         return self.__str__()
+    
+    def to_dict(self):
+        return self.__dict__
 
 
 class RecognizedTexts:
@@ -42,6 +45,10 @@ class RecognizedTexts:
 
     def __str__(self):
         return str(self.text_items)
+    
+    def to_dict(self):
+        self.__dict__["text_items"] = [item.__dict__ for item in self.text_items]
+        return self.__dict__
 
 
 class TextRecognitionParamConverter(ParamConverter[DetectedObjects, RecognizedTexts]):
