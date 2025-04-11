@@ -34,5 +34,6 @@ class CommonOCRPipeline(Pipeline):
             return None
 
         rec = self.rec_predictor.predict(detected)
+        rec.original(orig_image.size[0], orig_image.size[1])  # type: ignore
         logger.debug(f"recognized texts is: {rec}")
         return rec

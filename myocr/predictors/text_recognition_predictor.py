@@ -44,6 +44,10 @@ class RecognizedTexts:
     def get_content_text(self):
         return "\n".join(map(str, [item.text for item in self.text_items]))
 
+    def original(self, width, height):
+        self.original_width = width
+        self.orignal_height = height
+
     def __str__(self):
         return str(self.text_items)
 
