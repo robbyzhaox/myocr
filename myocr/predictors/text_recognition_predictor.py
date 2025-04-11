@@ -46,7 +46,7 @@ class RecognizedTexts:
 
     def original(self, width, height):
         self.original_width = width
-        self.orignal_height = height
+        self.original_height = height
 
     def __str__(self):
         return str(self.text_items)
