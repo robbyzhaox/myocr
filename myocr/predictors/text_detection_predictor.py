@@ -115,11 +115,11 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
             box[:, 0] = np.clip(np.round(box[:, 0] * scale_x), 0, binary_map.shape[1])
             box[:, 1] = np.clip(np.round(box[:, 1] * scale_y), 0, binary_map.shape[0])
             box = RectBoundingBox(
-                left=box[0][0],
-                bottom=box[2][1],
-                right=box[2][0],
-                top=box[0][1],
-                score=score,
+                left=int(box[0][0]),
+                bottom=int(box[2][1]),
+                right=int(box[2][0]),
+                top=int(box[0][1]),
+                score=float(score),
             )
             boxes.append(box)
         if not boxes:

@@ -29,6 +29,7 @@ class TextItem:
         return self.__str__()
 
     def to_dict(self):
+        self.__dict__["bounding_box"] = self.bounding_box.__dict__
         return self.__dict__
 
 
@@ -47,7 +48,7 @@ class RecognizedTexts:
         return str(self.text_items)
 
     def to_dict(self):
-        self.__dict__["text_items"] = [item.__dict__ for item in self.text_items]
+        self.__dict__["text_items"] = [item.to_dict() for item in self.text_items]
         return self.__dict__
 
 

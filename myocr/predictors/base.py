@@ -29,3 +29,6 @@ class RectBoundingBox(BoundingBox):
 
     def __repr__(self):
         return self.__str__()
+
+    def to_dict(self):
+        return self.__dict__
