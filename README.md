@@ -25,7 +25,7 @@ In main.py, we provide two rest apis, the basic OCR can be depleoyed by
 python main.py
 ```
 
-## Build Docker Image
+### Build Docker Image
 
 You can build Docker images for GPU or cpu inference.
 
