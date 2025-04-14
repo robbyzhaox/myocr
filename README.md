@@ -16,6 +16,10 @@ You can refer to the example code in myocr/notebooks
 2. Implement predictor for the model, you should implment the input and output for the custom model
 3. Build a custom pipeline to solve specific problems
 
+# Build Docker Image
+
+You can build Docker images for GPU or cpu inference.
+
 # Acknowledge
 
 Using the template from https://github.com/allenai/python-package-template
