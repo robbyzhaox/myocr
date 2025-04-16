@@ -33,7 +33,7 @@ dependencies = [
   "PyYAML==6.0.2",
   "matplotlib==3.10.1",
   "pydantic==2.11.2",
-  "openai==1.72.0",
+  "openai==1.75.0",
   "flask-cors==5.0.1"
 ]
 license = {file = "LICENSE"}
