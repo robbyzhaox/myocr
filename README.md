@@ -27,6 +27,11 @@ pip install -e .
 
 # Development environment installation
 pip install -e ".[dev]"
+
+# Download pre-trained models
+mkdir -p ~/.MyOCR/models/
+curl -fsSL "https://drive.google.com/file/d/1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9/view?usp=drive_link" -o ~/.MyOCR/models/dbnet++.onnx
+curl -fsSL "https://drive.google.com/file/d/1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX/view?usp=drive_link" -o ~/.MyOCR/models/rec.onnx
 ```
 
 ## Quick Start
