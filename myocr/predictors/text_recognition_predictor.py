@@ -5,8 +5,7 @@ import numpy as np
 from torch import Tensor
 
 from myocr.base import ParamConverter
-from myocr.predictors.base import BoundingBox
-from myocr.predictors.text_detection_predictor import DetectedObjects
+from myocr.predictors.base import BoundingBox, DetectedObjects
 from myocr.util import LabelTranslator, crop_rectangle, softmax
 
 logger = logging.getLogger(__name__)
@@ -64,13 +63,18 @@ class TextRecognitionParamConverter(ParamConverter[DetectedObjects, RecognizedTe
         if retain_croped_imgs:
             self.croped_imgs = []
 
-    def convert_input(self, input: DetectedObjects) -> Optional[np.ndarray]:
-        self.bounding_boxes = input.bounding_boxes
+    def convert_input(self, input_data: DetectedObjects) -> Optional[np.ndarray]:
+        self.bounding_boxes = input_data.bounding_boxes
         batch_tensors = []
-        for box in input.bounding_boxes:  # type: ignore
-            resized_img = crop_rectangle(input.image, box, target_height=48)
+        for box in input_data.bounding_boxes:  # type: ignore
+            resized_img = crop_rectangle(input_data.image, box, target_height=48)
             if self.retain_croped_imgs:
                 self.croped_imgs.append(resized_img)
+
+            # 中心旋转后在填充
+            if box.angle[0] > 0:
+                resized_img = resized_img.rotate(box.angle[0])
+
             img_np = np.array(resized_img, dtype=np.float32)
             img_np = (img_np / 255.0 - 0.5) / 0.5
 
@@ -93,7 +97,7 @@ class TextRecognitionParamConverter(ParamConverter[DetectedObjects, RecognizedTe
             else:
                 padded = tensor
             padded_batch.append(padded)
-        # 堆叠成批量数据 (B, C, H, W) eg: (8, 3, 32, 94)
+        # (B, C, H, W) eg: (8, 3, 32, 94)
         return np.stack(padded_batch, axis=0).transpose(0, 3, 1, 2)
 
     def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[RecognizedTexts]:

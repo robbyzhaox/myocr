@@ -1,5 +1,5 @@
 import logging
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import cv2
 import numpy as np
@@ -10,15 +10,9 @@ from shapely.geometry import Polygon
 from torch import Tensor
 
 from myocr.base import ParamConverter
-from myocr.predictors.base import RectBoundingBox
+from myocr.predictors.base import DetectedObjects, RectBoundingBox
 
 logger = logging.getLogger(__name__)
-
-
-class DetectedObjects:
-    def __init__(self, image: Image, boundingBoxes: Optional[List[RectBoundingBox]]):
-        self.image = image
-        self.bounding_boxes = boundingBoxes
 
 
 class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):

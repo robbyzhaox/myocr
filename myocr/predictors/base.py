@@ -1,3 +1,8 @@
+from typing import List, Optional
+
+from PIL.Image import Image
+
+
 class BoundingBox:
     pass
 
@@ -24,11 +29,23 @@ class RectBoundingBox(BoundingBox):
     def get_height(self):
         return self.bottom - self.top
 
+    def set_angle(self, angle):
+        self.angle = angle
+
+    def set_croped_img(self, img):
+        self.croped_img = img
+
     def __str__(self):
-        return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top}, score={self.score})"
+        return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top}, angle={self.angle}, score={self.score})"
 
     def __repr__(self):
         return self.__str__()
 
     def to_dict(self):
         return self.__dict__
+
+
+class DetectedObjects:
+    def __init__(self, image: Image, boundingBoxes: Optional[List[RectBoundingBox]]):
+        self.image = image
+        self.bounding_boxes = boundingBoxes
