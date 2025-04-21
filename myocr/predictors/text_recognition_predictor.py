@@ -6,7 +6,7 @@ from torch import Tensor
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import BoundingBox, DetectedObjects
-from myocr.util import LabelTranslator, crop_rectangle, softmax
+from myocr.util import LabelTranslator, softmax
 
 logger = logging.getLogger(__name__)
 
@@ -56,21 +56,15 @@ class RecognizedTexts:
 
 
 class TextRecognitionParamConverter(ParamConverter[DetectedObjects, RecognizedTexts]):
-    def __init__(self, retain_croped_imgs=False):
+    def __init__(self):
         super().__init__()
         self.translator = LabelTranslator("".join(alphabetChinese))
-        self.retain_croped_imgs = retain_croped_imgs
-        if retain_croped_imgs:
-            self.croped_imgs = []
 
     def convert_input(self, input_data: DetectedObjects) -> Optional[np.ndarray]:
         self.bounding_boxes = input_data.bounding_boxes
         batch_tensors = []
         for box in input_data.bounding_boxes:  # type: ignore
-            resized_img = crop_rectangle(input_data.image, box, target_height=48)
-            if self.retain_croped_imgs:
-                self.croped_imgs.append(resized_img)
-
+            resized_img = box.get_croped_img()
             # 中心旋转后在填充
             if box.angle[0] > 0:
                 resized_img = resized_img.rotate(box.angle[0])

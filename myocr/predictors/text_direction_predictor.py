@@ -13,12 +13,9 @@ logger = logging.getLogger(__name__)
 
 
 class TextDirectionParamConverter(ParamConverter[DetectedObjects, DetectedObjects]):
-    def __init__(self, retain_croped_imgs=True):
+    def __init__(self):
         super().__init__()
-        self.retain_croped_imgs = retain_croped_imgs
         self.labels = [0, 180]
-        if retain_croped_imgs:
-            self.croped_imgs = []
 
     def convert_input(self, input_data: DetectedObjects) -> Optional[np.ndarray]:
         self.detected_objects = input_data
@@ -26,8 +23,7 @@ class TextDirectionParamConverter(ParamConverter[DetectedObjects, DetectedObject
         batch_tensors = []
         for box in input_data.bounding_boxes:  # type: ignore
             resized_img = crop_rectangle(input_data.image, box, target_height=48)
-            if self.retain_croped_imgs:
-                self.croped_imgs.append(resized_img)
+            box.set_croped_img(resized_img)
             img_np = np.array(resized_img, dtype=np.float32)
             img_np = (img_np / 255.0 - 0.5) / 0.5
 

@@ -35,6 +35,9 @@ class RectBoundingBox(BoundingBox):
     def set_croped_img(self, img):
         self.croped_img = img
 
+    def get_croped_img(self):
+        return self.croped_img
+
     def __str__(self):
         return f"(left={self.left}, bottom={self.bottom}, right={self.right}, top={self.top}, angle={self.angle}, score={self.score})"
 
