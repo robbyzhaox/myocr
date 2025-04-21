@@ -1,4 +1,3 @@
-import importlib.util
 import logging
 from abc import ABC
 from pathlib import Path
@@ -7,9 +6,11 @@ from typing import Any, Dict, List, Optional, Union
 import onnxruntime as ort
 import torch
 import torchvision
+import yaml  # type: ignore
 from torch import nn
 
-from myocr.base import ParamConverter, Predictor
+from ..base import ParamConverter, Predictor
+from .architectures import build_model
 
 logger = logging.getLogger(__name__)
 
@@ -38,25 +39,25 @@ class Model:
         return predictor
 
     def forward_internal(self, *args, **kwargs):
-        raise RuntimeError("Should implement forward_internal in sub class")
+        raise NotImplementedError("Should implement forward_internal in sub class")
 
     def __call__(self, *args, **kwargs):
         return self.forward_internal(*args, **kwargs)
 
     def load(self, model_name_or_path) -> None:
-        raise RuntimeError("method load should be implemented in sub class")
+        raise NotImplementedError("method load should be implemented in sub class")
 
     def train(self) -> None:
-        raise RuntimeError("method train should be implemented in sub class")
+        raise NotImplementedError("method train should be implemented in sub class")
 
     def eval(self) -> None:
-        raise RuntimeError("method eval should be implemented in sub class")
+        raise NotImplementedError("method eval should be implemented in sub class")
 
     def parameters(self) -> Any:
-        raise RuntimeError("method parameters should be implemented in sub class")
+        raise NotImplementedError("method parameters should be implemented in sub class")
 
     def to_onnx(self, file_path: Union[str, Path], input_sample) -> None:
-        raise RuntimeError("method to_onnx should be implemented in sub class")
+        raise NotImplementedError("method to_onnx should be implemented in sub class")
 
 
 class OrtModel(Model):
@@ -140,6 +141,10 @@ class OrtModel(Model):
 
 
 class PyTorchModel(Model):
+    """
+    PyTorchModel is responsible for load pytorch predifined models
+    """
+
     def __init__(self, device):
         super().__init__(device)
 
@@ -173,35 +178,38 @@ class PyTorchModel(Model):
 
 
 class CustomModel(Model):
+    """
+    Custom models defined by yaml config
+    """
+
     def __init__(self, device):
         super().__init__(device)
-        self.device = device
+        if isinstance(self.device, Device):
+            self.device = self.device.name
 
     def load(self, model_name_or_path, **kwargs) -> None:
         if self.loaded:
             return
 
         model_path = Path(model_name_or_path)
-        spec = importlib.util.spec_from_file_location("modeling", model_path)
-        if spec:
-            module = importlib.util.module_from_spec(spec)
-            if spec.loader:
-                spec.loader.exec_module(module)
 
-                # model name 'CustomModel'
-                model_class = getattr(module, "MLP")
-                logger.info(f"loaded custom model calss {model_class}")
-                self.loaded_model = model_class(**kwargs).to(self.device)
-                self.loaded = True
+        with open(model_path, "r") as f:
+            config = yaml.safe_load(f.read())
 
-        # model weights
-        # if pretrained:
-        #     weight_path = model_path.parent / "weights.pth"
-        #     model.load_state_dict(torch.load(weight_path))
+        import copy
+
+        self.loaded_model: nn.Module = build_model(copy.deepcopy(config["Architecture"]))
+        self.loaded_model.to(self.device)
+        logger.info(f"loaded custom model from {model_path}")
+        # pretrained model weights
+        if "pretrained" in config and self.loaded_model:
+            weight_path = config.pretrained
+            self.loaded_model.load_state_dict(torch.load(weight_path))
 
     def forward_internal(self, *args, **kwargs):
         if self.loaded_model:
-            return self.loaded_model(*args, **kwargs)
+            with torch.no_grad():
+                return self.loaded_model(*args, **kwargs)
         else:
             raise RuntimeError("model not loaded")
 
@@ -220,6 +228,7 @@ class CustomModel(Model):
     def to_onnx(self, file_path: Union[str, Path], input_sample) -> None:
         file_path = str(file_path) if isinstance(file_path, Path) else file_path
         torch.onnx.export(self.loaded_model, input_sample, file_path, export_params=True)
+        logger.info(f"successfuly exported model to {file_path}")
 
 
 class ModelLoader(ABC):
