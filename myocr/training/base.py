@@ -75,7 +75,8 @@ class Trainer:
                     loss = self.loss_fn(outputs, labels)
 
                     val_loss += loss.item()
-                    _, predicted = torch.max(outputs.data, dim=1)
+
+                    predicted = torch.argmax(outputs.data, dim=1)
                     total += labels.size(0)
                     correct += (predicted == labels).sum().item()
 
