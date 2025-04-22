@@ -58,3 +58,4 @@ app.log
 
 .temp
 models
+myocr/training/dataset/*

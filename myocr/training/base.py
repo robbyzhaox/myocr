@@ -1,4 +1,5 @@
 import torch
+from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
@@ -30,7 +31,6 @@ class Trainer:
         device = self.device
         # train
         train_loader = self.dataloader(trainingDataset)
-        running_loss = 0.0
         self.model.train()
         train_losses = []
 
@@ -40,6 +40,8 @@ class Trainer:
         fig, ax1, ax2, train_line, val_line = setup_plots()
 
         for epoch in range(self.num_epochs):
+            self.model.train()
+            running_loss = 0.0
             for data, labels in tqdm(train_loader, desc=f"Epoch {epoch+1}/{self.num_epochs}"):
                 data, labels = data.to(device), labels.to(device)
 
@@ -50,7 +52,10 @@ class Trainer:
                 # backward
                 self.optimizer.zero_grad()
                 loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
                 self.optimizer.step()
+                scheduler = StepLR(self.optimizer, step_size=10, gamma=0.1)
+                scheduler.step()
 
                 running_loss += loss.item()
 
@@ -58,10 +63,10 @@ class Trainer:
             train_losses.append(train_loss)
 
             # validation
-            self.model.eval()
             val_loss = 0.0
             correct = 0
             total = 0
+            self.model.eval()
             with torch.no_grad():
                 val_loader = self.dataloader(validateDataset)
                 for data, labels in val_loader:
@@ -70,7 +75,7 @@ class Trainer:
                     loss = self.loss_fn(outputs, labels)
 
                     val_loss += loss.item()
-                    _, predicted = torch.max(outputs.data, 1)
+                    _, predicted = torch.max(outputs.data, dim=1)
                     total += labels.size(0)
                     correct += (predicted == labels).sum().item()
 
@@ -80,7 +85,9 @@ class Trainer:
                 val_accuracy = 100 * correct / total
                 val_accuracies.append(val_accuracy)
 
-                update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, epoch)
+                update_plots(
+                    fig, ax1, ax2, train_line, val_line, train_losses, val_accuracies, epoch
+                )
 
                 # print(
                 #     f"""Epoch {epoch+1}/{trainer.num_epochs}:

@@ -208,8 +208,8 @@ class CustomModel(Model):
 
     def forward_internal(self, *args, **kwargs):
         if self.loaded_model:
-            with torch.no_grad():
-                return self.loaded_model(*args, **kwargs)
+            # with torch.no_grad():
+            return self.loaded_model(*args, **kwargs)
         else:
             raise RuntimeError("model not loaded")
 
