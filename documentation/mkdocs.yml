@@ -101,7 +101,6 @@ plugins:
           name: English
           build: true
           default: true
-          link: /en/
           nav:
             - "": index.md
             - Overview:
@@ -126,7 +125,6 @@ plugins:
         - locale: zh
           name: 简体中文
           build: true
-          link: /zh/
           site_name: MyOCR文档
           site_description: 很棒的OCR构建框架
           nav:
