@@ -108,8 +108,8 @@ plugins:
 nav:
   - "": index.md
   - Overview:
-      - Overview: overview.md
-      - Getting Started : getting-started/index.md
+      - Overview: getting-started/overview.md
+      - Installation: getting-started/installation.md
   - Models:
       - Model List: models/model-list.md
   - Predictors:
@@ -117,9 +117,12 @@ nav:
       - Predictors: predictors/predictors.md
   - Pipelines:
       - Common OCR: pipelines/ocr.md
-      - Structured Extractor: pipelines/
+      - Structured Extractor: pipelines/structured-ocr.md
   - Inference:
       - Local Inference: inference/local.md
       - Restful: inference/rest.md
   - FAQ:
       - FAQ: faq.md
+  - Community:
+      - Changelog: CHANGELOG.md
+      - Contributing: CONTRIBUTING.md
