@@ -24,6 +24,7 @@ theme:
     - toc.follow
     - content.code.copy
     - content.action.edit
+    - content.action.view
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -71,6 +72,9 @@ extra:
   generator: false
   version:
     provider: mike
+  analytics:
+    provider: google
+    property: !!python/object/apply:os.getenv ["GOOGLE_ANALYTICS_KEY"]
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/robbyzhaox/myocr
@@ -80,35 +84,73 @@ copyright: Copyright © 2025 Robby
 
 plugins:
   - tags
+  - mike
   - search:
       separator: '[\s\u200b\-_,:!=\[\: )"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
   - git-committers:
       repository: robbyzhaox/myocr
       branch: main
       token: !!python/object/apply:os.getenv ["MKDOCS_GIT_COMMITTERS_APIKEY"]
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: en
+          name: English
+          build: true
+          default: true
+          link: /en/
+          nav:
+            - "": index.md
+            - Overview:
+                - Overview: getting-started/overview.md
+                - Installation: getting-started/installation.md
+            - Models:
+                - Model List: models/model-list.md
+            - Predictors:
+                - Converters: predictors/converters.md
+                - Predictors: predictors/predictors.md
+            - Pipelines:
+                - Common OCR: pipelines/ocr.md
+                - Structured Extractor: pipelines/structured-ocr.md
+            - Inference:
+                - Local Inference: inference/local.md
+                - Restful: inference/rest.md
+            - FAQ:
+                - FAQ: faq.md
+            - Community:
+                - Contributing: CONTRIBUTING.md
+                - Changelog: CHANGELOG.md
+        - locale: zh
+          name: 简体中文
+          build: true
+          link: /zh/
+          site_name: MyOCR文档
+          site_description: 很棒的OCR构建框架
+          nav:
+            - "": index.md
+            - 概述:
+                - 概述: getting-started/overview.md
+                - 安装: getting-started/installation.md
+            - 模型:
+                - 模型列表: models/model-list.md
+            - 预测器:
+                - 转换器: predictors/converters.md
+                - 预测器: predictors/predictors.md
+            - 流水线:
+                - 通用OCR: pipelines/ocr.md
+                - 提取结构化信息: pipelines/structured-ocr.md
+            - 推理:
+                - 本地推理: inference/local.md
+                - 在线API: inference/rest.md
+            - 常见问题:
+                - 问题: faq.md
+            - 社区:
+                - 贡献: CONTRIBUTING.md
+                - 变更历史: CHANGELOG.md
   - git-revision-date-localized:
       enable_parallel_processing: false
       fallback_to_build_date: false
       enable_creation_date: true
-
-nav:
-  - "": index.md
-  - Overview:
-      - Overview: getting-started/overview.md
-      - Installation: getting-started/installation.md
-  - Models:
-      - Model List: models/model-list.md
-  - Predictors:
-      - Converters: predictors/converters.md
-      - Predictors: predictors/predictors.md
-  - Pipelines:
-      - Common OCR: pipelines/ocr.md
-      - Structured Extractor: pipelines/structured-ocr.md
-  - Inference:
-      - Local Inference: inference/local.md
-      - Restful: inference/rest.md
-  - FAQ:
-      - FAQ: faq.md
-  - Community:
-      - Changelog: CHANGELOG.md
-      - Contributing: CONTRIBUTING.md

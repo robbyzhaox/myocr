@@ -1,9 +1,6 @@
 # **myocr**
 
-```{toctree}
-:maxdepth: 2
-:hidden:
-:caption: Getting started
+ Getting started
 
 installation
 overview

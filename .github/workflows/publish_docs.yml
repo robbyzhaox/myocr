@@ -1,31 +1,61 @@
 name: Build/Publish Docs
+
 on:
   push:
-    tags:
-      - v*
+    paths:
+      - 'documentation/**' 
 
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Configure Git Credentials
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
-      - uses: actions/setup-python@v5
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v4
+
+      - name: Generate cache key
+        run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+  
+      - name: Cache MkDocs build artifacts
+        uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
+          path: documentation/.cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mike mkdocs-material jieba mkdocs-git-revision-date-localized-plugin mkdocs-git-committers-plugin-2 mkdocs-static-i18n
-      - run: |
-          git fetch origin gh-pages --depth=1
-          mike deploy --push "${{ github.ref_name }}"
+
+      - name: Install dependencies
+        run: |
+          pip install mike mkdocs-material jieba \
+            mkdocs-git-revision-date-localized-plugin \
+            mkdocs-git-committers-plugin-2 \
+            mkdocs-static-i18n
+
+      - name: Fetch gh-pages branch
+        run: |
+          if git ls-remote --exit-code origin gh-pages; then
+            git fetch origin gh-pages --depth=1
+          else
+            echo "gh-pages branch does not exist yet. Skipping fetch."
+          fi
+
+      - name: Deploy documentation
+        run: |
+          mike deploy --push --update-aliases main latest
+          mike set-default main
+        working-directory: documentation
+        env:
+          MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_ANALYTICS_KEY: ${{ secrets.GOOGLE_ANALYTICS_KEY }}
