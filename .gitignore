@@ -57,5 +57,4 @@ app.log
 # app temporary directory
 
 .temp
-models
 myocr/training/dataset/*

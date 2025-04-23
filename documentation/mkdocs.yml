@@ -1,0 +1,125 @@
+site_name: MyOCR Documentation
+site_url: https://robbyzhaox.github.io/myocr/
+site_author: robbyzhaox
+site_description: Awesome OCR building framework.
+repo_name: GitHub
+repo_url: https://github.com/robbyzhaox/myocr
+edit_uri: edit/main/documentation/docs/
+docs_dir: docs
+use_directory_urls: true
+
+theme:
+  name: material
+  language: en
+  custom_dir: overrides
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.indexes
+    - navigation.instant
+    - navigation.path
+    - search.highlight
+    - search.suggest
+    - toc.follow
+    - content.code.copy
+    - navigation.collapse
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  logo: assets/images/logomain.png
+  favicon: assets/images/favicon.png
+  font:
+    text: 'Roboto'
+    code: 'Roboto Mono'
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra:
+  generator: false
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/robbyzhaox/myocr
+      name: MyOCR on GitHub
+  analytics:
+    provider: google
+    property: UA-XXXXXXXX-X
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: >-
+            Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: >- 
+            Thanks for your feedback! Help us improve this page by
+            using our <a href="..." target="_blank" rel="noopener">feedback form</a>.  
+
+copyright: Copyright © 2025 Robby
+
+plugins:
+  - tags
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\: )"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - git-committers:
+      repository: robbyzhaox/myocr
+      branch: main
+      token: !!python/object/apply:os.getenv ["MKDOCS_GIT_COMMITTERS_APIKEY"]
+  - git-revision-date-localized:
+      enable_parallel_processing: false
+      fallback_to_build_date: false
+      enable_creation_date: true
+
+nav:
+  - "": index.md
+  - Overview:
+      - Overview: overview.md
+      - Getting Started : getting-started/index.md
+  - Models:
+      - Model List: models/model-list.md
+  - Predictors:
+      - Converters: predictors/converters.md
+      - Predictors: predictors/predictors.md
+  - Pipelines:
+      - Common OCR: pipelines/ocr.md
+      - Structured Extractor: pipelines/
+  - Inference:
+      - Local Inference: inference/local.md
+      - Restful: inference/rest.md
+  - FAQ:
+      - FAQ: faq.md
