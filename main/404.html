@@ -1,12 +1,12 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Awesome OCR building framework.">
+        <meta name="description" content="很棒的OCR构建框架">
       
       
         <meta name="author" content="robbyzhaox">
@@ -20,7 +20,7 @@
     
     
       
-        <title>MyOCR Documentation</title>
+        <title>MyOCR文档</title>
       
     
     
@@ -98,8 +98,8 @@
   
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="/myocr/main/." title="MyOCR Documentation" class="md-header__button md-logo" aria-label="MyOCR Documentation" data-md-component="logo">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="/myocr/main/zh/" title="MyOCR文档" class="md-header__button md-logo" aria-label="MyOCR文档" data-md-component="logo">
       
   <img src="/myocr/main/assets/images/logomain.png" alt="logo">
 
@@ -112,7 +112,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            MyOCR Documentation
+            MyOCR文档
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -155,6 +155,32 @@
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="选择当前语言">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/myocr/main/predictors/predictors/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="/myocr/main/zh/predictors/predictors/" hreflang="zh" class="md-select__link">
+              简体中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
     
       
       
@@ -166,16 +192,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
         </button>
@@ -188,7 +214,7 @@
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -200,7 +226,7 @@
     
     
       <div class="md-header__source">
-        <a href="https://github.com/robbyzhaox/myocr" title="Go to repository" class="md-source" data-md-component="source">
+        <a href="https://github.com/robbyzhaox/myocr" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -215,7 +241,7 @@
   
     
       
-<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
   <div class="md-grid">
     <ul class="md-tabs__list">
       
@@ -225,7 +251,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/myocr/main/." class="md-tabs__link">
+      <a href="/myocr/main/zh/" class="md-tabs__link">
         
   
   
@@ -246,13 +272,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/getting-started/overview/" class="md-tabs__link">
+        <a href="/myocr/main/zh/getting-started/overview/" class="md-tabs__link">
           
   
   
     
   
-  Overview
+  概述
 
         </a>
       </li>
@@ -268,13 +294,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/models/model-list/" class="md-tabs__link">
+        <a href="/myocr/main/zh/models/model-list/" class="md-tabs__link">
           
   
   
     
   
-  Models
+  模型
 
         </a>
       </li>
@@ -290,13 +316,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/predictors/converters/" class="md-tabs__link">
+        <a href="/myocr/main/zh/predictors/converters/" class="md-tabs__link">
           
   
   
     
   
-  Predictors
+  预测器
 
         </a>
       </li>
@@ -312,13 +338,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/pipelines/ocr/" class="md-tabs__link">
+        <a href="/myocr/main/zh/pipelines/ocr/" class="md-tabs__link">
           
   
   
     
   
-  Pipelines
+  流水线
 
         </a>
       </li>
@@ -334,13 +360,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/inference/local/" class="md-tabs__link">
+        <a href="/myocr/main/zh/inference/local/" class="md-tabs__link">
           
   
   
     
   
-  Inference
+  推理
 
         </a>
       </li>
@@ -356,13 +382,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/faq/" class="md-tabs__link">
+        <a href="/myocr/main/zh/faq/" class="md-tabs__link">
           
   
   
     
   
-  FAQ
+  常见问题
 
         </a>
       </li>
@@ -378,13 +404,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="/myocr/main/CONTRIBUTING/" class="md-tabs__link">
+        <a href="/myocr/main/zh/CONTRIBUTING/" class="md-tabs__link">
           
   
   
     
   
-  Community
+  社区
 
         </a>
       </li>
@@ -418,18 +444,18 @@
   
 
 
-<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/myocr/main/." title="MyOCR Documentation" class="md-nav__button md-logo" aria-label="MyOCR Documentation" data-md-component="logo">
+    <a href="/myocr/main/zh/" title="MyOCR文档" class="md-nav__button md-logo" aria-label="MyOCR文档" data-md-component="logo">
       
   <img src="/myocr/main/assets/images/logomain.png" alt="logo">
 
     </a>
-    MyOCR Documentation
+    MyOCR文档
   </label>
   
     <div class="md-nav__source">
-      <a href="https://github.com/robbyzhaox/myocr" title="Go to repository" class="md-source" data-md-component="source">
+      <a href="https://github.com/robbyzhaox/myocr" title="前往仓库" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
@@ -449,7 +475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/." class="md-nav__link">
+      <a href="/myocr/main/zh/" class="md-nav__link">
         
   
   
@@ -498,7 +524,7 @@
   
   
   <span class="md-ellipsis">
-    Overview
+    概述
     
   </span>
   
@@ -509,7 +535,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            Overview
+            概述
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -520,12 +546,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/getting-started/overview/" class="md-nav__link">
+      <a href="/myocr/main/zh/getting-started/overview/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Overview
+    概述
     
   </span>
   
@@ -543,12 +569,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/getting-started/installation/" class="md-nav__link">
+      <a href="/myocr/main/zh/getting-started/installation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Installation
+    安装
     
   </span>
   
@@ -598,7 +624,7 @@
   
   
   <span class="md-ellipsis">
-    Models
+    模型
     
   </span>
   
@@ -609,7 +635,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
-            Models
+            模型
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -620,12 +646,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/models/model-list/" class="md-nav__link">
+      <a href="/myocr/main/zh/models/model-list/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Model List
+    模型列表
     
   </span>
   
@@ -677,7 +703,7 @@
   
   
   <span class="md-ellipsis">
-    Predictors
+    预测器
     
   </span>
   
@@ -688,7 +714,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            Predictors
+            预测器
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -699,12 +725,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/predictors/converters/" class="md-nav__link">
+      <a href="/myocr/main/zh/predictors/converters/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Converters
+    转换器
     
   </span>
   
@@ -722,12 +748,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/predictors/predictors/" class="md-nav__link">
+      <a href="/myocr/main/zh/predictors/predictors/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Predictors
+    预测器
     
   </span>
   
@@ -779,7 +805,7 @@
   
   
   <span class="md-ellipsis">
-    Pipelines
+    流水线
     
   </span>
   
@@ -790,7 +816,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            Pipelines
+            流水线
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -801,12 +827,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/pipelines/ocr/" class="md-nav__link">
+      <a href="/myocr/main/zh/pipelines/ocr/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Common OCR
+    通用OCR
     
   </span>
   
@@ -824,12 +850,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/pipelines/structured-ocr/" class="md-nav__link">
+      <a href="/myocr/main/zh/pipelines/structured-ocr/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Structured Extractor
+    提取结构化信息
     
   </span>
   
@@ -881,7 +907,7 @@
   
   
   <span class="md-ellipsis">
-    Inference
+    推理
     
   </span>
   
@@ -892,7 +918,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
-            Inference
+            推理
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -903,12 +929,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/inference/local/" class="md-nav__link">
+      <a href="/myocr/main/zh/inference/local/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Local Inference
+    本地推理
     
   </span>
   
@@ -926,12 +952,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/inference/rest/" class="md-nav__link">
+      <a href="/myocr/main/zh/inference/rest/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Restful
+    在线API
     
   </span>
   
@@ -981,7 +1007,7 @@
   
   
   <span class="md-ellipsis">
-    FAQ
+    常见问题
     
   </span>
   
@@ -992,7 +1018,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
-            FAQ
+            常见问题
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1003,12 +1029,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/faq/" class="md-nav__link">
+      <a href="/myocr/main/zh/faq/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    FAQ
+    问题
     
   </span>
   
@@ -1060,7 +1086,7 @@
   
   
   <span class="md-ellipsis">
-    Community
+    社区
     
   </span>
   
@@ -1071,7 +1097,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
-            Community
+            社区
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -1082,12 +1108,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/CONTRIBUTING/" class="md-nav__link">
+      <a href="/myocr/main/zh/CONTRIBUTING/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Contributing
+    贡献
     
   </span>
   
@@ -1105,12 +1131,12 @@
   
   
     <li class="md-nav__item">
-      <a href="/myocr/main/CHANGELOG/" class="md-nav__link">
+      <a href="/myocr/main/zh/CHANGELOG/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Changelog
+    变更历史
     
   </span>
   
@@ -1141,7 +1167,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -1204,7 +1230,7 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "/myocr/main", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.collapse", "search.highlight", "search.suggest", "toc.follow", "content.code.copy", "content.action.edit", "content.action.view"], "search": "/myocr/main/assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"base": "/myocr/main", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.instant", "navigation.collapse", "search.highlight", "search.suggest", "toc.follow", "content.code.copy", "content.action.edit", "content.action.view"], "search": "/myocr/main/assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"provider": "mike"}}</script>
     
     
       <script src="/myocr/main/assets/javascripts/bundle.c8b220af.min.js"></script>
