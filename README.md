@@ -13,7 +13,7 @@ MyOCR is a modular OCR recognition framework designed for secondary development,
 
 ### Requirements
 - Python 3.11+
-- CUDA (Recommended for GPU acceleration, but CPU mode is also supported)
+- CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
 
 ### Installation Method
 

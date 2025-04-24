@@ -54,7 +54,7 @@ jobs:
       - name: Deploy documentation
         run: |
           mike deploy --push --update-aliases main latest
-          mike set-default main
+          mike set-default latest
         working-directory: documentation
         env:
           MKDOCS_GIT_COMMITTERS_APIKEY: ${{ secrets.GITHUB_TOKEN }}
