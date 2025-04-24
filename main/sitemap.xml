@@ -64,6 +64,20 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/model-list/"/>
     </url>
     <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/models/new-model/</loc>
+        <lastmod>2025-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/new-model/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/new-model/"/>
+    </url>
+    <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/models/train-model/</loc>
+        <lastmod>2025-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/train-model/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/train-model/"/>
+    </url>
+    <url>
         <loc>https://robbyzhaox.github.io/myocr/main/pipelines/ocr/</loc>
         <lastmod>2025-04-24</lastmod>
         <changefreq>daily</changefreq>
@@ -153,6 +167,20 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/model-list/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/model-list/"/>
+    </url>
+    <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/new-model/</loc>
+        <lastmod>2025-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/new-model/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/new-model/"/>
+    </url>
+    <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/train-model/</loc>
+        <lastmod>2025-04-24</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/train-model/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/train-model/"/>
     </url>
     <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/pipelines/ocr/</loc>
