@@ -2,18 +2,6 @@
 
 Thank you for your interest in contributing to MyOCR! This document provides guidelines and instructions for contributing to this project.
 
-## Table of Contents
-
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [Pull Request Process](#pull-request-process)
-- [Coding Standards](#coding-standards)
-- [Testing Guidelines](#testing-guidelines)
-- [Documentation](#documentation)
-- [Issue Reporting](#issue-reporting)
-- [Docker Development](#docker-development)
-
 ## Code of Conduct
 
 By participating in this project, you agree to maintain a respectful and inclusive environment for everyone. Please be kind, considerate, and constructive in your communication.
