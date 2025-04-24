@@ -4,15 +4,15 @@ MyOCR is a Python package designed to streamline the development of production-r
 
 **Key Features**:
 
-***⚡️ End-to-End OCR Workflow*** – Seamlessly integrate detection, recognition, and various models.
+**⚡️ End-to-End OCR Workflow** – Seamlessly integrate detection, recognition, and various models.
 
-***🛠️ Modular & Extensible***– Mix and match components (swap models, processors, or input output converters).
+**🛠️ Modular & Extensible**– Mix and match components (swap models, processors, or input output converters).
 
-***🚀 Optimized for Production*** – ONNX runtime support for high-speed CPU/GPU inference.
+**🚀 Optimized for Production** – ONNX runtime support for high-speed CPU/GPU inference.
 
-***📊 Smart Structured Outputs*** – Convert raw OCR results into organized formats (e.g., invoices, forms).
+**📊 Smart Structured Outputs** – Convert raw OCR results into organized formats (e.g., invoices, forms).
 
-***🔌 Developer-Centric – Clean*** Python APIs, prebuilt pipelines, and easy custom training.
+**🔌 Developer-Centric – Clean** Python APIs, prebuilt pipelines, and easy custom training.
 
 
 ## Installation
@@ -97,7 +97,7 @@ API endpoints:
 - `POST /ocr`: Basic OCR recognition
 - `POST /ocr-json`: Structured OCR output
 
-We also have a UI for these endpoints, please refer to [text](https://github.com/robbyzhaox/doc-insight-ui)
+We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
 
 
 ### Docker Deployment
