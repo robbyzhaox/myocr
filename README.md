@@ -109,7 +109,7 @@ We also have a UI for these endpoints, please refer to [doc-insight-ui](https://
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
-#### Automated Build Script
+#### 📦 Automated Build Script
 
 The easiest way to build and run a Docker container is to use the provided script:
 
