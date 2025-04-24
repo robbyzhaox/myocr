@@ -24,7 +24,9 @@ class CommonOCRPipeline(Pipeline):
             config = yaml.safe_load(f)
 
         det_model = ModelZoo.load_model("onnx", MODEL_PATH + config["model"]["detection"], device)
-        cls_model = ModelZoo.load_model("onnx", MODEL_PATH + config["model"]["cls_direction"], device)
+        cls_model = ModelZoo.load_model(
+            "onnx", MODEL_PATH + config["model"]["cls_direction"], device
+        )
         rec_model = ModelZoo.load_model("onnx", MODEL_PATH + config["model"]["recognition"], device)
 
         self.dec_predictor = det_model.predictor(TextDetectionParamConverter(det_model.device))
