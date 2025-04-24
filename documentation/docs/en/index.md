@@ -2,12 +2,6 @@
 MyOCR is a development kit for engineers to easiy train and assemble their models to predictors and pipelines for their OCR business.
 
 
-## 📣 Updates
-- **🔥2025.04.24 release MyOCR alpha version**:
-    - Release image detection, class, recognition models
-    - All components can work together
-
-
 ## 📖 What Can MyOCR Do?
 - **🚀 Build Your Own OCR Solutions**
 We can quickly build our own OCR solutions like building blocks based on the components.

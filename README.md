@@ -1,8 +1,8 @@
-# MyOCR - Advanced OCR Pipeline Builder
+# 🔍 MyOCR - Advanced OCR Pipeline Builder
 
 MyOCR is a Python package designed to streamline the development of production-ready OCR systems. Engineers can easily train, customize, and deploy deep learning models into high-performance OCR pipelines for real-world applications.
 
-**Key Features**:
+**🌟 Key Features**:
 
 **⚡️ End-to-End OCR Workflow** – Seamlessly integrate detection, recognition, and various models.
 
@@ -14,14 +14,19 @@ MyOCR is a Python package designed to streamline the development of production-r
 
 **🔌 Developer-Centric – Clean** Python APIs, prebuilt pipelines, and easy custom training.
 
+## 📣 Updates
+- **🔥2025.04.24 release MyOCR alpha version**:
+    - Release image detection, class, recognition models
+    - All components can work together
 
-## Installation
 
-### Requirements
+## 🛠️ Installation
+
+### 💻 Requirements
 - Python 3.11+
 - CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
 
-### Install Dependencies
+### ⬇️  Install Dependencies
 
 ```bash
 # Clone the code from GitHub
@@ -41,11 +46,11 @@ curl -fsSL "https://drive.google.com/file/d/1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX/vi
 curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/view?usp=drive_link" -o ~/.MyOCR/models/cls.onnx
 ```
 
-## Quick Start
+## ⏭️  Quick Start
 
-### Local Ieference
+### 📝  Local Ieference
 
-#### Basic OCR Recognition
+#### 📜 Basic OCR Recognition
 
 ```python
 from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
@@ -58,7 +63,7 @@ result = pipeline("path/to/your/image.jpg")
 print(result)
 ```
 
-#### Structured OCR Output (Example: Invoice Information Extraction)
+#### 📝  Structured OCR Output (Example: Invoice Information Extraction)
 
 config chat_bot in myocr.pipelines.config.structured_output_pipeline.yaml
 ```yaml
@@ -83,7 +88,7 @@ result = pipeline("path/to/invoice.jpg")
 print(result.to_dict())
 ```
 
-### Using Rest API
+### 🌐 Using Rest API
 
 The framework provides a simple Flask API service that can be called via HTTP interface:
 
@@ -100,7 +105,7 @@ API endpoints:
 We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
 
 
-### Docker Deployment
+### 🚗 Docker Deployment
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
@@ -123,7 +128,7 @@ This script will:
 - Build a new GPU-enabled Docker image
 - Start a container with the service exposed on port 8000
 
-#### Manual Docker Commands
+#### 📦 Manual Docker Commands
 
 If you need more control or customization:
 
@@ -138,7 +143,7 @@ docker build -f Dockerfile-infer-GPU -t myocr:gpu .
 docker run -d -p 8000:8000 myocr:gpu
 ```
 
-## Contribution Guidelines
+## 🎖 Contribution Guidelines
 
 We welcome any form of contribution, including but not limited to:
 
@@ -147,7 +152,7 @@ We welcome any form of contribution, including but not limited to:
 - Improving documentation
 - Optimizing performance
 
-### Development Utilities
+### 📦 Development Utilities
 
 MyOCR includes several Makefile commands to help with development:
 
@@ -165,6 +170,6 @@ mkdocs serve -a 127.0.0.1:8001
 
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more detailed contribution guidelines.
 
-## License
+## 📄 License
 
 This project is open-sourced under the Apache 2.0 License, see the [LICENSE](LICENSE) file for details.
