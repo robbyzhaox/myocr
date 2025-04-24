@@ -618,6 +618,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#myocr-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyOCR Components
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1252,6 +1261,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#myocr-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyOCR Components
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1288,6 +1306,13 @@
 
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>========</p>
+<h2 id="myocr-components">MyOCR Components<a class="headerlink" href="#myocr-components" title="Permanent link">&para;</a></h2>
+<p><img alt="MyOCR Componants" src="../../assets/images/components.png" /></p>
+<p><strong>Model</strong> is artificial neural network defined by Pytorch, it consists two parts, the model architecture and model weights, a model architecture usually build with transform, backbone, neck and head. MyOCR also have a tool for easily train the model by custom data.</p>
+<p>The Model Class has serval sub classes: PytorchModel, OnnxMode, CustomModel.</p>
+<p><strong>Converter</strong> is a component for building Predictor, a Converter is responsible for preparing appropriate parameters for a model, and then convert the model output to a specific type.</p>
+<p><strong>Predictor</strong> is built on Model and Converter, it is a component to do a real world task by the neural network. For example, we have a MLP model for classifing images, usually the model accepts a tensor represents the image and output a vector representing the probability of each class, but for a user we just want give an image and got the class name with a confidence, thus a converter will help to eliminate the gap of the input and output we want and network provides. By using a Model and a Predictor we will got a Predictor for us to do a real world task, for the above image classification task, the input for Predictor can be an image and output can be a class name.</p>
+<p><strong>Pipeline</strong> is the arrangement and combination of different Predictors. It is used to solve a more complex problem, which may have multiple steps and require a combination of multiple models to complete. Such as for a traditional image OCR task, we at least need a detection model and a recognition model, detection model to find where there is text in the image, and recognition model to extract specific text content.</p>
 
 
 
@@ -1310,7 +1335,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 12:56:49">April 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 24, 2025 03:49:02">April 24, 2025</span>
   </span>
 
     
@@ -1320,7 +1345,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 12:56:49">April 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 24, 2025 03:49:02">April 24, 2025</span>
   </span>
 
     
