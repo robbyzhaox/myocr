@@ -28,7 +28,7 @@ class TextItem:
         return self.__str__()
 
     def to_dict(self):
-        self.__dict__["bounding_box"] = self.bounding_box.__dict__
+        self.__dict__["bounding_box"] = self.bounding_box.to_dict() # type: ignore
         return self.__dict__
 
 

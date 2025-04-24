@@ -1,21 +1,27 @@
-# MyOCR - Advanced OCR Custom Builder
+# MyOCR - Advanced OCR Pipeline Builder
 
-## Project Overview
+MyOCR is a Python package designed to streamline the development of production-ready OCR systems. Engineers can easily train, customize, and deploy deep learning models into high-performance OCR pipelines for real-world applications.
 
-MyOCR is a modular OCR recognition framework designed for secondary development, providing a complete pipeline from text detection and recognition to structured information extraction. The framework features:
+**Key Features**:
 
-- **Modular Design**: Each component can be independently replaced or upgraded
-- **High-Performance Model Support**: Based on ONNX format models, supporting both CPU and GPU inference
-- **Structured Output**: Ability to convert OCR recognition results into structured data (e.g., invoice information)
-- **Easy to Extend**: Provides clear interfaces for developers to extend functionality based on their needs
+***⚡️ End-to-End OCR Workflow*** – Seamlessly integrate detection, recognition, and various models.
 
-## Installation Guide
+***🛠️ Modular & Extensible***– Mix and match components (swap models, processors, or input output converters).
+
+***🚀 Optimized for Production*** – ONNX runtime support for high-speed CPU/GPU inference.
+
+***📊 Smart Structured Outputs*** – Convert raw OCR results into organized formats (e.g., invoices, forms).
+
+***🔌 Developer-Centric – Clean*** Python APIs, prebuilt pipelines, and easy custom training.
+
+
+## Installation
 
 ### Requirements
 - Python 3.11+
 - CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
 
-### Installation Method
+### Install Dependencies
 
 ```bash
 # Clone the code from GitHub
@@ -28,7 +34,7 @@ pip install -e .
 # Development environment installation
 pip install -e ".[dev]"
 
-# Download pre-trained models
+# Download pre-trained model weights
 mkdir -p ~/.MyOCR/models/
 curl -fsSL "https://drive.google.com/file/d/1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9/view?usp=drive_link" -o ~/.MyOCR/models/dbnet++.onnx
 curl -fsSL "https://drive.google.com/file/d/1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX/view?usp=drive_link" -o ~/.MyOCR/models/rec.onnx
@@ -37,12 +43,14 @@ curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/vi
 
 ## Quick Start
 
-### Basic OCR Recognition
+### Local Ieference
+
+#### Basic OCR Recognition
 
 ```python
 from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
 
-# Initialize OCR pipeline (using GPU)
+# Initialize common OCR pipeline (using GPU)
 pipeline = CommonOCRPipeline("cuda:0")  # Use "cpu" for CPU mode
 
 # Perform OCR recognition on an image
@@ -50,28 +58,22 @@ result = pipeline("path/to/your/image.jpg")
 print(result)
 ```
 
-### Structured OCR Output (Example: Invoice Information Extraction)
+#### Structured OCR Output (Example: Invoice Information Extraction)
+
+config chat_bot in myocr.pipelines.config.structured_output_pipeline.yaml
+```yaml
+chat_bot:
+  model: qwen2.5:14b
+  base_url: http://127.0.0.1:11434/v1
+  api_key: 'key'
+```
 
 ```python
 from pydantic import BaseModel, Field
 from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
 
-# Define output data model
-class InvoiceItem(BaseModel):
-    name: str = Field(description="Item name in the invoice")
-    price: float = Field(description="Item unit price")
-    number: str = Field(description="Item quantity")
-    tax: str = Field(description="Item tax amount")
-
-class InvoiceModel(BaseModel):
-    invoiceNumber: str = Field(description="Invoice number")
-    invoiceDate: str = Field(description="Invoice date")
-    invoiceItems: list[InvoiceItem] = Field(description="List of items in the invoice")
-    totalAmount: float = Field(description="Total amount of the invoice")
-    
-    def to_dict(self):
-        self.__dict__["invoiceItems"] = [item.__dict__ for item in self.invoiceItems]
-        return self.__dict__
+# Define output data model, refer to:
+from myocr.pipelines.response_format import InvoiceModel
 
 # Initialize structured OCR pipeline
 pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
@@ -81,13 +83,13 @@ result = pipeline("path/to/invoice.jpg")
 print(result.to_dict())
 ```
 
-### Using HTTP API Service
+### Using Rest API
 
 The framework provides a simple Flask API service that can be called via HTTP interface:
 
 ```bash
-# Start the service
-python main.py
+# Start the service default port: 5000
+python main.py 
 ```
 
 API endpoints:
@@ -97,64 +99,12 @@ API endpoints:
 
 We also have a UI for these endpoints, please refer to [text](https://github.com/robbyzhaox/doc-insight-ui)
 
-## Architecture Design
 
-The MyOCR framework consists of the following components:
-
-### Core Modules
-1. **pipelines**: OCR processing pipelines that encapsulate the complete processing flow
-   - `CommonOCRPipeline`: Basic OCR processing
-   - `StructuredOutputOCRPipeline`: OCR processing with structured output
-   
-2. **predictors**: OCR predictor components
-   - `TextDetectionPredictor`: Text detection predictor
-   - `TextRecognitionPredictor`: Text recognition predictor
-   
-3. **modeling**: Model loading and management
-   - `ModelZoo`: Model management and loading
-
-4. **extractor**: Structured information extraction
-   - `OpenAiChatExtractor`: Using LLM for structured information extraction
-
-## Customization and Extension
-
-### Adding New Structured Output Models
-
-1. Define your data model using Pydantic:
-
-```python
-from pydantic import BaseModel, Field
-
-class CustomModel(BaseModel):
-    field1: str = Field(description="Description of field1")
-    field2: int = Field(description="Description of field2")
-    # Add more fields...
-```
-
-2. Create a new pipeline with your model:
-
-```python
-from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
-
-pipeline = StructuredOutputOCRPipeline("cuda:0", CustomModel)
-```
-
-### Replacing or Adding New Models
-
-1. Place ONNX format model files in the `myocr/models` directory
-2. Modify the configuration file to use the new models:
-
-```yaml
-model:
-  detection: "path/to/your/detection_model.onnx"
-  recognition: "path/to/your/recognition_model.onnx"
-```
-
-## Docker Deployment
+### Docker Deployment
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
-### Automated Build Script
+#### Automated Build Script
 
 The easiest way to build and run a Docker container is to use the provided script:
 
@@ -173,7 +123,7 @@ This script will:
 - Build a new GPU-enabled Docker image
 - Start a container with the service exposed on port 8000
 
-### Manual Docker Commands
+#### Manual Docker Commands
 
 If you need more control or customization:
 
@@ -185,7 +135,7 @@ docker build -f Dockerfile-infer-CPU -t myocr:cpu .
 docker build -f Dockerfile-infer-GPU -t myocr:gpu .
 
 # Run container
-docker run -d -p 5000:5000 myocr:gpu
+docker run -d -p 8000:8000 myocr:gpu
 ```
 
 ## Contribution Guidelines
@@ -208,8 +158,9 @@ make run-format
 # Run code quality checks (isort, black, ruff, mypy, pytest)
 make run-checks
 
-# Build documentation
-make docs
+# Preview documentation in local
+cd documentation
+mkdocs serve -a 127.0.0.1:8001
 ```
 
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more detailed contribution guidelines.

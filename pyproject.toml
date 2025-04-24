@@ -42,7 +42,7 @@ license = {file = "LICENSE"}
 Homepage = "https://github.com/robbyzhaox/myocr"
 Repository = "https://github.com/robbyzhaox/myocr"
 Changelog = "https://github.com/robbyzhaox/myocr/blob/main/CHANGELOG.md"
-# Documentation = "https://myocr.readthedocs.io/"
+Documentation = "http://robbyzhaox.github.io/myocr/"
 
 [project.optional-dependencies]
 dev = [
@@ -57,13 +57,25 @@ dev = [
     "build",
     "setuptools",
     "wheel",
-    "Sphinx>=6.0,<9.0",
     "furo==2024.8.6",
     "myst-parser>=1.0",
-    "sphinx-copybutton",
-    "sphinx-autobuild",
-    "sphinx-autodoc-typehints==3.1.0",
-    "packaging"
+    "packaging",
+    "torch>=2.5.1",
+    "pillow==11.2.1",
+    "numpy==2.2.4",
+    "cv-3==1.2.0",
+    "shapely==2.0.7",
+    "pyclipper~=1.3.0",
+    "pathlib2~=2.3.7",
+    "scipy==1.15.2",
+    "torchvision==0.21.0",
+    "onnxruntime==1.21.0",
+    "flask>=3.1.0",
+    "flask-cors==5.0.1",
+    "PyYAML==6.0.2",
+    "matplotlib==3.10.1",
+    "pydantic==2.11.2",
+    "openai==1.72.0"
 ]
 
 [tool.setuptools.packages.find]

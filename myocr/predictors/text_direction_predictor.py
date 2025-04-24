@@ -53,7 +53,7 @@ class TextDirectionParamConverter(ParamConverter[DetectedObjects, DetectedObject
         preds = internal_result[0]
         pred_idxs = np.argmax(preds, axis=1)
 
-        decode_out = [(self.labels[idx], preds[i, idx]) for i, idx in enumerate(pred_idxs)]
+        decode_out = [(self.labels[idx], float(preds[i, idx])) for i, idx in enumerate(pred_idxs)]
 
         for i in range(preds.shape[0]):
             box = self.bounding_boxes[i]  # type: ignore
