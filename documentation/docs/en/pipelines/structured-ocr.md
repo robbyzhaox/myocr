@@ -1,1 +1,0 @@
-structured-ocr.md

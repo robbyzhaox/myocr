@@ -1,24 +1,53 @@
-# **myocr**
+# 欢迎来到 MyOCR 文档
 
-从这里开始
+<div align="center">
+    <img width="150" alt="myocr logo" src="../assets/images/logomain.png">
+</div>
 
-installation
-overview
-```
+**MyOCR 是一个 Python 库，旨在简化生产级 OCR (光学字符识别) 系统的开发和部署。**
 
-```{toctree}
-:hidden:
-:caption: Development
+无论您需要从文档中进行基本的文本提取，还是复杂的结构化数据提取，MyOCR 都提供了构建健壮高效流水线的工具。
 
-CHANGELOG
-CONTRIBUTING
-License <https://github.com/robbyzhaox/myocr/myocr/LICENSE>
-GitHub Repository <https://github.com/robbyzhaox/myocr>
-```
+## 主要特性
 
-## Indices and tables
+*   **🚀 端到端流程与模块化设计:** 通过组合模块化组件，构建完整的 OCR 工作流（检测、分类、识别）。
+*   **🛠️ 可扩展:** 轻松集成自定义模型或处理逻辑。
+*   **⚡ 生产就绪:** 基于 ONNX Runtime 优化，支持 CPU 与 GPU 高性能推理，为生产环境准备就绪。
+*   **📊 结构化输出:** 利用 LLM 集成，将信息提取为预定义的 JSON 格式。
+*   **🔌 多种使用模式:** 可作为 Python 库使用，部署为 REST API 服务，或在 Docker 中运行。
 
-```{eval-rst}
-* :ref:`genindex`
-* :ref:`modindex`
-```
+## 快速入门
+
+1.  **[安装](./getting-started/installation.md):** 安装 MyOCR 并下载必要的模型。
+2.  **[概览](./getting-started/overview.md):** 理解核心概念（模型、预测器、流水线）。
+3.  **[推理指南](./inference/local.md):** 学习如何使用该库运行 OCR 任务。
+
+## 核心概念深入了解
+
+*   **[模型](./models/model-list.md):** 了解支持的模型类型（ONNX、PyTorch、自定义）和架构。
+*   **[预测器](./predictors/predictor-list.md):** 理解预测器如何包装模型及前后处理逻辑以执行特定任务。
+*   **[流水线](./pipelines/pipelines-list.md):** 探索协调多个预测器以实现端到端 OCR 的高级流水线。
+
+## 部署选项
+
+除了将 MyOCR 作为 Python 库使用（请参阅 [推理指南](./inference/local.md)），您还可以通过以下方式部署它：
+
+*   **作为 REST API:**
+    *   启动内置的 Flask 服务器：`python main.py`（默认在端口 5000 上运行）。
+    *   端点：`GET /ping`、`POST /ocr`（基本 OCR）、`POST /ocr-json`（结构化 OCR）。
+    *   提供一个独立的 UI 界面：[doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
+*   **使用 Docker:**
+    *   使用 `Dockerfile-infer-CPU` 或 `Dockerfile-infer-GPU` 构建 CPU/GPU 镜像。
+    *   使用辅助脚本简化设置：`scripts/build_docker_image.sh`。
+    *   运行示例：`docker run -d -p 8000:8000 myocr:gpu`（在端口 8000 上暴露服务）。
+
+## 其他资源
+
+*   **[常见问题解答](./faq.md):** 查找常见问题的答案。
+*   **[更新日志](./CHANGELOG.md):** 查看最近的更新和变更。
+*   **[贡献指南](./CONTRIBUTING.md):** 了解如何为项目做出贡献。
+*   **[GitHub 仓库](https://github.com/robbyzhaox/myocr):** 源代码、问题和讨论。
+
+## 许可证
+
+MyOCR 基于 [Apache 2.0 许可证](https://github.com/robbyzhaox/myocr/blob/main/LICENSE) 开源。

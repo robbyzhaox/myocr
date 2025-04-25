@@ -60,7 +60,7 @@ curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/vi
 #### 📜 Basic OCR Recognition
 
 ```python
-from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
+from myocr.pipelines import CommonOCRPipeline
 
 # Initialize common OCR pipeline (using GPU)
 pipeline = CommonOCRPipeline("cuda:0")  # Use "cpu" for CPU mode
@@ -82,7 +82,7 @@ chat_bot:
 
 ```python
 from pydantic import BaseModel, Field
-from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
+from myocr.pipelines import StructuredOutputOCRPipeline
 
 # Define output data model, refer to:
 from myocr.pipelines.response_format import InvoiceModel

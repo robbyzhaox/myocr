@@ -108,14 +108,14 @@ plugins:
                 - Installation: getting-started/installation.md
             - Models:
                 - Model List: models/model-list.md
-                - Add new Model: models/new-model.md
-                - Train a MOdel: models/train-model.md
+                - Add a Model: models/new-model.md
+                - Train a Model: models/train-model.md
             - Predictors:
-                - Create Converters: predictors/converters.md
-                - Build Predictors: predictors/predictors.md
+                - Predictor List: predictors/predictor-list.md
+                - Create Predictor: predictors/new-predictor.md
             - Pipelines:
-                - Common OCR: pipelines/ocr.md
-                - Structured Extractor: pipelines/structured-ocr.md
+                - Pipelines List: pipelines/pipelines-list.md
+                - Build Pipeline: pipelines/build-pipeline.md
             - Inference:
                 - Local Inference: inference/local.md
                 - Restful API: inference/rest.md
@@ -138,12 +138,12 @@ plugins:
                 - 模型列表: models/model-list.md
                 - 新增模型: models/new-model.md
                 - 训练模型: models/train-model.md
-            - 预测器:
-                - 创建转换器: predictors/converters.md
-                - 构建预测器: predictors/predictors.md
-            - 流水线:
-                - 通用OCR: pipelines/ocr.md
-                - 提取结构化信息: pipelines/structured-ocr.md
+            - Predictors:
+                - 已有Predictor: predictors/predictor-list.md
+                - 创建Predictor: predictors/new-predictor.md
+            - Pipelines:
+                - 已有Pipeline: pipelines/pipelines-list.md
+                - 构建Pipeline: pipelines/build-pipeline.md
             - 推理:
                 - 本地推理: inference/local.md
                 - 在线API: inference/rest.md

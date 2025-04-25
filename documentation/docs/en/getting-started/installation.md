@@ -1,86 +1,62 @@
+# Installation
 
-### Requirements
-- Python 3.11+
-- CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
+This guide covers the necessary steps to install MyOCR and its dependencies.
 
-### Installation Method
+## Requirements
 
-```bash
-# Clone the code from GitHub
-git clone https://github.com/robbyzhaox/myocr.git
-cd myocr
+*   **Python:** Version 3.11 or higher is required.
+*   **CUDA:** Version 12.6 or higher is recommended for GPU acceleration. CPU-only mode is also supported.
+*   **Operating System:** Linux, macOS, or Windows.
 
-# Install dependencies
-pip install -e .
+## Installation Steps
 
-# Development environment installation
-pip install -e ".[dev]"
+1.  **Clone the Repository:**
 
-# Download pre-trained models
-mkdir -p ~/.MyOCR/models/
-curl -fsSL "https://drive.google.com/file/d/1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9/view?usp=drive_link" -o ~/.MyOCR/models/dbnet++.onnx
-curl -fsSL "https://drive.google.com/file/d/1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX/view?usp=drive_link" -o ~/.MyOCR/models/rec.onnx
-curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/view?usp=drive_link" -o ~/.MyOCR/models/cls.onnx
-```
+    ```bash
+    git clone https://github.com/robbyzhaox/myocr.git
+    cd myocr
+    ```
 
-## Quick Start
+2.  **Install Dependencies:**
 
-### Basic OCR Recognition
+    *   **For standard usage:**
+        ```bash
+        # Installs the package and required dependencies
+        pip install -e .
+        ```
+    *   **For development (including testing, linting, etc.):**
+        ```bash
+        # Installs standard dependencies plus development tools
+        pip install -e ".[dev]"
+        ```
 
-```python
-from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
+3.  **Download Pre-trained Models:**
 
-# Initialize OCR pipeline (using GPU)
-pipeline = CommonOCRPipeline("cuda:0")  # Use "cpu" for CPU mode
+    MyOCR relies on pre-trained models for its default pipelines. These need to be downloaded manually.
 
-# Perform OCR recognition on an image
-result = pipeline("path/to/your/image.jpg")
-print(result)
-```
+    ```bash
+    # Create the default model directory if it doesn't exist
+    # On Linux/macOS:
+    mkdir -p ~/.MyOCR/models/
+    # On Windows (using Git Bash or similar):
+    # mkdir -p ~/AppData/Local/MyOCR/models/
+    # Note: Adjust the Windows path if needed based on your environment.
 
-### Structured OCR Output (Example: Invoice Information Extraction)
+    # Download models (ensure curl is installed)
+    # Detection Model (DBNet++)
+    curl -L "https://drive.google.com/uc?export=download&id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9" -o ~/.MyOCR/models/dbnet++.onnx
+    # Recognition Model (CRNN-like)
+    curl -L "https://drive.google.com/uc?export=download&id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX" -o ~/.MyOCR/models/rec.onnx
+    # Classification Model (Angle)
+    curl -L "https://drive.google.com/uc?export=download&id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX" -o ~/.MyOCR/models/cls.onnx
+    ```
 
-```python
-from pydantic import BaseModel, Field
-from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
+    *   **Note:** The default location where MyOCR expects models is `~/.MyOCR/models/`. This path is defined in `myocr/config.py`. You can modify this configuration or place models elsewhere if needed, but you would need to adjust the paths in the pipeline configuration files (`myocr/pipelines/config/*.yaml`).
+    *   The `curl` commands above use Google Drive links. Ensure you can download from these links in your environment. You might need to adjust the commands or download the files manually if `curl` has issues with redirects or permissions.
 
-# Define output data model
-class InvoiceItem(BaseModel):
-    name: str = Field(description="Item name in the invoice")
-    price: float = Field(description="Item unit price")
-    number: str = Field(description="Item quantity")
-    tax: str = Field(description="Item tax amount")
+## Next Steps
 
-class InvoiceModel(BaseModel):
-    invoiceNumber: str = Field(description="Invoice number")
-    invoiceDate: str = Field(description="Invoice date")
-    invoiceItems: list[InvoiceItem] = Field(description="List of items in the invoice")
-    totalAmount: float = Field(description="Total amount of the invoice")
-    
-    def to_dict(self):
-        self.__dict__["invoiceItems"] = [item.__dict__ for item in self.invoiceItems]
-        return self.__dict__
+Once installation is complete and models are downloaded, you can proceed to:
 
-# Initialize structured OCR pipeline
-pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
-
-# Process image and get structured data
-result = pipeline("path/to/invoice.jpg")
-print(result.to_dict())
-```
-
-### Using HTTP API Service
-
-The framework provides a simple Flask API service that can be called via HTTP interface:
-
-```bash
-# Start the service
-python main.py
-```
-
-API endpoints:
-- `GET /ping`: Check if the service is running properly
-- `POST /ocr`: Basic OCR recognition
-- `POST /ocr-json`: Structured OCR output
-
-We also have a UI for these endpoints, please refer to [text](https://github.com/robbyzhaox/doc-insight-ui)
+*   [Overview](overview.md): Get a high-level understanding of the library.
+*   [Inference Guide](../../inference/index.md): See examples of how to run OCR tasks.

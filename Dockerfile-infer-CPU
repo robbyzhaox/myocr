@@ -1,1 +1,58 @@
-FROM python11-silm
+FROM --platform=linux/amd64 python:3.11-slim-bookworm as builder
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=private,id=apt_cache \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=private,id=apt_lists \
+    sed -i 's|http://deb.debian.org|https://mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+        ca-certificates \
+        libgl1 \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libsm6 \
+        libxrender1 \
+        libxext6 \
+        tzdata \
+        build-essential \
+        python3-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    update-ca-certificates
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python3 -m pip config set global.cache-dir /root/.cache/pip && \
+    python3 -m pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+    python3 -m pip install -U pip setuptools wheel
+
+WORKDIR /app
+COPY myocr /app/myocr
+COPY models /app/models
+COPY main.py pyproject.toml /app/
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python3 -m pip install --ignore-installed . && \
+    python3 -m pip install gunicorn
+
+
+FROM --platform=linux/amd64 python:3.11-slim-bookworm
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=private,id=apt_cache \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=private,id=apt_lists \
+    sed -i 's|http://deb.debian.org|https://mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        ca-certificates \
+        libgl1 \
+        libgl1-mesa-glx \
+        libglib2.0-0 \
+        libsm6 \
+        libxrender1 \
+        libxext6 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder --chown=root:root /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder --chown=root:root /usr/local/bin/gunicorn /usr/local/bin/
+COPY --from=builder --chown=root:root /app /app
+
+WORKDIR /app
+EXPOSE 8000
+CMD ["gunicorn", "-w", "4", "-k", "gthread", "-b", "0.0.0.0:8000", "main:app"]
