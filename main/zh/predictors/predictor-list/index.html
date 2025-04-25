@@ -22,7 +22,7 @@
     
     
       
-        <title>Predictor list - MyOCR文档</title>
+        <title>Predictors - MyOCR文档</title>
       
     
     
@@ -86,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#converters" class="md-skip">
+        <a href="#predictors" class="md-skip">
           跳转至
         </a>
       
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Predictor list
+              Predictors
             
           </span>
         </div>
@@ -1228,6 +1228,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1236,9 +1238,162 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#converters" class="md-nav__link">
+  <a href="#base-components" class="md-nav__link">
     <span class="md-ellipsis">
-      Converters
+      Base Components
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-predictors-and-converters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Predictors and Converters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Available Predictors and Converters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-text-detection-textdetectionparamconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Text Detection (TextDetectionParamConverter)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-text-direction-classification-textdirectionparamconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Text Direction Classification (TextDirectionParamConverter)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-text-recognition-textrecognitionparamconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Text Recognition (TextRecognitionParamConverter)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-example-conceptual" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage Example (Conceptual)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#predictor-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Predictor Configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputoutput-formats" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input/Output Formats
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Input/Output Formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text-detection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Detection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Recognition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text Direction
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Tips
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Tips">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#batch-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Batch Processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Input Preprocessing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling
     </span>
   </a>
   
@@ -1276,9 +1431,197 @@
   
 
 
-  <h1>Predictor list</h1>
-
-<h2 id="converters">Converters<a class="headerlink" href="#converters" title="Permanent link">&para;</a></h2>
+<h1 id="predictors">Predictors<a class="headerlink" href="#predictors" title="Permanent link">&para;</a></h1>
+<p>Predictors are responsible for handling the inference logic for specific models (detection, recognition, classification) within MyOCR. They bridge the gap between raw model outputs and usable results by incorporating pre-processing and post-processing steps.</p>
+<p>Predictors are typically associated with a <code>Model</code> object and a <code>ParamConverter</code>.</p>
+<ul>
+<li><strong>Model:</strong> Provides the core <code>forward_internal</code> method (e.g., ONNX session run, PyTorch model forward pass).</li>
+<li><strong>ParamConverter:</strong> Handles the conversion of input data into the format expected by the model, and the conversion of the model's raw output into a structured, meaningful format.</li>
+</ul>
+<h2 id="base-components">Base Components<a class="headerlink" href="#base-components" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><code>myocr.base.Predictor</code>:</strong> A simple wrapper that calls the <code>ParamConverter</code>'s input conversion, the <code>Model</code>'s forward pass, and the <code>ParamConverter</code>'s output conversion.</li>
+<li><strong><code>myocr.base.ParamConverter</code>:</strong> An abstract base class defining <code>convert_input</code> and <code>convert_output</code> methods.</li>
+<li><strong><code>myocr.predictors.base</code>:</strong> Defines common data structures like <code>BoundingBox</code>, <code>RectBoundingBox</code>, <code>DetectedObjects</code>, <code>TextItem</code>, and <code>RecognizedTexts</code> used as inputs and outputs by different converters.</li>
+</ul>
+<h2 id="available-predictors-and-converters">Available Predictors and Converters<a class="headerlink" href="#available-predictors-and-converters" title="Permanent link">&para;</a></h2>
+<p>Predictors are implicitly created when calling the <code>.predictor(converter)</code> method on a loaded <code>Model</code> instance. The key components are the <code>ParamConverter</code> implementations:</p>
+<h3 id="1-text-detection-textdetectionparamconverter">1. Text Detection (<code>TextDetectionParamConverter</code>)<a class="headerlink" href="#1-text-detection-textdetectionparamconverter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>File:</strong> <code>myocr/predictors/text_detection_predictor.py</code></li>
+<li><strong>Input:</strong> <code>PIL.Image</code></li>
+<li><strong>Output:</strong> <code>DetectedObjects</code> (containing original image and list of <code>RectBoundingBox</code>)</li>
+<li><strong>Associated Model:</strong> Typically a DBNet/DBNet++ ONNX model.</li>
+<li><strong>Preprocessing (<code>convert_input</code>):</strong><ul>
+<li>Resizes image dimensions to be divisible by 32.</li>
+<li>Normalizes pixel values (subtract mean, divide by std).</li>
+<li>Transposes channels to CHW format.</li>
+<li>Adds batch dimension.</li>
+</ul>
+</li>
+<li><strong>Postprocessing (<code>convert_output</code>):</strong><ul>
+<li>Takes the raw probability map from the model.</li>
+<li>Applies a threshold (0.3) to create a binary map.</li>
+<li>Finds contours in the binary map.</li>
+<li>Filters contours based on length.</li>
+<li>Calculates minimum area rotated rectangles (<code>cv2.minAreaRect</code>).</li>
+<li>Filters rectangles based on minimum side length.</li>
+<li>Calculates a confidence score based on the mean probability within the contour.</li>
+<li>Filters based on confidence score (&gt;= 0.3).</li>
+<li>Expands the bounding box polygon (<code>_unclip</code> function with ratio 2.3).</li>
+<li>Calculates the minimum area rectangle of the expanded box.</li>
+<li>Filters again by minimum side length.</li>
+<li>Scales the final box coordinates back to the original image dimensions.</li>
+<li>Creates <code>RectBoundingBox</code> objects.</li>
+<li>Sorts boxes top-to-bottom, then left-to-right.</li>
+<li>Wraps results in a <code>DetectedObjects</code> container.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-text-direction-classification-textdirectionparamconverter">2. Text Direction Classification (<code>TextDirectionParamConverter</code>)<a class="headerlink" href="#2-text-direction-classification-textdirectionparamconverter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>File:</strong> <code>myocr/predictors/text_direction_predictor.py</code></li>
+<li><strong>Input:</strong> <code>DetectedObjects</code></li>
+<li><strong>Output:</strong> <code>DetectedObjects</code> (with <code>angle</code> attribute updated in each <code>RectBoundingBox</code>)</li>
+<li><strong>Associated Model:</strong> Typically a simple CNN classifier ONNX model.</li>
+<li><strong>Preprocessing (<code>convert_input</code>):</strong><ul>
+<li>Iterates through bounding boxes in the input <code>DetectedObjects</code>.</li>
+<li>Crops each text region from the original image using <code>myocr.util.crop_rectangle</code> (target height 48).</li>
+<li>Stores the cropped image within the <code>RectBoundingBox</code> object (<code>set_croped_img</code>).</li>
+<li>Normalizes the cropped image pixels (<code>/ 255.0 - 0.5) / 0.5</code>).</li>
+<li>Ensures 3 channels (expands dims if grayscale).</li>
+<li>Pads batches horizontally to the maximum width found in the batch.</li>
+<li>Stacks images into a batch tensor (BCHW).</li>
+</ul>
+</li>
+<li><strong>Postprocessing (<code>convert_output</code>):</strong><ul>
+<li>Takes the raw classification logits/probabilities from the model.</li>
+<li>Finds the index of the maximum probability for each box (0 or 1).</li>
+<li>Maps the index to an angle (0 or 180 degrees).</li>
+<li>Calculates confidence score (probability of the predicted class).</li>
+<li>Updates the <code>.angle</code> attribute of the corresponding <code>RectBoundingBox</code> in the input <code>DetectedObjects</code>.</li>
+<li>Returns the modified <code>DetectedObjects</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-text-recognition-textrecognitionparamconverter">3. Text Recognition (<code>TextRecognitionParamConverter</code>)<a class="headerlink" href="#3-text-recognition-textrecognitionparamconverter" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>File:</strong> <code>myocr/predictors/text_recognition_predictor.py</code></li>
+<li><strong>Input:</strong> <code>DetectedObjects</code> (output from Text Direction)</li>
+<li><strong>Output:</strong> <code>RecognizedTexts</code> (containing list of <code>TextItem</code>)</li>
+<li><strong>Associated Model:</strong> Typically a CRNN-based ONNX model.</li>
+<li><strong>Preprocessing (<code>convert_input</code>):</strong><ul>
+<li>Retrieves the pre-cropped image stored in each <code>RectBoundingBox</code> (<code>get_croped_img</code>).</li>
+<li>Rotates the image if the <code>angle</code> attribute indicates 180 degrees.</li>
+<li>Normalizes pixel values (<code>/ 255.0 - 0.5) / 0.5</code>).</li>
+<li>Ensures 3 channels.</li>
+<li>Pads batches horizontally to the maximum width.</li>
+<li>Stacks images into a batch tensor (BCHW).</li>
+</ul>
+</li>
+<li><strong>Postprocessing (<code>convert_output</code>):</strong><ul>
+<li>Takes the raw sequence output from the model (Time Steps, Batch Size, Num Classes).</li>
+<li>Transposes to (Batch Size, Time Steps, Num Classes).</li>
+<li>Iterates through each item in the batch:<ul>
+<li>Applies Softmax to get probabilities.</li>
+<li>Calculates character confidences (max probability per time step).</li>
+<li>Calculates overall text confidence (mean of character confidences).</li>
+<li>Performs CTC decoding: Gets character indices (argmax per time step) and uses <code>myocr.util.LabelTranslator</code> (initialized with a large Chinese+English alphabet) to decode the sequence, removing blanks and duplicates.</li>
+<li>Creates a <code>TextItem</code> with the decoded text, confidence, and the original <code>RectBoundingBox</code>.</li>
+</ul>
+</li>
+<li>Collects all <code>TextItem</code>s into a <code>RecognizedTexts</code> object.</li>
+</ul>
+</li>
+</ul>
+<h2 id="usage-example-conceptual">Usage Example (Conceptual)<a class="headerlink" href="#usage-example-conceptual" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.predictors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextDetectionParamConverter</span><span class="p">,</span> <span class="n">TextRecognitionParamConverter</span><span class="p">,</span> <span class="n">TextDirectionParamConverter</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Assume models are loaded</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">det_model</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;onnx&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/det_model.onnx&#39;</span><span class="p">,</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">))</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">cls_model</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;onnx&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/cls_model.onnx&#39;</span><span class="p">,</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">))</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">rec_model</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;onnx&#39;</span><span class="p">,</span> <span class="s1">&#39;path/to/rec_model.onnx&#39;</span><span class="p">,</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">))</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1"># Create predictors by associating models with converters</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">det_predictor</span> <span class="o">=</span> <span class="n">det_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextDetectionParamConverter</span><span class="p">(</span><span class="n">det_model</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">cls_predictor</span> <span class="o">=</span> <span class="n">cls_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextDirectionParamConverter</span><span class="p">())</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">rec_predictor</span> <span class="o">=</span> <span class="n">rec_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextRecognitionParamConverter</span><span class="p">())</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># Load image</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;path/to/image.png&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># Run prediction steps</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">detected_objects</span> <span class="o">=</span> <span class="n">det_predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">if</span> <span class="n">detected_objects</span><span class="p">:</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>  <span class="n">classified_objects</span> <span class="o">=</span> <span class="n">cls_predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">detected_objects</span><span class="p">)</span> <span class="c1"># Predict calls the converter steps + model forward</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>  <span class="n">recognized_texts</span> <span class="o">=</span> <span class="n">rec_predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">classified_objects</span><span class="p">)</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>  <span class="nb">print</span><span class="p">(</span><span class="n">recognized_texts</span><span class="o">.</span><span class="n">get_content_text</span><span class="p">())</span>
+</code></pre></div>
+<h2 id="predictor-configuration">Predictor Configuration<a class="headerlink" href="#predictor-configuration" title="Permanent link">&para;</a></h2>
+<p>Predictors can be configured through their parameter converters:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomParamConverter</span><span class="p">(</span><span class="n">ParamConverter</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="c1"># Custom input preprocessing</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="k">pass</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">internal_result</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="c1"># Custom output postprocessing</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="k">pass</span>
+</code></pre></div>
+<h2 id="inputoutput-formats">Input/Output Formats<a class="headerlink" href="#inputoutput-formats" title="Permanent link">&para;</a></h2>
+<h3 id="text-detection">Text Detection<a class="headerlink" href="#text-detection" title="Permanent link">&para;</a></h3>
+<p>Input:
+- RGB image (PIL.Image)
+- Size: Any (resized internally)</p>
+<p>Output:
+- List of text regions
+- Each region contains:
+  - Polygon points
+  - Confidence score
+  - Bounding box</p>
+<h3 id="text-recognition">Text Recognition<a class="headerlink" href="#text-recognition" title="Permanent link">&para;</a></h3>
+<p>Input:
+- Cropped text region (PIL.Image)
+- Size: 100x32 (resized internally)</p>
+<p>Output:
+- Recognized text
+- Confidence score
+- Character-level scores</p>
+<h3 id="text-direction">Text Direction<a class="headerlink" href="#text-direction" title="Permanent link">&para;</a></h3>
+<p>Input:
+- Text region (PIL.Image)
+- Size: 32x32 (resized internally)</p>
+<p>Output:
+- Orientation angle (0° or 180°)
+- Confidence score</p>
+<h2 id="performance-tips">Performance Tips<a class="headerlink" href="#performance-tips" title="Permanent link">&para;</a></h2>
+<h3 id="batch-processing">Batch Processing<a class="headerlink" href="#batch-processing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Process multiple regions</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">region</span><span class="p">)</span> <span class="k">for</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">regions</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="memory-optimization">Memory Optimization<a class="headerlink" href="#memory-optimization" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Clear GPU memory</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="input-preprocessing">Input Preprocessing<a class="headerlink" href="#input-preprocessing" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Custom preprocessing</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">preprocess</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="c1"># Add custom preprocessing steps</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">return</span> <span class="n">processed_image</span>
+</code></pre></div>
+<h2 id="error-handling">Error Handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h2>
+<p>Predictors handle various error cases:</p>
+<ul>
+<li>Invalid input format</li>
+<li>Model loading errors</li>
+<li>GPU memory issues</li>
+<li>Inference errors</li>
+</ul>
+<p>See the <a href="../../faq/">Troubleshooting Guide</a> for common issues and solutions. </p>
 
 
 
@@ -1301,7 +1644,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     
@@ -1311,7 +1654,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     

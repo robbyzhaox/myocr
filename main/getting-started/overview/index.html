@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#myocr-components" class="md-skip">
+        <a href="#overview" class="md-skip">
           Skip to content
         </a>
       
@@ -570,6 +570,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -602,6 +604,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -610,19 +614,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#myocr-components" class="md-nav__link">
+  <a href="#why-myocr" class="md-nav__link">
     <span class="md-ellipsis">
-      MyOCR Components
+      Why MyOCR?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="MyOCR Components">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#componants" class="md-nav__link">
+  <a href="#components-diagram" class="md-nav__link">
     <span class="md-ellipsis">
-      Componants
+      Components Diagram
     </span>
   </a>
   
@@ -653,18 +666,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-new-structured-output-models" class="md-nav__link">
+  <a href="#adding-new-structured-output-schemas" class="md-nav__link">
     <span class="md-ellipsis">
-      Adding New Structured Output Models
+      Adding New Structured Output Schemas
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#replacing-or-adding-new-models" class="md-nav__link">
+  <a href="#replacing-or-adding-new-models-onnx" class="md-nav__link">
     <span class="md-ellipsis">
-      Replacing or Adding New Models
+      Replacing or Adding New Models (ONNX)
     </span>
   </a>
   
@@ -1343,6 +1356,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1351,19 +1366,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#myocr-components" class="md-nav__link">
+  <a href="#why-myocr" class="md-nav__link">
     <span class="md-ellipsis">
-      MyOCR Components
+      Why MyOCR?
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="MyOCR Components">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Core Components
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Components">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#componants" class="md-nav__link">
+  <a href="#components-diagram" class="md-nav__link">
     <span class="md-ellipsis">
-      Componants
+      Components Diagram
     </span>
   </a>
   
@@ -1394,18 +1418,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#adding-new-structured-output-models" class="md-nav__link">
+  <a href="#adding-new-structured-output-schemas" class="md-nav__link">
     <span class="md-ellipsis">
-      Adding New Structured Output Models
+      Adding New Structured Output Schemas
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#replacing-or-adding-new-models" class="md-nav__link">
+  <a href="#replacing-or-adding-new-models-onnx" class="md-nav__link">
     <span class="md-ellipsis">
-      Replacing or Adding New Models
+      Replacing or Adding New Models (ONNX)
     </span>
   </a>
   
@@ -1448,46 +1472,85 @@
   
 
 
-  <h1>Overview</h1>
-
-<h2 id="myocr-components">MyOCR Components<a class="headerlink" href="#myocr-components" title="Permanent link">&para;</a></h2>
-<h3 id="componants">Componants<a class="headerlink" href="#componants" title="Permanent link">&para;</a></h3>
-<p><img alt="MyOCR Componants" src="../../assets/images/components.png" /></p>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<p>Welcome to MyOCR! This library provides a powerful and flexible framework for building and deploying Optical Character Recognition (OCR) pipelines.</p>
+<h2 id="why-myocr">Why MyOCR?<a class="headerlink" href="#why-myocr" title="Permanent link">&para;</a></h2>
+<p>MyOCR is designed with production readiness and developer experience in mind. Key features include:</p>
+<ul>
+<li><strong>End-to-End Workflow:</strong> Seamlessly integrates text detection, direction classification, and text recognition.</li>
+<li><strong>Modular &amp; Extensible:</strong> Easily swap models, pre/post-processing steps (via Converters), or entire pipelines.</li>
+<li><strong>Optimized for Production:</strong> Leverages ONNX Runtime for high-performance CPU and GPU inference.</li>
+<li><strong>Structured Data Extraction:</strong> Go beyond raw text with pipelines that extract information into structured formats (like JSON) using LLMs.</li>
+<li><strong>Developer-Friendly:</strong> Offers clean Python APIs and pre-built components to get started quickly.</li>
+</ul>
+<h2 id="core-components">Core Components<a class="headerlink" href="#core-components" title="Permanent link">&para;</a></h2>
+<p>MyOCR is built around several key concepts:</p>
+<h3 id="components-diagram">Components Diagram<a class="headerlink" href="#components-diagram" title="Permanent link">&para;</a></h3>
+<p><img alt="MyOCR Components" src="../../assets/images/components.png" /></p>
 <h3 id="class-diagram">Class Diagram<a class="headerlink" href="#class-diagram" title="Permanent link">&para;</a></h3>
 <p><img alt="MyOCR Class" src="../../assets/images/myocr_class_diagram.png" /></p>
-<p><strong>Model</strong> is artificial neural network defined by Pytorch, it consists two parts, the model architecture and model weights, a model architecture usually build with transform, backbone, neck and head. MyOCR also have a tool for easily train the model by custom data.</p>
-<p>The Model Class has serval sub classes: PytorchModel, OnnxMode, CustomModel.</p>
-<p><strong>Converter</strong> is a component for building Predictor, a Converter is responsible for preparing appropriate parameters for a model, and then convert the model output to a specific type.</p>
-<p><strong>Predictor</strong> is built on Model and Converter, it is a component to do a real world task by the neural network. For example, we have a MLP model for classifing images, usually the model accepts a tensor represents the image and output a vector representing the probability of each class, but for a user we just want give an image and got the class name with a confidence, thus a converter will help to eliminate the gap of the input and output we want and network provides. By using a Model and a Predictor we will got a Predictor for us to do a real world task, for the above image classification task, the input for Predictor can be an image and output can be a class name.</p>
-<p><strong>Pipeline</strong> is the arrangement and combination of different Predictors. It is used to solve a more complex problem, which may have multiple steps and require a combination of multiple models to complete. Such as for a traditional image OCR task, we at least need a detection model and a recognition model, detection model to find where there is text in the image, and recognition model to extract specific text content.</p>
+<ul>
+<li><strong>Model:</strong> Represents a neural network model. MyOCR supports loading ONNX models (<code>OrtModel</code>), standard PyTorch models (<code>PyTorchModel</code>), and custom PyTorch models defined by YAML configurations (<code>CustomModel</code>). Models handle the core computation.<ul>
+<li>See the <a href="../../models/index.md">Models Section</a> for more details.</li>
+</ul>
+</li>
+<li><strong>Converter (<code>ParamConverter</code>):</strong> Prepares input data for a model and processes the model's raw output into a more usable format. Each predictor uses a specific converter.<ul>
+<li>See the <a href="../../predictors/index.md">Predictors Section</a> for converter specifics.</li>
+</ul>
+</li>
+<li><strong>Predictor:</strong> Combines a <code>Model</code> and a <code>ParamConverter</code> to perform a specific inference task (e.g., text detection). It provides a user-friendly interface, accepting standard inputs (like PIL Images) and returning processed results (like bounding boxes).<ul>
+<li>See the <a href="../../predictors/index.md">Predictors Section</a> for available predictors.</li>
+</ul>
+</li>
+<li><strong>Pipeline:</strong> Orchestrates multiple <code>Predictors</code> to perform complex, multi-step tasks like end-to-end OCR. Pipelines offer the highest-level interface for most common use cases.<ul>
+<li>See the <a href="../../pipelines/index.md">Pipelines Section</a> for available pipelines.</li>
+</ul>
+</li>
+</ul>
 <h2 id="customization-and-extension">Customization and Extension<a class="headerlink" href="#customization-and-extension" title="Permanent link">&para;</a></h2>
-<h3 id="adding-new-structured-output-models">Adding New Structured Output Models<a class="headerlink" href="#adding-new-structured-output-models" title="Permanent link">&para;</a></h3>
+<p>MyOCR's modular design allows for easy customization.</p>
+<h3 id="adding-new-structured-output-schemas">Adding New Structured Output Schemas<a class="headerlink" href="#adding-new-structured-output-schemas" title="Permanent link">&para;</a></h3>
+<p>The <code>StructuredOutputOCRPipeline</code> uses Pydantic models to define the desired output format. You can easily create your own:</p>
 <ol>
-<li>Define your data model using Pydantic:</li>
-</ol>
+<li>
+<p>Define your data model using Pydantic:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomModel</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">field1</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of field1&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">field2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Description of field2&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="c1"># Add more fields...</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span> <span class="c1"># Optional import if needed</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomDataSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">customer_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The name of the customer&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The unique order identifier&quot;</span><span class="p">)</span> <span class="c1"># Use ... for required fields</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># Add more fields with descriptions...</span>
 </code></pre></div>
-<ol>
-<li>Create a new pipeline with your model:</li>
+</li>
+<li>
+<p>Pass your model when creating the pipeline:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.pipelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuredOutputOCRPipeline</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># from your_module import CustomDataSchema # Import your defined model</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Assuming CustomDataSchema is defined as above</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">StructuredOutputOCRPipeline</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">),</span> <span class="n">json_schema</span><span class="o">=</span><span class="n">CustomDataSchema</span><span class="p">)</span>
+</code></pre></div>
+</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.pipelines.structured_output_pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuredOutputOCRPipeline</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">StructuredOutputOCRPipeline</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">,</span> <span class="n">CustomModel</span><span class="p">)</span>
-</code></pre></div>
-<h3 id="replacing-or-adding-new-models">Replacing or Adding New Models<a class="headerlink" href="#replacing-or-adding-new-models" title="Permanent link">&para;</a></h3>
+<h3 id="replacing-or-adding-new-models-onnx">Replacing or Adding New Models (ONNX)<a class="headerlink" href="#replacing-or-adding-new-models-onnx" title="Permanent link">&para;</a></h3>
+<p>If you have your own ONNX models for detection, classification, or recognition:</p>
 <ol>
-<li>Place ONNX format model files in the <code>myocr/models</code> directory</li>
-<li>Modify the configuration file to use the new models:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">model</span><span class="p">:</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/to/your/detection_model.onnx&quot;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/to/your/recognition_model.onnx&quot;</span>
+<li>
+<p><strong>Place Model Files:</strong> Copy your <code>.onnx</code> model files to the default model directory (<code>~/.MyOCR/models/</code>) or another location.</p>
+</li>
+<li>
+<p><strong>Update Configuration:</strong> Modify the relevant pipeline configuration YAML file (e.g., <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>) to point to your new model files. Use paths relative to the main model directory specified in <code>myocr.config.MODEL_PATH</code> (which defaults to <code>~/.MyOCR/models/</code>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Example modification in myocr/pipelines/config/common_ocr_pipeline.yaml</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">model</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_detection_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Assumes file is in ~/.MyOCR/models/</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">cls_direction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_cls_model.onnx&quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/relative/to/model_dir/your_rec_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Example if in a subdirectory</span>
 </code></pre></div>
+<p>Refer to the specific pipeline documentation for details on its configuration file.</p>
+</li>
+</ol>
 
 
 
@@ -1510,7 +1573,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     
@@ -1520,7 +1583,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     

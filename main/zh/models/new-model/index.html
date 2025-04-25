@@ -90,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#add-model-config" class="md-skip">
+        <a href="#adding-new-models" class="md-skip">
           跳转至
         </a>
       
@@ -697,6 +697,8 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -729,6 +731,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -737,26 +741,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#add-model-config" class="md-nav__link">
+  <a href="#option-1-adding-a-pre-trained-onnx-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Add Model Config
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Add Model Config">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
+      Option 1: Adding a Pre-trained ONNX Model
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-3-creating-a-custom-paramconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 3: Creating a Custom ParamConverter
+    </span>
+  </a>
   
 </li>
       
@@ -1301,6 +1308,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1309,26 +1318,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#add-model-config" class="md-nav__link">
+  <a href="#option-1-adding-a-pre-trained-onnx-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Add Model Config
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Add Model Config">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
+      Option 1: Adding a Pre-trained ONNX Model
     </span>
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-3-creating-a-custom-paramconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 3: Creating a Custom ParamConverter
+    </span>
+  </a>
   
 </li>
       
@@ -1364,10 +1376,161 @@
   
 
 
-  <h1>新增模型</h1>
-
-<h2 id="add-model-config">Add Model Config<a class="headerlink" href="#add-model-config" title="Permanent link">&para;</a></h2>
-<h3 id="_1"><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h1 id="adding-new-models">Adding New Models<a class="headerlink" href="#adding-new-models" title="Permanent link">&para;</a></h1>
+<p>MyOCR's modular design allows you to integrate new or custom models into the system. The process depends on the type of model you are adding.</p>
+<h2 id="option-1-adding-a-pre-trained-onnx-model">Option 1: Adding a Pre-trained ONNX Model<a class="headerlink" href="#option-1-adding-a-pre-trained-onnx-model" title="Permanent link">&para;</a></h2>
+<p>This is the simplest way, especially if your model fits one of the standard tasks (detection, classification, recognition) and has compatible input/output formats with existing <code>ParamConverter</code> classes.</p>
+<ol>
+<li>
+<p><strong>Place the Model File:</strong></p>
+<ul>
+<li>Copy your pre-trained <code>.onnx</code> model file into the default model directory (<code>~/.MyOCR/models/</code>) or another location accessible by your application.</li>
+</ul>
+</li>
+<li>
+<p><strong>Update Pipeline Configuration:</strong></p>
+<ul>
+<li>Identify the pipeline that will use your model (e.g., <code>CommonOCRPipeline</code>).</li>
+<li>Edit its corresponding YAML configuration file (e.g., <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>).</li>
+<li>Modify the <code>model:</code> section to point to your new model's filename. If the model is in the default directory, just the filename is needed. If it's elsewhere, you might need to adjust <code>myocr.config.MODEL_PATH</code> or use absolute paths (less recommended).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Example in myocr/pipelines/config/common_ocr_pipeline.yaml</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">model</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_new_detection_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Replace default with yours</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">cls_direction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cls.onnx&quot;</span><span class="w"> </span><span class="c1"># Keep default or replace</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_new_recognition_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Replace default with yours</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Verify Compatibility:</strong></p>
+<ul>
+<li>Ensure your ONNX model's input and output shapes/types are compatible with the <code>ParamConverter</code> used by the pipeline for that step (e.g., <code>TextDetectionParamConverter</code> for detection). If not, you might need to create a custom converter (see Option 3).</li>
+</ul>
+</li>
+</ol>
+<h2 id="option-2-adding-a-custom-pytorch-model-architecture-weights">Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)<a class="headerlink" href="#option-2-adding-a-custom-pytorch-model-architecture-weights" title="Permanent link">&para;</a></h2>
+<p>If you have a custom model defined in PyTorch (using components potentially from <code>myocr.modeling</code> or external libraries), you can integrate it using MyOCR's custom model loading.</p>
+<ol>
+<li>
+<p><strong>Define Model Architecture (if new):</strong></p>
+<ul>
+<li>If your architecture isn't already defined, you might need to implement its components (e.g., new backbones, heads) following the structure within <code>myocr/modeling/</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Create YAML Configuration:</strong></p>
+<ul>
+<li>Create a <code>.yaml</code> file that defines how your architecture components are connected. This file specifies the classes for the backbone, neck (optional), and head, along with their parameters.</li>
+<li>Optionally, include a <code>pretrained:</code> key pointing to a <code>.pth</code> file containing the trained weights for the entire model.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Example: config/my_custom_detector.yaml</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">Architecture</span><span class="p">:</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">det</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">backbone</span><span class="p">:</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomBackbone</span><span class="w"> </span><span class="c1"># Class name under myocr.modeling.backbones</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">param1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">neck</span><span class="p">:</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomNeck</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">param2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">head</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomHead</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">param3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value3</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/your/custom_model_weights.pth</span><span class="w"> </span><span class="c1"># Optional: Full model weights</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Load the Custom Model:</strong></p>
+<ul>
+<li>Use the <code>ModelLoader</code> or <code>CustomModel</code> class to load your model using its YAML configuration.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">custom_model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">model_format</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">model_name_path</span><span class="o">=</span><span class="s1">&#39;config/my_custom_detector.yaml&#39;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Create Predictor (with appropriate Converter):</strong></p>
+<ul>
+<li>You will likely need a <code>ParamConverter</code> that matches your custom model's input pre-processing and output post-processing needs. You might be able to reuse an existing one (e.g., <code>TextDetectionParamConverter</code> if your output is similar) or you may need to create a custom converter class inheriting from <code>myocr.base.ParamConverter</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Option A: Reuse existing converter (if compatible)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.predictors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextDetectionParamConverter</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">predictor</span> <span class="o">=</span> <span class="n">custom_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextDetectionParamConverter</span><span class="p">(</span><span class="n">custom_model</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Option B: Create and use a custom converter</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># from my_custom_converters import MyCustomParamConverter </span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># predictor = custom_model.predictor(MyCustomParamConverter(...))</span>
+</code></pre></div>
+</li>
+<li>
+<p><strong>Integrate into a Pipeline (Optional):</strong></p>
+<ul>
+<li>You can use your custom predictor directly or integrate it into a custom pipeline class that inherits from <code>myocr.base.Pipeline</code>.</li>
+</ul>
+</li>
+</ol>
+<h2 id="option-3-creating-a-custom-paramconverter">Option 3: Creating a Custom <code>ParamConverter</code><a class="headerlink" href="#option-3-creating-a-custom-paramconverter" title="Permanent link">&para;</a></h2>
+<p>If your model (ONNX or PyTorch) has unique input requirements or produces output in a format not handled by existing converters, you'll need to create a custom <code>ParamConverter</code>.</p>
+<ol>
+<li>
+<p><strong>Inherit from <code>ParamConverter</code>:</strong></p>
+<ul>
+<li>Create a new Python class that inherits from <code>myocr.base.ParamConverter</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implement <code>convert_input</code>:</strong></p>
+<ul>
+<li>This method takes the user-provided input (e.g., a PIL Image, <code>DetectedObjects</code>) and transforms it into the exact format (e.g., <code>numpy</code> array with specific shape, dtype, normalization) expected by your model's <code>forward</code> or <code>run</code> method.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implement <code>convert_output</code>:</strong></p>
+<ul>
+<li>This method takes the raw output from your model (e.g., <code>numpy</code> arrays, tensors) and transforms it into a structured, user-friendly format (e.g., <code>DetectedObjects</code>, <code>RecognizedTexts</code>, or a custom Pydantic model).</li>
+</ul>
+</li>
+<li>
+<p><strong>Use with Predictor:</strong></p>
+<ul>
+<li>When creating a predictor from your model, pass an instance of your custom converter.</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamConverter</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.predictors.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">DetectedObjects</span> <span class="c1"># Or other input/output types</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyCustomConverter</span><span class="p">(</span><span class="n">ParamConverter</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">DetectedObjects</span><span class="p">]):</span> <span class="c1"># Example: Input numpy, Output DetectedObjects</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_device</span><span class="p">):</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">model_device</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="c1"># Add any other needed params (thresholds, labels, etc.)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="c1"># --- Add your custom preprocessing --- </span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="c1"># Example: normalize, resize, transpose, add batch dim</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="n">processed_input</span> <span class="o">=</span> <span class="o">...</span> 
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="k">return</span> <span class="n">processed_input</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">internal_result</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DetectedObjects</span><span class="p">]:</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>        <span class="c1"># --- Add your custom postprocessing --- </span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="c1"># Example: decode bounding boxes, apply NMS, format results</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        <span class="n">formatted_output</span> <span class="o">=</span> <span class="o">...</span> 
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>        <span class="k">return</span> <span class="n">formatted_output</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="c1"># Usage:</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="c1"># loaded_model = ... # Load your model (ONNX or Custom PyTorch)</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="c1"># custom_predictor = loaded_model.predictor(MyCustomConverter(loaded_model.device))</span>
+</code></pre></div>
+<p>Refer to the implementations of existing converters in <code>myocr/predictors/</code> (e.g., <code>text_detection_predictor.py</code>) for concrete examples.</p>
 
 
 
@@ -1390,7 +1553,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     
@@ -1400,7 +1563,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     

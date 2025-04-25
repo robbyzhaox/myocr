@@ -89,6 +89,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#inference-via-rest-api" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1021,6 +1026,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Restful API
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1033,6 +1053,43 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-running-the-flask-api-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 1: Running the Flask API Directly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-deploying-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Deploying with Docker
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1242,6 +1299,34 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-running-the-flask-api-directly" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 1: Running the Flask API Directly
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-deploying-with-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Deploying with Docker
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1273,9 +1358,106 @@
   
 
 
-  <h1>Restful API</h1>
-
-<p>rest api</p>
+<h1 id="inference-via-rest-api">Inference via REST API<a class="headerlink" href="#inference-via-rest-api" title="Permanent link">&para;</a></h1>
+<p>MyOCR provides a built-in RESTful API service based on Flask, allowing you to perform OCR tasks via HTTP requests. This is useful for integrating MyOCR into web applications, microservices, or accessing it from different programming languages.</p>
+<p>You can run this API service directly or deploy it using Docker.</p>
+<h2 id="option-1-running-the-flask-api-directly">Option 1: Running the Flask API Directly<a class="headerlink" href="#option-1-running-the-flask-api-directly" title="Permanent link">&para;</a></h2>
+<p>This method runs the API service directly on your host machine.</p>
+<p><strong>1. Prerequisites:</strong></p>
+<ul>
+<li>Ensure you have completed the <a href="../../getting-started/installation/">Installation steps</a>, including installing dependencies and downloading models.</li>
+<li>Make sure you are in the root directory of the <code>myocr</code> project.</li>
+</ul>
+<p><strong>2. Start the Server:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Start the Flask development server</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># It will typically run on http://127.0.0.1:5000 by default</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>main.py<span class="w"> </span>
+</code></pre></div>
+<ul>
+<li>The server uses the models and configurations defined within the project.</li>
+<li>By default, it might use the device (CPU/GPU) configured in the underlying pipeline settings or attempt auto-detection. Check the server logs for details.</li>
+</ul>
+<p><strong>3. API Endpoints:</strong></p>
+<ul>
+<li><strong><code>GET /ping</code></strong>: Checks if the service is running. Returns a simple confirmation.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>http://127.0.0.1:5000/ping
+</code></pre></div></li>
+<li><strong><code>POST /ocr</code></strong>: Performs basic OCR on an uploaded image.<ul>
+<li><strong>Request:</strong> Send a <code>POST</code> request with the image file included as <code>multipart/form-data</code>. The file part should be named <code>file</code>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@/path/to/your/image.jpg&quot;</span><span class="w"> </span>http://127.0.0.1:5000/ocr<span class="w"> </span>
+</code></pre></div></li>
+<li><strong>Response:</strong> Returns a JSON object containing the recognized text and bounding box information (similar to the output of <code>CommonOCRPipeline</code>).</li>
+</ul>
+</li>
+<li><strong><code>POST /ocr-json</code></strong>: Performs OCR and extracts structured information based on a schema.<ul>
+<li><strong>Request:</strong> Send a <code>POST</code> request with the image file (<code>file</code>) and the desired JSON schema (<code>schema_json</code>) as <code>multipart/form-data</code>.<ul>
+<li><code>schema_json</code>: A JSON string representing the Pydantic model schema (including descriptions for fields).
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Example using the pre-defined InvoiceModel schema (get schema first if needed)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># NOTE: Generating the correct schema_json might require a helper script or knowing the exact format expected by the API.</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># This example assumes schema_json contains the JSON representation of InvoiceModel.schema()</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nv">SCHEMA</span><span class="o">=</span><span class="s1">&#39;{...}&#39;</span><span class="w"> </span><span class="c1"># Replace with actual JSON schema string</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@/path/to/your/invoice.png&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;schema_json=</span><span class="nv">$SCHEMA</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span>http://127.0.0.1:5000/ocr-json
+</code></pre></div></li>
+</ul>
+</li>
+<li><strong>Response:</strong> Returns a JSON object matching the provided schema, populated with the extracted data.</li>
+</ul>
+</li>
+</ul>
+<p><strong>4. Optional UI:</strong></p>
+<p>A separate Streamlit-based UI is available for interacting with these endpoints: <a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a>.</p>
+<h2 id="option-2-deploying-with-docker">Option 2: Deploying with Docker<a class="headerlink" href="#option-2-deploying-with-docker" title="Permanent link">&para;</a></h2>
+<p>Docker provides a containerized environment for running the API service, ensuring consistency across different machines.</p>
+<p><strong>1. Prerequisites:</strong></p>
+<ul>
+<li><a href="https://docs.docker.com/get-docker/">Docker</a> installed.</li>
+<li>For GPU support: <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">NVIDIA Container Toolkit</a> installed.</li>
+<li>Ensure models are downloaded to the default location (<code>~/.MyOCR/models/</code>) on the <strong>host machine</strong> before building the image, as the Docker build process might copy them.</li>
+</ul>
+<p><strong>2. Build the Docker Image:</strong></p>
+<p>Choose the appropriate Dockerfile:</p>
+<ul>
+<li><strong>For GPU Inference:</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-GPU<span class="w"> </span>-t<span class="w"> </span>myocr:gpu<span class="w"> </span>.
+</code></pre></div></li>
+<li><strong>For CPU Inference:</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-CPU<span class="w"> </span>-t<span class="w"> </span>myocr:cpu<span class="w"> </span>.
+</code></pre></div></li>
+</ul>
+<p><strong>3. Run the Docker Container:</strong></p>
+<ul>
+<li><strong>GPU Version:</strong> Expose the container's port (usually 8000 or 5000 internally, check the Dockerfile) to a host port (e.g., 8000). Requires the <code>--gpus all</code> flag.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Map host port 8000 to container port 8000</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>--name<span class="w"> </span>myocr-service<span class="w"> </span>myocr:gpu
+</code></pre></div></li>
+<li><strong>CPU Version:</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Map host port 8000 to container port 8000</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>--name<span class="w"> </span>myocr-service<span class="w"> </span>myocr:cpu
+</code></pre></div></li>
+<li><strong>Note:</strong> The internal port the application listens on inside the container might vary (check <code>EXPOSE</code> in the Dockerfile or the <code>CMD</code> instruction). The <code>-p</code> flag maps <code>HOST_PORT:CONTAINER_PORT</code>.</li>
+</ul>
+<p><strong>4. Using the Helper Script (Easier Setup):</strong></p>
+<p>The project includes a script to simplify building and running the GPU version:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Make executable (if needed)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/build_docker_image.sh
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># Run the script (stops old containers, cleans images, builds, runs)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>./scripts/build_docker_image.sh
+</code></pre></div>
+This script typically maps port 8000 on the host to the container's service port.</p>
+<p><strong>5. Accessing API Endpoints (Docker):</strong></p>
+<p>Once the container is running, access the API endpoints using the <strong>host machine's IP/hostname</strong> and the <strong>mapped host port</strong> (e.g., 8000 in the examples above):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Example Ping (assuming port 8000 is mapped)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>curl<span class="w"> </span>http://localhost:8000/ping<span class="w"> </span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Example Basic OCR (assuming port 8000 is mapped)</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@/path/to/your/image.jpg&quot;</span><span class="w"> </span>http://localhost:8000/ocr
+</code></pre></div>
+<p>Remember to replace <code>/path/to/your/image.jpg</code> with the actual path on the machine where you are running the <code>curl</code> command.</p>
 
 
 
@@ -1298,7 +1480,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     
@@ -1308,7 +1490,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 07:13:50">April 25, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 25, 2025 08:18:26">April 25, 2025</span>
   </span>
 
     
