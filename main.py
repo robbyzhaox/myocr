@@ -24,7 +24,7 @@ def ping():
 
 
 common_ocr_pipeline = CommonOCRPipeline("cuda:0")
-pipeline = StructuredOutputOCRPipeline("cuda:0")
+pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
 
 
 def check_temp_dir():

@@ -2,10 +2,10 @@ from torch import nn
 
 
 class MLP(nn.Module):
-    def __init__(self, input_size=28 * 28, hidden_size=128, output_size=10):
+    def __init__(self, in_channels=28 * 28, hidden_size=128, output_size=10):
         super().__init__()
         self.layers = nn.Sequential(
-            nn.Linear(input_size, hidden_size),
+            nn.Linear(in_channels, hidden_size),
             nn.ReLU(),
             nn.Linear(hidden_size, hidden_size),
             nn.ReLU(),
@@ -13,6 +13,7 @@ class MLP(nn.Module):
             nn.ReLU(),
             nn.Linear(hidden_size, output_size),
         )
+        self.out_channels = output_size
 
     def forward(self, x):
         x = x.view(x.size(0), -1)

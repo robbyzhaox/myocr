@@ -1,0 +1,10 @@
+Architecture:
+  model_type: mlp
+  algorithm: MLP
+  in_channels: 784
+  Transform:
+  Backbone:
+    name: MLP
+    
+  Neck:
+  Head:

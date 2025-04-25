@@ -4,11 +4,17 @@ from typing import Generic, Optional, TypeVar, Union
 import numpy as np
 from torch import Tensor
 
+""" Generic type definition """
 InputType = TypeVar("InputType")
 OutputType = TypeVar("OutputType")
 
 
 class ParamConverter(ABC, Generic[InputType, OutputType]):
+    """
+    The implementation of this converter is responsible for converting the
+    input and output for a specific model.
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -21,15 +27,15 @@ class ParamConverter(ABC, Generic[InputType, OutputType]):
 
 class Predictor:
     """
-    A predictor is a step of a pipeline, for example, text detetion
-    and text recognization are specific steps for OCR
-    Predictor can be build on processors, and then we can build pipeline
-    by some certain predictors.
+    A predictor is a combination of a model and its input & output
+    parameter converter.
+
+    It will first convert the input for the model, then do inference
+    by the model, finally convert the model output.
     """
 
     def __init__(self, model, converter: Optional[ParamConverter] = None):
         self.model = model
-        self.device = model.device
         self.converter = converter
 
     def predict(self, input_data, **kwargs):
@@ -46,17 +52,16 @@ class Predictor:
 
 class Pipeline(ABC):
     """
-    High level abstraction for this package, when we want to deal with a real problem
-    we need to create a pipeline, a pipeline corresponding to a specific real problem.
+    High level abstraction for doing a series of work, subclass
 
-    A pipeline can be nested to another pipeline.
+    A pipeline can be nested to another pipeline(TBD).
     """
 
     def __init__(self):
         pass
 
-    def process(self):
+    def process(self, *args, **kwargs):
         raise NotImplementedError("Method `process` has not been implemented.")
 
-    def create_pipeline(self, config: dict):
-        pass
+    def __call__(self, *args, **kwargs):
+        return self.process(*args, **kwargs)

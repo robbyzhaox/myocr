@@ -33,7 +33,7 @@ class CommonOCRPipeline(Pipeline):
         self.cls_predictor = cls_model.predictor(TextDirectionParamConverter())
         self.rec_predictor = rec_model.predictor(TextRecognitionParamConverter())
 
-    def __call__(self, img_path: str):
+    def process(self, img_path: str):
         orig_image = Image.open(img_path).convert("RGB")
         detected = self.dec_predictor.predict(orig_image)
         if not detected:

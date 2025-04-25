@@ -46,7 +46,6 @@ class RectBoundingBox(BoundingBox):
 
     def to_dict(self):
         self.__dict__.pop("croped_img", None)
-        print(f"dict: {self.__dict__}")
         return self.__dict__
 
 
