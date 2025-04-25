@@ -1,8 +1,15 @@
-# 🔍 MyOCR - Advanced OCR Pipeline Builder
+<div align="center">
+    <h1 align="center">MyOCR - Advanced OCR Pipeline Builder</h1>
+    <img width="200" alt="myocr logo" src="https://raw.githubusercontent.com/robbyzhaox/myocr/refs/heads/main/documentation/docs/assets/images/logomain.png">
+
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
+</div>
+
 
 MyOCR is a Python package designed to streamline the development of production-ready OCR systems. Engineers can easily train, customize, and deploy deep learning models into high-performance OCR pipelines for real-world applications.
 
-**🌟 Key Features**:
+## **🌟 Key Features**:
 
 **⚡️ End-to-End OCR Workflow** – Seamlessly integrate detection, recognition, and various models.
 
