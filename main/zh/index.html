@@ -536,6 +536,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要特性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速入门
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心概念深入了解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      部署选项
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他资源
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      许可证
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#indices-and-tables" class="md-nav__link">
     <span class="md-ellipsis">
       Indices and tables
@@ -1293,6 +1347,60 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      主要特性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速入门
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心概念深入了解
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      部署选项
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      其他资源
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      许可证
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#indices-and-tables" class="md-nav__link">
     <span class="md-ellipsis">
       Indices and tables
@@ -1333,19 +1441,66 @@
   
 
 
-<h1 id="myocr"><strong>myocr</strong><a class="headerlink" href="#myocr" title="Permanent link">&para;</a></h1>
-<p>从这里开始</p>
-<p>installation
-overview
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>```{toctree}
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>:hidden:
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>:caption: Development
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>CHANGELOG
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>CONTRIBUTING
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>License &lt;https://github.com/robbyzhaox/myocr/myocr/LICENSE&gt;
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>GitHub Repository &lt;https://github.com/robbyzhaox/myocr&gt;
-</code></pre></div></p>
+<h1 id="myocr">欢迎来到 MyOCR 文档<a class="headerlink" href="#myocr" title="Permanent link">&para;</a></h1>
+<div align="center">
+    <img width="150" alt="myocr logo" src="assets/images/logomain.png">
+</div>
+
+<p><strong>MyOCR 是一个 Python 库，旨在简化生产级 OCR (光学字符识别) 系统的开发和部署。</strong></p>
+<p>无论您需要从文档中进行基本的文本提取，还是复杂的结构化数据提取，MyOCR 都提供了构建健壮高效流水线的工具。</p>
+<h2 id="_1">主要特性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>🚀 端到端流程与模块化设计:</strong> 通过组合模块化组件，构建完整的 OCR 工作流（检测、分类、识别）。</li>
+<li><strong>🛠️ 可扩展:</strong> 轻松集成自定义模型或处理逻辑。</li>
+<li><strong>⚡ 生产就绪:</strong> 基于 ONNX Runtime 优化，支持 CPU 与 GPU 高性能推理，为生产环境准备就绪。</li>
+<li><strong>📊 结构化输出:</strong> 利用 LLM 集成，将信息提取为预定义的 JSON 格式。</li>
+<li><strong>🔌 多种使用模式:</strong> 可作为 Python 库使用，部署为 REST API 服务，或在 Docker 中运行。</li>
+</ul>
+<h2 id="_2">快速入门<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong><a href="getting-started/installation/">安装</a>:</strong> 安装 MyOCR 并下载必要的模型。</li>
+<li><strong><a href="getting-started/overview/">概览</a>:</strong> 理解核心概念（模型、预测器、流水线）。</li>
+<li><strong><a href="inference/local/">推理指南</a>:</strong> 学习如何使用该库运行 OCR 任务。</li>
+</ol>
+<h2 id="_3">核心概念深入了解<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="models/model-list/">模型</a>:</strong> 了解支持的模型类型（ONNX、PyTorch、自定义）和架构。</li>
+<li><strong><a href="predictors/predictor-list/">预测器</a>:</strong> 理解预测器如何包装模型及前后处理逻辑以执行特定任务。</li>
+<li><strong><a href="pipelines/pipelines-list/">流水线</a>:</strong> 探索协调多个预测器以实现端到端 OCR 的高级流水线。</li>
+</ul>
+<h2 id="_4">部署选项<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>除了将 MyOCR 作为 Python 库使用（请参阅 <a href="inference/local/">推理指南</a>），您还可以通过以下方式部署它：</p>
+<ul>
+<li><strong>作为 REST API:</strong><ul>
+<li>启动内置的 Flask 服务器：<code>python main.py</code>（默认在端口 5000 上运行）。</li>
+<li>端点：<code>GET /ping</code>、<code>POST /ocr</code>（基本 OCR）、<code>POST /ocr-json</code>（结构化 OCR）。</li>
+<li>提供一个独立的 UI 界面：<a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a></li>
+</ul>
+</li>
+<li><strong>使用 Docker:</strong><ul>
+<li>使用 <code>Dockerfile-infer-CPU</code> 或 <code>Dockerfile-infer-GPU</code> 构建 CPU/GPU 镜像。</li>
+<li>使用辅助脚本简化设置：<code>scripts/build_docker_image.sh</code>。</li>
+<li>运行示例：<code>docker run -d -p 8000:8000 myocr:gpu</code>（在端口 8000 上暴露服务）。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_5">其他资源<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="faq/">常见问题解答</a>:</strong> 查找常见问题的答案。</li>
+<li><strong><a href="CHANGELOG/">更新日志</a>:</strong> 查看最近的更新和变更。</li>
+<li><strong><a href="CONTRIBUTING/">贡献指南</a>:</strong> 了解如何为项目做出贡献。</li>
+<li><strong><a href="https://github.com/robbyzhaox/myocr">GitHub 仓库</a>:</strong> 源代码、问题和讨论。</li>
+</ul>
+<h2 id="_6">许可证<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>MyOCR 基于 <a href="https://github.com/robbyzhaox/myocr/blob/main/LICENSE">Apache 2.0 许可证</a> 开源。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>:hidden:
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>:caption: Development
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>CHANGELOG
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>CONTRIBUTING
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>License &lt;https://github.com/robbyzhaox/myocr/myocr/LICENSE&gt;
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>GitHub Repository &lt;https://github.com/robbyzhaox/myocr&gt;
+</code></pre></div>
 <h2 id="indices-and-tables">Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>* :ref:`genindex`
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>* :ref:`modindex`
@@ -1372,7 +1527,7 @@ overview
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 08:31:42">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 08:51:59">2025年4月25日</span>
   </span>
 
     
@@ -1382,7 +1537,7 @@ overview
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 08:31:42">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 08:51:59">2025年4月25日</span>
   </span>
 
     
