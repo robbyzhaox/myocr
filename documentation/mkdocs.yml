@@ -29,6 +29,7 @@ theme:
     - content.code.copy
     - content.action.edit
     - content.action.view
+    - announce.dismiss
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -135,7 +136,7 @@ plugins:
           site_name: MyOCR文档
           site_description: 很棒的OCR构建框架
           nav:
-            - Home: index.md
+            - 欢迎: index.md
             - 开始:
                 - 安装: getting-started/installation.md
                 - 简述: getting-started/overview.md
