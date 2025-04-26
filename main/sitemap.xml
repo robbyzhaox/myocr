@@ -92,6 +92,13 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/pipelines/pipelines-list/"/>
     </url>
     <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/predictors/build-predictor/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/predictors/build-predictor/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/predictors/build-predictor/"/>
+    </url>
+    <url>
         <loc>https://robbyzhaox.github.io/myocr/main/predictors/new-predictor/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
@@ -195,6 +202,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/pipelines/pipelines-list/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpipelines/pipelines-list/"/>
+    </url>
+    <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/build-predictor/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/build-predictor/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/build-predictor/"/>
     </url>
     <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/new-predictor/</loc>
