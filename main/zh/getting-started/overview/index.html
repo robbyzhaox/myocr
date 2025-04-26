@@ -89,6 +89,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -324,13 +329,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../predictors/converters.md" class="md-tabs__link">
+        <a href="../../predictors/predictor-list/" class="md-tabs__link">
           
   
   
     
   
-  预测器
+  Predictors
 
         </a>
       </li>
@@ -346,13 +351,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pipelines/ocr.md" class="md-tabs__link">
+        <a href="../../pipelines/pipelines-list/" class="md-tabs__link">
           
   
   
     
   
-  流水线
+  Pipelines
 
         </a>
       </li>
@@ -565,6 +570,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    概述
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -577,6 +597,100 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#myocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      为何选择 MyOCR？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心组件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      组件图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      类图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      定制与扩展
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定制与扩展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加新的结构化输出 Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onnx" class="md-nav__link">
+    <span class="md-ellipsis">
+      替换或添加新模型 (ONNX)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -774,7 +888,7 @@
   
   
   <span class="md-ellipsis">
-    预测器
+    Predictors
     
   </span>
   
@@ -785,7 +899,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            预测器
+            Predictors
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -796,12 +910,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../predictors/converters.md" class="md-nav__link">
+      <a href="../../predictors/predictor-list/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    创建转换器
+    已有Predictor
     
   </span>
   
@@ -819,12 +933,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../predictors/predictors.md" class="md-nav__link">
+      <a href="../../predictors/new-predictor/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    构建预测器
+    创建Predictor
     
   </span>
   
@@ -876,7 +990,7 @@
   
   
   <span class="md-ellipsis">
-    流水线
+    Pipelines
     
   </span>
   
@@ -887,7 +1001,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            流水线
+            Pipelines
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -898,12 +1012,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pipelines/ocr.md" class="md-nav__link">
+      <a href="../../pipelines/pipelines-list/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    通用OCR
+    已有Pipeline
     
   </span>
   
@@ -921,12 +1035,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pipelines/structured-ocr.md" class="md-nav__link">
+      <a href="../../pipelines/build-pipeline/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    提取结构化信息
+    构建Pipeline
     
   </span>
   
@@ -1242,6 +1356,91 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#myocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      为何选择 MyOCR？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      核心组件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="核心组件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      组件图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      类图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      定制与扩展
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="定制与扩展">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      添加新的结构化输出 Schema
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onnx" class="md-nav__link">
+    <span class="md-ellipsis">
+      替换或添加新模型 (ONNX)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1273,9 +1472,85 @@
   
 
 
-  <h1>概述</h1>
-
-<p>概览</p>
+<h1 id="_1">概览<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>欢迎使用 MyOCR！该库提供了一个强大而灵活的框架，用于构建和部署光学字符识别 (OCR) 流水线。</p>
+<h2 id="myocr">为何选择 MyOCR？<a class="headerlink" href="#myocr" title="Permanent link">&para;</a></h2>
+<p>MyOCR 的设计兼顾了生产准备和开发者体验。主要特性包括：</p>
+<ul>
+<li><strong>端到端工作流:</strong> 无缝集成文本检测、方向分类和文本识别。</li>
+<li><strong>模块化与可扩展:</strong> 轻松替换模型、预处理/后处理步骤（通过转换器）或整个流水线。</li>
+<li><strong>生产优化:</strong> 利用 ONNX Runtime 实现高性能的 CPU 和 GPU 推理。</li>
+<li><strong>结构化数据提取:</strong> 超越原始文本，使用 LLM 将信息提取为结构化格式（如 JSON）。</li>
+<li><strong>开发者友好:</strong> 提供简洁的 Python API 和预构建组件，以便快速上手。</li>
+</ul>
+<h2 id="_2">核心组件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>MyOCR 围绕几个关键概念构建：</p>
+<h3 id="_3">组件图<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p><img alt="MyOCR 组件" src="../../../assets/images/components.png" /></p>
+<h3 id="_4">类图<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p><img alt="MyOCR 类图" src="../../../assets/images/myocr_class_diagram.png" /></p>
+<ul>
+<li><strong>模型 (Model):</strong> 代表一个神经网络模型。MyOCR 支持加载 ONNX 模型 (<code>OrtModel</code>)、标准 PyTorch 模型 (<code>PyTorchModel</code>) 以及由 YAML 配置定义的自定义 PyTorch 模型 (<code>CustomModel</code>)。模型负责核心计算。<ul>
+<li>更多详情请参阅 <a href="../../models/index.md">模型部分</a>。</li>
+</ul>
+</li>
+<li><strong>转换器 (Converter / <code>ParamConverter</code>):</strong> 为模型准备输入数据，并将模型的原始输出处理成更易用的格式。每个预测器都使用特定的转换器。<ul>
+<li>转换器详情请参阅 <a href="../../predictors/index.md">预测器部分</a>。</li>
+</ul>
+</li>
+<li><strong>预测器 (Predictor):</strong> 结合一个 <code>Model</code> 和一个 <code>ParamConverter</code> 来执行特定的推理任务（例如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
+<li>可用预测器列表请参阅 <a href="../../predictors/index.md">预测器部分</a>。</li>
+</ul>
+</li>
+<li><strong>流水线 (Pipeline):</strong> 协调多个 <code>Predictors</code> 来执行复杂的多步骤任务，如端到端 OCR。流水线为最常见的用例提供了最高级别的接口。<ul>
+<li>可用流水线列表请参阅 <a href="../../pipelines/index.md">流水线部分</a>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="_5">定制与扩展<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>MyOCR 的模块化设计允许轻松定制。</p>
+<h3 id="schema">添加新的结构化输出 Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
+<p><code>StructuredOutputOCRPipeline</code> 使用 Pydantic 模型来定义所需的输出格式。您可以轻松创建自己的模型：</p>
+<ol>
+<li>
+<p>使用 Pydantic 定义您的数据模型：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span> <span class="c1"># 如果需要，可选择性导入</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomDataSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">customer_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;客户名称&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;唯一的订单标识符&quot;</span><span class="p">)</span> <span class="c1"># 对必填字段使用 ...</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># 添加更多带有描述的字段...</span>
+</code></pre></div>
+</li>
+<li>
+<p>创建流水线时传递您的模型：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.pipelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuredOutputOCRPipeline</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># from your_module import CustomDataSchema # 导入您定义的模型</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># 假设 CustomDataSchema 如上定义</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">StructuredOutputOCRPipeline</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">),</span> <span class="n">json_schema</span><span class="o">=</span><span class="n">CustomDataSchema</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ol>
+<h3 id="onnx">替换或添加新模型 (ONNX)<a class="headerlink" href="#onnx" title="Permanent link">&para;</a></h3>
+<p>如果您有自己的用于检测、分类或识别的 ONNX 模型：</p>
+<ol>
+<li>
+<p><strong>放置模型文件:</strong> 将您的 <code>.onnx</code> 模型文件复制到默认模型目录 (<code>~/.MyOCR/models/</code>) 或其他位置。</p>
+</li>
+<li>
+<p><strong>更新配置:</strong> 修改相关的流水线配置 YAML 文件（例如 <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>），使其指向您的新模型文件。请使用相对于 <code>myocr.config.MODEL_PATH</code>（默认为 <code>~/.MyOCR/models/</code>）指定的主模型目录的相对路径。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># myocr/pipelines/config/common_ocr_pipeline.yaml 中的示例修改</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">model</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_detection_model.onnx&quot;</span><span class="w"> </span><span class="c1"># 假设文件位于 ~/.MyOCR/models/</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">cls_direction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_cls_model.onnx&quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/relative/to/model_dir/your_rec_model.onnx&quot;</span><span class="w"> </span><span class="c1"># 如果在子目录中的示例</span>
+</code></pre></div>
+<p>有关其配置文件的详细信息，请参阅特定的流水线文档。</p>
+</li>
+</ol>
 
 
 
@@ -1298,7 +1573,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:50:43">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:52:05">2025年4月26日</span>
   </span>
 
     
@@ -1308,7 +1583,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:50:43">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:52:05">2025年4月26日</span>
   </span>
 
     

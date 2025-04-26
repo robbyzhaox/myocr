@@ -15,6 +15,10 @@
         <link rel="canonical" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/new-predictor/">
       
       
+        <link rel="prev" href="../predictor-list/">
+      
+      
+        <link rel="next" href="../../pipelines/pipelines-list/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>New predictor - MyOCR文档</title>
+        <title>创建Predictor - MyOCR文档</title>
       
     
     
@@ -86,7 +90,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#predictors" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳转至
         </a>
       
@@ -125,7 +129,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              New predictor
+              创建Predictor
             
           </span>
         </div>
@@ -319,17 +323,19 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../../predictors/converters.md" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../predictor-list/" class="md-tabs__link">
           
   
   
     
   
-  预测器
+  Predictors
 
         </a>
       </li>
@@ -345,13 +351,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../pipelines/ocr.md" class="md-tabs__link">
+        <a href="../../pipelines/pipelines-list/" class="md-tabs__link">
           
   
   
     
   
-  流水线
+  Pipelines
 
         </a>
       </li>
@@ -730,8 +736,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -743,24 +751,27 @@
     
     
       
+        
+        
+      
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
-    预测器
+    Predictors
     
   </span>
   
@@ -768,10 +779,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
-            预测器
+            Predictors
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -782,12 +793,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../predictors/converters.md" class="md-nav__link">
+      <a href="../predictor-list/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    创建转换器
+    已有Predictor
     
   </span>
   
@@ -802,20 +813,98 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../predictors/predictors.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    创建Predictor
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    构建预测器
+    创建Predictor
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-paramconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 理解 ParamConverter 的作用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-paramconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 创建自定义 ParamConverter 类
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 创建预测器实例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 集成到流水线 (可选)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -862,7 +951,7 @@
   
   
   <span class="md-ellipsis">
-    流水线
+    Pipelines
     
   </span>
   
@@ -873,7 +962,7 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
-            流水线
+            Pipelines
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -884,12 +973,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pipelines/ocr.md" class="md-nav__link">
+      <a href="../../pipelines/pipelines-list/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    通用OCR
+    已有Pipeline
     
   </span>
   
@@ -907,12 +996,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../pipelines/structured-ocr.md" class="md-nav__link">
+      <a href="../../pipelines/build-pipeline/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    提取结构化信息
+    构建Pipeline
     
   </span>
   
@@ -1228,6 +1317,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1236,9 +1327,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#predictors" class="md-nav__link">
+  <a href="#1-paramconverter" class="md-nav__link">
     <span class="md-ellipsis">
-      Predictors
+      1. 理解 ParamConverter 的作用
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-paramconverter" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 创建自定义 ParamConverter 类
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 创建预测器实例
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 集成到流水线 (可选)
     </span>
   </a>
   
@@ -1260,7 +1378,7 @@
 
 
   
-    <a href="https://github.com/robbyzhaox/myocr/edit/main/documentation/docs/en/predictors/new-predictor.md" title="编辑此页" class="md-content__button md-icon">
+    <a href="https://github.com/robbyzhaox/myocr/edit/main/documentation/docs/zh/predictors/new-predictor.md" title="编辑此页" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75z"/></svg>
     </a>
@@ -1269,16 +1387,159 @@
     
       
     
-    <a href="https://github.com/robbyzhaox/myocr/raw/main/documentation/docs/en/predictors/new-predictor.md" title="查看本页的源代码" class="md-content__button md-icon">
+    <a href="https://github.com/robbyzhaox/myocr/raw/main/documentation/docs/zh/predictors/new-predictor.md" title="查看本页的源代码" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5 5 5 0 0 1 5-5 5 5 0 0 1 5 5 5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/></svg>
     </a>
   
 
 
-  <h1>New predictor</h1>
-
-<h2 id="predictors">Predictors<a class="headerlink" href="#predictors" title="Permanent link">&para;</a></h2>
+<h1 id="_1">构建自定义预测器<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>MyOCR 中的预测器充当已加载 <code>Model</code>（ONNX 或 PyTorch）与最终用户或流水线之间的桥梁。它们封装了必要的预处理和后处理逻辑，以便模型能够轻松地用于特定任务。</p>
+<p>虽然 MyOCR 提供了标准预测器（通过 <code>TextDetectionParamConverter</code>、<code>TextRecognitionParamConverter</code> 等转换器），但在以下情况下，您可能需要自定义预测器：</p>
+<ul>
+<li>您的模型需要独特的输入预处理（例如，不同的归一化、调整大小、输入格式）。</li>
+<li>您的模型产生的输出需要自定义解码或格式化（例如，不同的边界框格式、专门的分类标签、现有流水线无法处理的结构化输出）。</li>
+<li>您想为检测、识别或分类之外的全新任务创建预测器。</li>
+</ul>
+<p>构建自定义预测器的关键是创建自定义的 <strong><code>ParamConverter</code></strong> 类。</p>
+<h2 id="1-paramconverter">1. 理解 <code>ParamConverter</code> 的作用<a class="headerlink" href="#1-paramconverter" title="Permanent link">&para;</a></h2>
+<p>预测器本身是一个简单的包装器（在 <code>myocr.base.Predictor</code> 中定义）。实际工作在其关联的 <code>ParamConverter</code>（继承自 <code>myocr.base.ParamConverter</code> 的类）中进行。转换器主要有两个任务：</p>
+<ol>
+<li><strong><code>convert_input(user_input)</code>:</strong> 接收用户或流水线提供的数据（例如 PIL 图像），并将其转换为模型推理方法所期望的精确格式（例如，归一化的、具有批次维度的 NumPy 数组）。</li>
+<li><strong><code>convert_output(model_output)</code>:</strong> 接收模型的原始推理输出（例如，表示热力图或序列概率的 NumPy 数组），并将其转换为用户友好的、结构化的格式（例如，带有文本和分数的边界框列表，如 <code>DetectedObjects</code> 或 <code>RecognizedTexts</code>）。</li>
+</ol>
+<h2 id="2-paramconverter">2. 创建自定义 <code>ParamConverter</code> 类<a class="headerlink" href="#2-paramconverter" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>继承:</strong> 创建一个继承自 <code>myocr.base.ParamConverter</code> 的 Python 类。</li>
+<li><strong>指定类型 (可选但推荐):</strong> 使用泛型来指示 <code>convert_input</code> 的预期输入类型和 <code>convert_output</code> 的输出类型。例如，<code>ParamConverter[PIL.Image.Image, DetectedObjects]</code> 表示它接收 PIL 图像并返回 <code>DetectedObjects</code>。</li>
+<li><strong>实现 <code>__init__</code>:</strong> 初始化任何必要的参数，例如阈值、标签映射或转换期间需要的引用。</li>
+<li><strong>实现 <code>convert_input</code>:</strong> 编写代码将输入数据转换为模型就绪格式。</li>
+<li><strong>实现 <code>convert_output</code>:</strong> 编写代码将原始模型输出转换为所需的结构化结果。</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ParamConverter</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 导入任何必要的基础结构或创建您自己的结构</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.predictors.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BoundingBox</span> 
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># --- 定义自定义输出结构 (示例) ---</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomResult</span><span class="p">:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">score</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;CustomResult(label=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="si">}</span><span class="s2">&#39;, score=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, details=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="s2">)&quot;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># --- 创建自定义转换器 ---</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="c1"># 示例：接收 PIL 图像，输出 CustomResult</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyTaskConverter</span><span class="p">(</span><span class="n">ParamConverter</span><span class="p">[</span><span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">,</span> <span class="n">CustomResult</span><span class="p">]):</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">target_size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)):</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="n">threshold</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">target_size</span> <span class="o">=</span> <span class="n">target_size</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">input_image_for_output</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># 如果输出转换需要，存储上下文</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MyTaskConverter 初始化完成，阈值=</span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s2">, 目标尺寸=</span><span class="si">{</span><span class="n">target_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_data</span><span class="p">:</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Image</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;为一个假设的分类模型准备 PIL 图像。&quot;&quot;&quot;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">input_image_for_output</span> <span class="o">=</span> <span class="n">input_data</span> <span class="c1"># 如果需要，保存以供后续使用</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>            <span class="c1"># 1. 调整大小</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>            <span class="n">image_resized</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_size</span><span class="p">,</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">BILINEAR</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>            <span class="c1"># 2. 转换为 NumPy 数组</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>            <span class="n">image_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image_resized</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>            <span class="c1"># 3. 归一化 (示例：简单的 /255)</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>            <span class="n">image_np</span> <span class="o">/=</span> <span class="mf">255.0</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>            <span class="c1"># 4. 如果需要，添加批次维度和通道维度 (例如 HWC -&gt; NCHW)</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>            <span class="k">if</span> <span class="n">image_np</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span> <span class="c1"># 灰度图</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>                <span class="n">image_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image_np</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>            <span class="c1"># 假设模型需要 NCHW</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>            <span class="n">image_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">image_np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> 
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;转换后的输入图像形状: </span><span class="si">{</span><span class="n">image_np</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>            <span class="k">return</span> <span class="n">image_np</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;输入转换期间出错: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>            <span class="k">return</span> <span class="kc">None</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">convert_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">internal_result</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">CustomResult</span><span class="p">]:</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;处理一个假设的分类模型的原始输出。&quot;&quot;&quot;</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>            <span class="c1"># 假设模型输出是一个包含 NumPy 分数数组的列表/元组</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>            <span class="n">scores</span> <span class="o">=</span> <span class="n">internal_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># 示例: [[0.1, 0.8, 0.1]]</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>            <span class="k">if</span> <span class="n">scores</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># 处理潜在的批次维度</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>                <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>            <span class="c1"># 1. 找到最佳预测</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>            <span class="n">pred_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>            <span class="n">pred_score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scores</span><span class="p">[</span><span class="n">pred_index</span><span class="p">])</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;原始分数: </span><span class="si">{</span><span class="n">scores</span><span class="si">}</span><span class="s2">, 预测索引: </span><span class="si">{</span><span class="n">pred_index</span><span class="si">}</span><span class="s2">, 分数: </span><span class="si">{</span><span class="n">pred_score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>            <span class="c1"># 2. 应用阈值</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74" href="#__codelineno-0-74"></a>            <span class="k">if</span> <span class="n">pred_score</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">:</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75" href="#__codelineno-0-75"></a>                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;预测分数 </span><span class="si">{</span><span class="n">pred_score</span><span class="si">}</span><span class="s2"> 低于阈值 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76" href="#__codelineno-0-76"></a>                <span class="k">return</span> <span class="kc">None</span> <span class="c1"># 或返回默认/否定结果</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77" href="#__codelineno-0-77"></a>
+<a id="__codelineno-0-78" name="__codelineno-0-78" href="#__codelineno-0-78"></a>            <span class="c1"># 3. 将索引映射到标签 (假设存在预定义的映射)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79" href="#__codelineno-0-79"></a>            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;猫&quot;</span><span class="p">,</span> <span class="s2">&quot;狗&quot;</span><span class="p">,</span> <span class="s2">&quot;其他&quot;</span><span class="p">]</span> <span class="c1"># 示例标签</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80" href="#__codelineno-0-80"></a>            <span class="n">pred_label</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="n">pred_index</span><span class="p">]</span> <span class="k">if</span> <span class="n">pred_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;未知&quot;</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81" href="#__codelineno-0-81"></a>
+<a id="__codelineno-0-82" name="__codelineno-0-82" href="#__codelineno-0-82"></a>            <span class="c1"># 4. 格式化为 CustomResult</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83" href="#__codelineno-0-83"></a>            <span class="c1"># 包括任何额外的细节，可能使用 self.input_image_for_output</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84" href="#__codelineno-0-84"></a>            <span class="n">result</span> <span class="o">=</span> <span class="n">CustomResult</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">pred_label</span><span class="p">,</span> <span class="n">score</span><span class="o">=</span><span class="n">pred_score</span><span class="p">,</span> <span class="n">details</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;原始尺寸&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_image_for_output</span><span class="o">.</span><span class="n">size</span><span class="p">})</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85" href="#__codelineno-0-85"></a>
+<a id="__codelineno-0-86" name="__codelineno-0-86" href="#__codelineno-0-86"></a>            <span class="k">return</span> <span class="n">result</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87" href="#__codelineno-0-87"></a>
+<a id="__codelineno-0-88" name="__codelineno-0-88" href="#__codelineno-0-88"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89" href="#__codelineno-0-89"></a>            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;输出转换期间出错: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90" href="#__codelineno-0-90"></a>            <span class="k">return</span> <span class="kc">None</span>
+</code></pre></div>
+<h2 id="3">3. 创建预测器实例<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>一旦您有了自定义转换器并加载了模型，就可以创建预测器实例。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># 假设 MyTaskConverter 如上定义</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># 1. 加载您的模型 (ONNX 或 自定义 PyTorch)</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">model_path</span> <span class="o">=</span> <span class="s2">&quot;path/to/your/custom_model.onnx&quot;</span> <span class="c1"># 或指向 CustomModel 的 YAML 路径</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">model_format</span> <span class="o">=</span> <span class="s2">&quot;onnx&quot;</span> <span class="c1"># 或 &quot;custom&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="n">loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_format</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># 2. 实例化您的自定义转换器</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="n">custom_converter</span> <span class="o">=</span> <span class="n">MyTaskConverter</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">target_size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">))</span> <span class="c1"># 如果需要，使用自定义参数</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="c1"># 3. 创建预测器</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="n">custom_predictor</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">custom_converter</span><span class="p">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="c1"># 4. 使用预测器</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="n">input_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;path/to/test_image.jpg&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="n">prediction_result</span> <span class="o">=</span> <span class="n">custom_predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">input_image</span><span class="p">)</span> <span class="c1"># 返回 CustomResult 或 None</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="k">if</span> <span class="n">prediction_result</span><span class="p">:</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;预测结果: </span><span class="si">{</span><span class="n">prediction_result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;预测失败或低于阈值。&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="4">4. 集成到流水线 (可选)<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>如果您的自定义预测器是更大工作流的一部分，您可以将其集成到 <a href="../../pipelines/build-pipeline/">自定义流水线</a> 中，方法是在流水线的 <code>__init__</code> 方法中初始化它，并在流水线的 <code>process</code> 方法中调用其 <code>predict</code> 方法。</p>
+<p>通过遵循这些步骤，您可以在 MyOCR 框架内创建针对特定模型和任务的专门预测器。 </p>
 
 
 
@@ -1301,7 +1562,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 26, 2025 06:50:43">April 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:52:05">2025年4月26日</span>
   </span>
 
     
@@ -1311,7 +1572,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 26, 2025 06:50:43">April 26, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 06:52:05">2025年4月26日</span>
   </span>
 
     
