@@ -1,3 +1,7 @@
+---
+hide:
+  - navigation
+---
 # 欢迎来到 MyOCR 文档
 
 <div align="center">
@@ -24,9 +28,9 @@
 
 ## 核心概念深入了解
 
-*   **[模型](./models/model-list.md):** 了解支持的模型类型（ONNX、PyTorch、自定义）和架构。
-*   **[预测器](./predictors/predictor-list.md):** 理解预测器如何包装模型及其输入输出处理逻辑以执行特定任务。
-*   **[流水线](./pipelines/pipelines-list.md):** 探索协调多个预测器以实现端到端 OCR 的高级流水线。
+*   **[模型](./models/index.md):** 了解支持的模型类型（ONNX、PyTorch、自定义）和架构。
+*   **[预测器](./predictors/index.md):** 理解预测器如何包装模型及其输入输出处理逻辑以执行特定任务。
+*   **[流水线](./pipelines/index.md):** 探索协调多个预测器以实现端到端 OCR 的高级流水线。
 
 ## 部署选项
 

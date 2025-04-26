@@ -130,7 +130,7 @@ class MyDetectionOnlyPipeline(Pipeline):
         return detected_objects # Return the output of the detection predictor
 ```
 
-## Example: Combining Predictors (Conceptual)
+**Example: Combining Predictors (Conceptual)**
 
 If you need multiple steps, you chain the predictor calls, passing the output of one step as the input to the next (if compatible).
 
@@ -185,7 +185,7 @@ class MyFullOCRPipeline(Pipeline):
         return recognized_texts # Final result
 ```
 
-## Using Your Custom Pipeline
+## 4. Using Your Custom Pipeline
 
 Once defined, you can import and use your custom pipeline just like the built-in ones.
 

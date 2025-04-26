@@ -24,13 +24,13 @@ MyOCR is built around several key concepts:
 ![MyOCR Class](../assets/images/myocr_class_diagram.png)
 
 *   **Model:** Represents a neural network model. MyOCR supports loading ONNX models (`OrtModel`), standard PyTorch models (`PyTorchModel`), and custom PyTorch models defined by YAML configurations (`CustomModel`). Models handle the core computation.
-    *   See the [Models Section](../models/model-list.md) for more details.
+    *   See the [Models Section](../models/index.md) for more details.
 *   **Converter (`ParamConverter`):** Prepares input data for a model and processes the model's raw output into a more usable format. Each predictor uses a specific converter.
-    *   See the [Predictors Section](../predictors/predictor-list.md) for converter specifics.
+    *   See the [Predictors Section](../predictors/index.md) for converter specifics.
 *   **Predictor:** Combines a `Model` and a `ParamConverter` to perform a specific inference task (e.g., text detection). It provides a user-friendly interface, accepting standard inputs (like PIL Images) and returning processed results (like bounding boxes).
-    *   See the [Predictors Section](../predictors/predictor-list.md) for available predictors.
+    *   See the [Predictors Section](../predictors/index.md) for available predictors.
 *   **Pipeline:** Orchestrates multiple `Predictors` to perform complex, multi-step tasks like end-to-end OCR. Pipelines offer the highest-level interface for most common use cases.
-    *   See the [Pipelines Section](../pipelines/pipelines-list.md) for available pipelines.
+    *   See the [Pipelines Section](../pipelines/index.md) for available pipelines.
 
 
 ## Customization and Extension

@@ -84,49 +84,12 @@ If you have a custom model defined in PyTorch (using components potentially from
 5.  **Integrate into a Pipeline (Optional):**
     *   You can use your custom predictor directly or integrate it into a custom pipeline class that inherits from `myocr.base.Pipeline`.
 
-## Option 3: Creating a Custom `ParamConverter`
+## Option 3: Load Existing PyTorch Models
 
-If your model (ONNX or PyTorch) has unique input requirements or produces output in a format not handled by existing converters, you'll need to create a custom `ParamConverter`.
-
-1.  **Inherit from `ParamConverter`:**
-    *   Create a new Python class that inherits from `myocr.base.ParamConverter`.
-
-2.  **Implement `convert_input`:**
-    *   This method takes the user-provided input (e.g., a PIL Image, `DetectedObjects`) and transforms it into the exact format (e.g., `numpy` array with specific shape, dtype, normalization) expected by your model's `forward` or `run` method.
-
-3.  **Implement `convert_output`:**
-    *   This method takes the raw output from your model (e.g., `numpy` arrays, tensors) and transforms it into a structured, user-friendly format (e.g., `DetectedObjects`, `RecognizedTexts`, or a custom Pydantic model).
-
-4.  **Use with Predictor:**
-    *   When creating a predictor from your model, pass an instance of your custom converter.
+It's very easy to load a pre-trained PyTorch models with its weights like following:
 
 ```python
-from myocr.base import ParamConverter
-from myocr.predictors.base import DetectedObjects # Or other input/output types
-import numpy as np
-
-class MyCustomConverter(ParamConverter[np.ndarray, DetectedObjects]): # Example: Input numpy, Output DetectedObjects
-    def __init__(self, model_device):
-        super().__init__()
-        self.device = model_device
-        # Add any other needed params (thresholds, labels, etc.)
-
-    def convert_input(self, input_data: np.ndarray) -> Optional[np.ndarray]:
-        # --- Add your custom preprocessing --- 
-        # Example: normalize, resize, transpose, add batch dim
-        processed_input = ... 
-        return processed_input
-
-    def convert_output(self, internal_result: np.ndarray) -> Optional[DetectedObjects]:
-        # --- Add your custom postprocessing --- 
-        # Example: decode bounding boxes, apply NMS, format results
-        formatted_output = ... 
-        return formatted_output
-
-# Usage:
-# loaded_model = ... # Load your model (ONNX or Custom PyTorch)
-# custom_predictor = loaded_model.predictor(MyCustomConverter(loaded_model.device))
+from myocr.modeling.model import ModelZoo
+model = ModelZoo.load_model("pt", "resnet152", "cuda:0" if torch.cuda.is_available() else "cpu")
 ```
-
-Refer to the implementations of existing converters in `myocr/predictors/` (e.g., `text_detection_predictor.py`) for concrete examples.
 

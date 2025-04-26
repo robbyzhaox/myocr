@@ -114,7 +114,8 @@ Good documentation is crucial for the project:
 You can build the documentation locally using:
 
 ```bash
-make docs
+cd documentation
+mkdocs build
 ```
 
 This command will generate HTML documentation and start a local server to view it.
@@ -181,7 +182,7 @@ docker run -d -p 8000:8000 -v /path/to/local/models:/app/models myocr:custom
 
 ## License
 
-By contributing to MyOCR, you agree that your contributions will be licensed under the project's Apache 2.0 license.
+By contributing to MyOCR, you agree that your contributions will be licensed under the project's  [Apache 2.0 license](LICENSE).
 
 ---
 

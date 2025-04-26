@@ -27,24 +27,22 @@ The pipeline loads configuration from `myocr/pipelines/config/common_ocr_pipelin
 ```yaml
 # Example: myocr/pipelines/config/common_ocr_pipeline.yaml
 model:
-  detection: "en_PP-OCRv3_det_infer.onnx"
-  cls_direction: "ch_ppocr_mobile_v2.0_cls_infer.onnx"
-  recognition: "en_PP-OCRv3_rec_infer.onnx"
+  detection: "dbnet++.onnx"
+  cls_direction: "cls.onnx"
+  recognition: "rec.onnx"
 ```
 
 **Processing:**
 
-The `process` method takes the path to an image file.
+The `__call__` method takes the path to an image file.
 
 ```python
 image_path = 'path/to/your/image.png'
-ocr_results = pipeline.process(image_path)
+ocr_results = pipeline(image_path)
 
 if ocr_results:
     # Access recognized text and bounding boxes
-    print(ocr_results.get_content_text())
-    for box_info in ocr_results.boxes:
-      print(f"Box: {box_info.points}, Text: {box_info.text}")
+    print(ocr_results)
 ```
 
 **Workflow:**
@@ -94,21 +92,19 @@ chat_bot:
 
 **Processing:**
 
-The `process` method takes an image path.
+The `__call__` method takes an image path.
 
 ```python
 image_path = 'path/to/your/invoice.pdf'
-structured_data = pipeline.process(image_path)
+structured_data = pipeline(image_path)
 
 if structured_data:
-    print(structured_data.model_dump_json(indent=2))
-    # Access extracted fields directly
-    # print(f"Invoice Number: {structured_data.invoice_number}")
+    print(structured_data)
 ```
 
 **Workflow:**
 
-1.  Performs standard OCR using the inherited `CommonOCRPipeline.process` method to get the raw recognized text.
+1.  Performs standard OCR using the inherited `CommonOCRPipeline` to get the raw recognized text.
 2.  If text is found, it passes the text content to the `OpenAiChatExtractor`.
 3.  The extractor interacts with the configured LLM, providing the text and the desired `json_schema` (Pydantic model) as instructions.
 4.  The LLM attempts to extract the relevant information and format it according to the schema.

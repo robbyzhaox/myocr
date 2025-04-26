@@ -19,6 +19,10 @@ theme:
     - navigation.indexes
     - navigation.instant
     - navigation.collapse
+    - navigation.top
+    - navigation.tracking
+    - navigation.footer
+    - navigation.expand
     - search.highlight
     - search.suggest
     - toc.follow
@@ -102,25 +106,26 @@ plugins:
           build: true
           default: true
           nav:
-            - "": index.md
+            - Home: index.md
             - Getting Started:
-                - Installation: getting-started/installation.md
                 - Overview: getting-started/overview.md
-            - Models:
-                - Model List: models/model-list.md
-                - Add a Model: models/new-model.md
-                - Train a Model: models/train-model.md
-            - Predictors:
-                - Predictor List: predictors/predictor-list.md
-                - Create Predictor: predictors/new-predictor.md
-            - Pipelines:
-                - Pipelines List: pipelines/pipelines-list.md
-                - Build Pipeline: pipelines/build-pipeline.md
+                - Installation: getting-started/installation.md
+            - Components:
+                - Models: 
+                    - Model: models/index.md
+                    - Adding Model: models/add-model.md
+                    - Training Model: models/train-model.md
+                - Predictors:
+                    - Predictor: predictors/index.md
+                    - Creating Predictor: predictors/create-predictor.md
+                - Pipelines: 
+                    - Pipeline: pipelines/index.md
+                    - Building Pipeline: pipelines/build-pipeline.md 
             - Inference:
-                - Local Inference: inference/local.md
+                - Local: inference/local.md
                 - Restful API: inference/rest.md
             - FAQ:
-                - FAQ: faq.md
+                - "": faq.md
             - Community:
                 - Contributing: CONTRIBUTING.md
                 - Changelog: CHANGELOG.md
@@ -130,20 +135,21 @@ plugins:
           site_name: MyOCR文档
           site_description: 很棒的OCR构建框架
           nav:
-            - "": index.md
+            - Home: index.md
             - 开始:
+                - 简述: getting-started/overview.md
                 - 安装: getting-started/installation.md
-                - 概述: getting-started/overview.md
-            - 模型:
-                - 模型列表: models/model-list.md
-                - 新增模型: models/new-model.md
-                - 训练模型: models/train-model.md
-            - Predictors:
-                - 已有Predictor: predictors/predictor-list.md
-                - 创建Predictor: predictors/new-predictor.md
-            - Pipelines:
-                - 已有Pipeline: pipelines/pipelines-list.md
-                - 构建Pipeline: pipelines/build-pipeline.md
+            - 组件:
+                - 模型:
+                    - 模型: models/index.md
+                    - 添加模型: models/add-model.md
+                    - 训练模型: models/train-model.md
+                - 预测器:
+                    - Predictor: predictors/index.md
+                    - 创建预测器: predictors/create-predictor.md
+                - 流水线:
+                    - Pipeline: pipelines/index.md
+                    - 构建流水线: pipelines/build-pipeline.md
             - 推理:
                 - 本地推理: inference/local.md
                 - 在线API: inference/rest.md

@@ -135,42 +135,6 @@ class CustomParamConverter(ParamConverter):
         pass
 ```
 
-## Input/Output Formats
-
-### Text Detection
-
-Input:
-- RGB image (PIL.Image)
-- Size: Any (resized internally)
-
-Output:
-- List of text regions
-- Each region contains:
-  - Polygon points
-  - Confidence score
-  - Bounding box
-
-### Text Recognition
-
-Input:
-- Cropped text region (PIL.Image)
-- Size: 100x32 (resized internally)
-
-Output:
-- Recognized text
-- Confidence score
-- Character-level scores
-
-### Text Direction
-
-Input:
-- Text region (PIL.Image)
-- Size: 32x32 (resized internally)
-
-Output:
-- Orientation angle (0° or 180°)
-- Confidence score
-
 ## Performance Tips
 
 ### Batch Processing
@@ -186,15 +150,6 @@ results = [predictor.predict(region) for region in regions]
 # Clear GPU memory
 import torch
 torch.cuda.empty_cache()
-```
-
-### Input Preprocessing
-
-```python
-# Custom preprocessing
-def preprocess(image):
-    # Add custom preprocessing steps
-    return processed_image
 ```
 
 ## Error Handling
