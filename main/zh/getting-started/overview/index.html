@@ -651,30 +651,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定制与扩展">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema" class="md-nav__link">
-    <span class="md-ellipsis">
-      添加新的结构化输出 Schema
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#onnx" class="md-nav__link">
-    <span class="md-ellipsis">
-      替换或添加新模型 (ONNX)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1419,30 +1395,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="定制与扩展">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#schema" class="md-nav__link">
-    <span class="md-ellipsis">
-      添加新的结构化输出 Schema
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#onnx" class="md-nav__link">
-    <span class="md-ellipsis">
-      替换或添加新模型 (ONNX)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1514,48 +1466,11 @@
 </ul>
 <h2 id="_5">定制与扩展<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>MyOCR 的模块化设计允许轻松定制。</p>
-<h3 id="schema">添加新的结构化输出 Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
-<p><code>StructuredOutputOCRPipeline</code> 使用 Pydantic 模型来定义所需的输出格式。您可以轻松创建自己的模型：</p>
-<ol>
-<li>
-<p>使用 Pydantic 定义您的数据模型：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span> <span class="c1"># 如果需要，可选择性导入</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">CustomDataSchema</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">customer_name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;客户名称&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">order_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;唯一的订单标识符&quot;</span><span class="p">)</span> <span class="c1"># 对必填字段使用 ...</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># 添加更多带有描述的字段...</span>
-</code></pre></div>
-</li>
-<li>
-<p>创建流水线时传递您的模型：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.pipelines</span><span class="w"> </span><span class="kn">import</span> <span class="n">StructuredOutputOCRPipeline</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">Device</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># from your_module import CustomDataSchema # 导入您定义的模型</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># 假设 CustomDataSchema 如上定义</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">StructuredOutputOCRPipeline</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="p">(</span><span class="s2">&quot;cuda:0&quot;</span><span class="p">),</span> <span class="n">json_schema</span><span class="o">=</span><span class="n">CustomDataSchema</span><span class="p">)</span>
-</code></pre></div>
-</li>
-</ol>
-<h3 id="onnx">替换或添加新模型 (ONNX)<a class="headerlink" href="#onnx" title="Permanent link">&para;</a></h3>
-<p>如果您有自己的用于检测、分类或识别的 ONNX 模型：</p>
-<ol>
-<li>
-<p><strong>放置模型文件:</strong> 将您的 <code>.onnx</code> 模型文件复制到默认模型目录 (<code>~/.MyOCR/models/</code>) 或其他位置。</p>
-</li>
-<li>
-<p><strong>更新配置:</strong> 修改相关的流水线配置 YAML 文件（例如 <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>），使其指向您的新模型文件。请使用相对于 <code>myocr.config.MODEL_PATH</code>（默认为 <code>~/.MyOCR/models/</code>）指定的主模型目录的相对路径。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># myocr/pipelines/config/common_ocr_pipeline.yaml 中的示例修改</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">model</span><span class="p">:</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_detection_model.onnx&quot;</span><span class="w"> </span><span class="c1"># 假设文件位于 ~/.MyOCR/models/</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">cls_direction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_custom_cls_model.onnx&quot;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;path/relative/to/model_dir/your_rec_model.onnx&quot;</span><span class="w"> </span><span class="c1"># 如果在子目录中的示例</span>
-</code></pre></div>
-<p>有关其配置文件的详细信息，请参阅特定的流水线文档。</p>
-</li>
-</ol>
+<ul>
+<li><strong><a href="../../models/add-model/">添加新模型</a>:</strong> 了解如何通过模型加载器引入新模型。</li>
+<li><strong><a href="../../predictors/create-predictor/">创建自定义预测器</a>:</strong> 了解如何通过 <code>Model</code> 和 <code>ParamConverter</code> 创建自定义 <code>Predictor</code>。</li>
+<li><strong><a href="../../pipelines/build-pipeline/">构建自定义流水线</a>:</strong> 了解如何将多个 <code>Predictor</code> 组合成 <code>Pipeline</code>。</li>
+</ul>
 
 
 
@@ -1578,7 +1493,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:16:19">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:30:03">2025年4月26日</span>
   </span>
 
     
@@ -1588,7 +1503,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:16:19">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:30:03">2025年4月26日</span>
   </span>
 
     

@@ -1363,7 +1363,7 @@
           <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      使用构建脚本
+      使用构建脚本 (推荐)
     </span>
   </a>
   
@@ -1590,7 +1590,7 @@
           <li class="md-nav__item">
   <a href="#_11" class="md-nav__link">
     <span class="md-ellipsis">
-      使用构建脚本
+      使用构建脚本 (推荐)
     </span>
   </a>
   
@@ -1777,32 +1777,48 @@
 <li><strong>模型兼容性</strong>: 如果添加新模型，请确保它们可以使用现有的 ModelZoo 系统加载。</li>
 </ol>
 <h2 id="docker">Docker 开发<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
-<p>我们提供了一个实用脚本来简化 Docker 构建和部署过程：</p>
-<h3 id="_11">使用构建脚本<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
-<p><code>scripts/build_docker_image.sh</code> 脚本自动化了构建和运行 Docker 容器的过程：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 如果需要，使其可执行</span>
+<p>我们提供了用于构建 CPU 和 GPU 推理镜像的 Dockerfile，以及一个简化构建过程的实用脚本。</p>
+<h3 id="_11">使用构建脚本 (推荐)<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p><code>scripts/build_docker_image.sh</code> 脚本可自动构建带有版本的 Docker 镜像：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># 如果脚本尚未具有执行权限，请添加</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/build_docker_image.sh
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 运行脚本</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>./scripts/build_docker_image.sh
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># 确定应用程序版本</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># 运行脚本以构建 CPU 或 GPU 镜像</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># 将 [cpu|gpu] 替换为您的目标环境</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>bash<span class="w"> </span>scripts/build_docker_image.sh<span class="w"> </span><span class="o">[</span>cpu<span class="p">|</span>gpu<span class="o">]</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># 示例：构建 CPU 镜像</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1"># bash scripts/build_docker_image.sh cpu</span>
 </code></pre></div>
 <p>此脚本会：
-1. 停止并删除任何基于 MyOCR 镜像的现有容器
-2. 删除任何现有的 MyOCR Docker 镜像
-3. 从您的本地配置复制模型
-4. 使用启用 GPU 的 Dockerfile 构建新的 Docker 镜像
-5. 运行一个在端口 8000 上暴露服务的容器</p>
+1. 停止并删除任何基于正在构建的<em>特定版本标签</em>（例如 <code>myocr:cpu-X.Y.Z</code>）的现有容器。
+2. 删除该特定标签的现有 Docker 镜像。
+3. 将模型从 <code>~/.MyOCR/models/</code> 复制到构建上下文中。
+4. 使用相应的 Dockerfile（<code>Dockerfile-infer-CPU</code> 或 <code>Dockerfile-infer-GPU</code>）构建新的 Docker 镜像。
+5. 使用版本号标记镜像（例如 <code>myocr:cpu-X.Y.Z</code> 或 <code>myocr:gpu-X.Y.Z</code>）。</p>
+<p><strong>注意：</strong> 此脚本仅<em>构建</em>镜像。有关运行容器的说明，请参阅 <a href="../inference/rest/#方式二使用-docker-部署-生产环境推荐">REST API 推理指南</a>。</p>
 <h3 id="docker_1">手动 Docker 构建<a class="headerlink" href="#docker_1" title="Permanent link">&para;</a></h3>
-<p>如果您喜欢手动构建 Docker 镜像，或者需要自定义该过程：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># GPU 版本</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-GPU<span class="w"> </span>-t<span class="w"> </span>myocr:custom<span class="w"> </span>.
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># CPU 版本</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-CPU<span class="w"> </span>-t<span class="w"> </span>myocr:custom-cpu<span class="w"> </span>.
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># 使用自定义选项运行</span>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>-v<span class="w"> </span>/path/to/local/models:/app/models<span class="w"> </span>myocr:custom
+<p>如果您倾向于手动构建 Docker 镜像：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># 首先，将模型复制到构建上下文</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>models
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>cp<span class="w"> </span>-r<span class="w"> </span>~/.MyOCR/models/*<span class="w"> </span>./models/
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># 确定版本</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># 构建 GPU 版本 (示例标签)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-GPU<span class="w"> </span>-t<span class="w"> </span>myocr:gpu-<span class="nv">$VERSION</span><span class="w"> </span>.
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># 构建 CPU 版本 (示例标签)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-CPU<span class="w"> </span>-t<span class="w"> </span>myocr:cpu-<span class="nv">$VERSION</span><span class="w"> </span>.
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># 清理复制的模型</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>rm<span class="w"> </span>-rf<span class="w"> </span>./models
 </code></pre></div>
+<p>请记住将 <code>$VERSION</code> 替换为实际的版本号。然后，您可以按照推理文档中的说明运行构建好的镜像。</p>
 <h2 id="_12">许可证<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <p>为 MyOCR 做出贡献，即表示您同意您的贡献将根据项目的 Apache 2.0 许可证进行许可。</p>
 <hr />
@@ -1829,7 +1845,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:16:19">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:30:03">2025年4月26日</span>
   </span>
 
     
@@ -1839,7 +1855,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:16:19">2025年4月26日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 13:30:03">2025年4月26日</span>
   </span>
 
     
