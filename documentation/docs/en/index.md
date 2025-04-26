@@ -25,7 +25,7 @@ Whether you need basic text extraction or complex structured data extraction fro
 ## Core Concepts Deep Dive
 
 *   **[Models](./models/model-list.md):** Learn about the supported model types (ONNX, PyTorch, Custom) and architectures.
-*   **[Predictors](./predictors/predictor-list.md):** Understand how models are wrapped with pre/post-processing for specific tasks.
+*   **[Predictors](./predictors/predictor-list.md):** Understand how models are wrapped with input/output converters to `Predictor`.
 *   **[Pipelines](./pipelines/pipelines-list.md):** Explore the high-level pipelines that orchestrate predictors for end-to-end OCR.
 
 ## Deployment Options

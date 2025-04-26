@@ -51,13 +51,15 @@ mkdir -p ~/.MyOCR/models/
 curl -fsSL "https://drive.google.com/file/d/1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9/view?usp=drive_link" -o ~/.MyOCR/models/dbnet++.onnx
 curl -fsSL "https://drive.google.com/file/d/1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX/view?usp=drive_link" -o ~/.MyOCR/models/rec.onnx
 curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/view?usp=drive_link" -o ~/.MyOCR/models/cls.onnx
+
+# Alternative download link: https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j
 ```
 
 ## ⏭️  Quick Start
 
 ### 📝  Local Ieference
 
-#### 📜 Basic OCR Recognition
+#### Basic OCR Recognition
 
 ```python
 from myocr.pipelines import CommonOCRPipeline
@@ -70,7 +72,7 @@ result = pipeline("path/to/your/image.jpg")
 print(result)
 ```
 
-#### 📝  Structured OCR Output (Example: Invoice Information Extraction)
+#### Structured OCR Output (Example: Invoice Information Extraction)
 
 config chat_bot in myocr.pipelines.config.structured_output_pipeline.yaml
 ```yaml
@@ -116,7 +118,7 @@ We also have a UI for these endpoints, please refer to [doc-insight-ui](https://
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
-#### 📦 Automated Build Script
+#### Automated Build Script
 
 The easiest way to build and run a Docker container is to use the provided script:
 
@@ -135,7 +137,7 @@ This script will:
 - Build a new GPU-enabled Docker image
 - Start a container with the service exposed on port 8000
 
-#### 📦 Manual Docker Commands
+#### Manual Docker Commands
 
 If you need more control or customization:
 

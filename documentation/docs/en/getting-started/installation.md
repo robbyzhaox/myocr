@@ -44,15 +44,15 @@ This guide covers the necessary steps to install MyOCR and its dependencies.
 
     # Download models (ensure curl is installed)
     # Detection Model (DBNet++)
-    curl -L "https://drive.google.com/uc?export=download&id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9" -o ~/.MyOCR/models/dbnet++.onnx
+    curl -fsSL "https://drive.google.com/uc?export=download&id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9" -o ~/.MyOCR/models/dbnet++.onnx
     # Recognition Model (CRNN-like)
-    curl -L "https://drive.google.com/uc?export=download&id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX" -o ~/.MyOCR/models/rec.onnx
+    curl -fsSL "https://drive.google.com/uc?export=download&id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX" -o ~/.MyOCR/models/rec.onnx
     # Classification Model (Angle)
-    curl -L "https://drive.google.com/uc?export=download&id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX" -o ~/.MyOCR/models/cls.onnx
+    curl -fsSL "https://drive.google.com/uc?export=download&id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX" -o ~/.MyOCR/models/cls.onnx
     ```
 
     *   **Note:** The default location where MyOCR expects models is `~/.MyOCR/models/`. This path is defined in `myocr/config.py`. You can modify this configuration or place models elsewhere if needed, but you would need to adjust the paths in the pipeline configuration files (`myocr/pipelines/config/*.yaml`).
-    *   The `curl` commands above use Google Drive links. Ensure you can download from these links in your environment. You might need to adjust the commands or download the files manually if `curl` has issues with redirects or permissions.
+    *   The `curl` commands above use Google Drive links([Baidu Pan links](https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j)). Ensure you can download from these links in your environment. You might need to adjust the commands or download the files manually if `curl` has issues with redirects or permissions.
 
 ## Next Steps
 

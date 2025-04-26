@@ -1,4 +1,4 @@
-# Building Custom Predictors
+# Creating Custom Predictors
 
 Predictors in MyOCR act as the bridge between a loaded `Model` (ONNX or PyTorch) and the end-user or pipeline. They encapsulate the necessary pre-processing and post-processing logic required to make a model easily usable for a specific task.
 

@@ -103,9 +103,9 @@ plugins:
           default: true
           nav:
             - "": index.md
-            - Overview:
-                - Overview: getting-started/overview.md
+            - Getting Started:
                 - Installation: getting-started/installation.md
+                - Overview: getting-started/overview.md
             - Models:
                 - Model List: models/model-list.md
                 - Add a Model: models/new-model.md
@@ -131,9 +131,9 @@ plugins:
           site_description: 很棒的OCR构建框架
           nav:
             - "": index.md
-            - 概述:
-                - 概述: getting-started/overview.md
+            - 开始:
                 - 安装: getting-started/installation.md
+                - 概述: getting-started/overview.md
             - 模型:
                 - 模型列表: models/model-list.md
                 - 新增模型: models/new-model.md
