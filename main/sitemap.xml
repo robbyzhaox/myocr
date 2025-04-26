@@ -210,10 +210,4 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/create-predictor/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/create-predictor/"/>
     </url>
-    <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/zh/pipelines/pipelines-list/</loc>
-        <lastmod>2025-04-26</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/pipelines/pipelines-list/"/>
-    </url>
 </urlset>
