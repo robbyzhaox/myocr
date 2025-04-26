@@ -5,7 +5,7 @@ hide:
 # 欢迎来到 MyOCR 文档
 
 <div align="center">
-    <img width="150" alt="myocr logo" src="assets/images/logomain.png">
+    <img width="150" alt="myocr logo" src="../assets/images/logomain.png">
 </div>
 
 **MyOCR 是一个 Python 库，旨在简化生产级 OCR (光学字符识别) 系统的开发和部署。**
