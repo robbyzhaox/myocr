@@ -57,18 +57,18 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/inference/rest/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/models/model-list/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/models/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/model-list/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/model-list/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/models/new-model/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/models/add-model/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/new-model/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/new-model/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/models/add-model/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/add-model/"/>
     </url>
     <url>
         <loc>https://robbyzhaox.github.io/myocr/main/models/train-model/</loc>
@@ -78,6 +78,13 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/models/train-model/"/>
     </url>
     <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/pipelines/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/pipelines/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/pipelines/"/>
+    </url>
+    <url>
         <loc>https://robbyzhaox.github.io/myocr/main/pipelines/build-pipeline/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
@@ -85,25 +92,18 @@
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/pipelines/build-pipeline/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/pipelines/pipelines-list/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/predictors/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/pipelines/pipelines-list/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/pipelines/pipelines-list/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/predictors/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/predictors/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/predictors/new-predictor/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/predictors/create-predictor/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/predictors/new-predictor/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/predictors/new-predictor/"/>
-    </url>
-    <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/predictors/predictor-list/</loc>
-        <lastmod>2025-04-26</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/predictors/predictor-list/"/>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/predictors/predictor-list/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/main/predictors/create-predictor/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/mainzh/predictors/create-predictor/"/>
     </url>
     <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/</loc>
@@ -162,18 +162,18 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/maininference/rest/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/model-list/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/model-list/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/model-list/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/"/>
     </url>
     <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/new-model/</loc>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/models/add-model/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/new-model/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/new-model/"/>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/models/add-model/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/add-model/"/>
     </url>
     <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/models/train-model/</loc>
@@ -183,6 +183,13 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainmodels/train-model/"/>
     </url>
     <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/pipelines/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/pipelines/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpipelines/"/>
+    </url>
+    <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/pipelines/build-pipeline/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
@@ -190,24 +197,23 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpipelines/build-pipeline/"/>
     </url>
     <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/"/>
+    </url>
+    <url>
+        <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/create-predictor/</loc>
+        <lastmod>2025-04-26</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/create-predictor/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/create-predictor/"/>
+    </url>
+    <url>
         <loc>https://robbyzhaox.github.io/myocr/main/zh/pipelines/pipelines-list/</loc>
         <lastmod>2025-04-26</lastmod>
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/pipelines/pipelines-list/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpipelines/pipelines-list/"/>
-    </url>
-    <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/new-predictor/</loc>
-        <lastmod>2025-04-26</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/new-predictor/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/new-predictor/"/>
-    </url>
-    <url>
-        <loc>https://robbyzhaox.github.io/myocr/main/zh/predictors/predictor-list/</loc>
-        <lastmod>2025-04-26</lastmod>
-        <changefreq>daily</changefreq>
-        <xhtml:link rel="alternate" hreflang="zh" href="https://robbyzhaox.github.io/myocr/main/zh/predictors/predictor-list/"/>
-        <xhtml:link rel="alternate" hreflang="en" href="https://robbyzhaox.github.io/myocr/mainpredictors/predictor-list/"/>
     </url>
 </urlset>
