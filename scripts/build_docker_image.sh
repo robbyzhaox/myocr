@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set +e
 
 # Check for argument
 if [ -z "$1" ] || { [ "$1" != "cpu" ] && [ "$1" != "gpu" ]; }; then
@@ -11,11 +11,11 @@ fi
 TARGET_ENV=$1
 
 # Determine Dockerfile and base tag based on argument
-if [ "$TARGET_ENV" == "gpu" ]; then
+if [ "$TARGET_ENV" = "gpu" ]; then
     DOCKERFILE="Dockerfile-infer-GPU"
     BASE_TAG="myocr:gpu"
     echo "Building GPU image..."
-elif [ "$TARGET_ENV" == "cpu" ]; then
+elif [ "$TARGET_ENV" = "cpu" ]; then
     DOCKERFILE="Dockerfile-infer-CPU"
     BASE_TAG="myocr:cpu"
     echo "Building CPU image..."
