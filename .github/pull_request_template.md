@@ -10,9 +10,7 @@ Changes proposed in this pull request:
 ## Before submitting
 
 <!-- Please complete this checklist BEFORE submitting your PR to speed along the review process. -->
-- [ ] I've read and followed all steps in the [Making a pull request](https://github.com/robbyzhaox/myocr/blob/main/.github/CONTRIBUTING.md#making-a-pull-request)
-    section of the `CONTRIBUTING` docs.
-- [ ] I've updated or added any relevant docstrings following the syntax described in the
-    [Writing docstrings](https://github.com/robbyzhaox/myocr/blob/main/.github/CONTRIBUTING.md#writing-docstrings) section of the `CONTRIBUTING` docs.
+- [ ] I've read and followed all steps in the [pull-request-process](../CONTRIBUTING.md#pull-request-process) docs.
+- [ ] I've updated or added any relevant docstrings.
 - [ ] If this PR fixes a bug, I've added a test that will fail without my fix.
 - [ ] If this PR adds a new feature, I've added tests that sufficiently cover my new functionality.

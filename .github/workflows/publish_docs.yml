@@ -2,6 +2,8 @@ name: Build/Publish Docs
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'documentation/**' 
 
