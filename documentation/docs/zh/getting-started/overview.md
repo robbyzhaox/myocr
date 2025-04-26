@@ -36,47 +36,6 @@ MyOCR 围绕几个关键概念构建：
 
 MyOCR 的模块化设计允许轻松定制。
 
-### 添加新的结构化输出 Schema
-
-`StructuredOutputOCRPipeline` 使用 Pydantic 模型来定义所需的输出格式。您可以轻松创建自己的模型：
-
-1.  使用 Pydantic 定义您的数据模型：
-
-    ```python
-    from pydantic import BaseModel, Field
-    from typing import List, Optional # 如果需要，可选择性导入
-
-    class CustomDataSchema(BaseModel):
-        customer_name: Optional[str] = Field(None, description="客户名称")
-        order_id: str = Field(..., description="唯一的订单标识符") # 对必填字段使用 ...
-        # 添加更多带有描述的字段...
-    ```
-
-2.  创建流水线时传递您的模型：
-
-    ```python
-    from myocr.pipelines import StructuredOutputOCRPipeline
-    from myocr.modeling.model import Device
-    # from your_module import CustomDataSchema # 导入您定义的模型
-
-    # 假设 CustomDataSchema 如上定义
-    pipeline = StructuredOutputOCRPipeline(device=Device("cuda:0"), json_schema=CustomDataSchema)
-    ```
-
-### 替换或添加新模型 (ONNX)
-
-如果您有自己的用于检测、分类或识别的 ONNX 模型：
-
-1.  **放置模型文件:** 将您的 `.onnx` 模型文件复制到默认模型目录 (`~/.MyOCR/models/`) 或其他位置。
-
-2.  **更新配置:** 修改相关的流水线配置 YAML 文件（例如 `myocr/pipelines/config/common_ocr_pipeline.yaml`），使其指向您的新模型文件。请使用相对于 `myocr.config.MODEL_PATH`（默认为 `~/.MyOCR/models/`）指定的主模型目录的相对路径。
-
-    ```yaml
-    # myocr/pipelines/config/common_ocr_pipeline.yaml 中的示例修改
-    model:
-      detection: "your_custom_detection_model.onnx" # 假设文件位于 ~/.MyOCR/models/
-      cls_direction: "your_custom_cls_model.onnx"
-      recognition: "path/relative/to/model_dir/your_rec_model.onnx" # 如果在子目录中的示例
-    ```
-
-    有关其配置文件的详细信息，请参阅特定的流水线文档。
+*   **[添加新模型](../models/add-model.md):** 了解如何通过模型加载器引入新模型。
+*   **[创建自定义预测器](../predictors/create-predictor.md):** 了解如何通过 `Model` 和 `ParamConverter` 创建自定义 `Predictor`。
+*   **[构建自定义流水线](../pipelines/build-pipeline.md):** 了解如何将多个 `Predictor` 组合成 `Pipeline`。

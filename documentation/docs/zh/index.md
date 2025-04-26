@@ -5,7 +5,7 @@ hide:
 # 欢迎来到 MyOCR 文档
 
 <div align="center">
-    <img width="150" alt="myocr logo" src="../assets/images/logomain.png">
+    <img width="150" alt="myocr logo" src="assets/images/logomain.png">
 </div>
 
 **MyOCR 是一个 Python 库，旨在简化生产级 OCR (光学字符识别) 系统的开发和部署。**
@@ -34,16 +34,30 @@ hide:
 
 ## 部署选项
 
-除了将 MyOCR 作为 Python 库使用（请参阅 [推理指南](./inference/local.md)），您还可以通过以下方式部署它：
+除了将 MyOCR 作为 Python 库使用（请参阅 [本地推理指南](./inference/local.md)），您还可以通过以下方式部署它：
 
 *   **作为 REST API:**
-    *   启动内置的 Flask 服务器：`python main.py`（默认在端口 5000 上运行）。
+    *   该服务使用 `gunicorn` 运行（如 Docker 镜像中所配置），通常监听端口 8000。
+    *   对于本地开发/测试，您可以运行 `python main.py`，但这可能会使用不同的端口（请检查 `main.py`）。
     *   端点：`GET /ping`、`POST /ocr`（基本 OCR）、`POST /ocr-json`（结构化 OCR）。
     *   提供一个独立的 UI 界面：[doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
 *   **使用 Docker:**
-    *   使用 `Dockerfile-infer-CPU` 或 `Dockerfile-infer-GPU` 构建 CPU/GPU 镜像。
-    *   使用辅助脚本简化设置：`scripts/build_docker_image.sh`。
-    *   运行示例：`docker run -d -p 8000:8000 myocr:gpu`（在端口 8000 上暴露服务）。
+    *   使用 `Dockerfile-infer-CPU` 或 `Dockerfile-infer-GPU` 构建 CPU 或 GPU 特定镜像。
+    *   使用辅助脚本进行构建（请替换 `[cpu|gpu]` 并确保 `VERSION` 正确）：
+        ```bash
+        # 首先，确定版本
+        VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
+        # 构建所需的镜像 (cpu 或 gpu)
+        bash scripts/build_docker_image.sh [cpu|gpu]
+        ```
+    *   运行示例（请将 `[cpu|gpu]` 和 `$VERSION` 替换为实际值）：
+        ```bash
+        # GPU 镜像版本 0.1.0 示例
+        docker run -d -p 8000:8000 myocr:gpu-0.1.0
+        # CPU 镜像版本 0.1.0 示例
+        docker run -d -p 8000:8000 myocr:cpu-0.1.0
+        ```
+    *   容器内的服务运行在端口 8000。
 
 ## 其他资源
 

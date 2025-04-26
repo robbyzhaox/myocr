@@ -143,41 +143,59 @@ make docs
 
 ## Docker 开发
 
-我们提供了一个实用脚本来简化 Docker 构建和部署过程：
+我们提供了用于构建 CPU 和 GPU 推理镜像的 Dockerfile，以及一个简化构建过程的实用脚本。
 
-### 使用构建脚本
+### 使用构建脚本 (推荐)
 
-`scripts/build_docker_image.sh` 脚本自动化了构建和运行 Docker 容器的过程：
+`scripts/build_docker_image.sh` 脚本可自动构建带有版本的 Docker 镜像：
 
 ```bash
-# 如果需要，使其可执行
+# 如果脚本尚未具有执行权限，请添加
 chmod +x scripts/build_docker_image.sh
 
-# 运行脚本
-./scripts/build_docker_image.sh
+# 确定应用程序版本
+VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
+
+# 运行脚本以构建 CPU 或 GPU 镜像
+# 将 [cpu|gpu] 替换为您的目标环境
+bash scripts/build_docker_image.sh [cpu|gpu]
+
+# 示例：构建 CPU 镜像
+# bash scripts/build_docker_image.sh cpu
 ```
 
 此脚本会：
-1. 停止并删除任何基于 MyOCR 镜像的现有容器
-2. 删除任何现有的 MyOCR Docker 镜像
-3. 从您的本地配置复制模型
-4. 使用启用 GPU 的 Dockerfile 构建新的 Docker 镜像
-5. 运行一个在端口 8000 上暴露服务的容器
+1. 停止并删除任何基于正在构建的*特定版本标签*（例如 `myocr:cpu-X.Y.Z`）的现有容器。
+2. 删除该特定标签的现有 Docker 镜像。
+3. 将模型从 `~/.MyOCR/models/` 复制到构建上下文中。
+4. 使用相应的 Dockerfile（`Dockerfile-infer-CPU` 或 `Dockerfile-infer-GPU`）构建新的 Docker 镜像。
+5. 使用版本号标记镜像（例如 `myocr:cpu-X.Y.Z` 或 `myocr:gpu-X.Y.Z`）。
+
+**注意：** 此脚本仅*构建*镜像。有关运行容器的说明，请参阅 [REST API 推理指南](./inference/rest.md#方式二使用-docker-部署-生产环境推荐)。
 
 ### 手动 Docker 构建
 
-如果您喜欢手动构建 Docker 镜像，或者需要自定义该过程：
+如果您倾向于手动构建 Docker 镜像：
 
 ```bash
-# GPU 版本
-docker build -f Dockerfile-infer-GPU -t myocr:custom .
+# 首先，将模型复制到构建上下文
+mkdir -p models
+cp -r ~/.MyOCR/models/* ./models/
 
-# CPU 版本
-docker build -f Dockerfile-infer-CPU -t myocr:custom-cpu .
+# 确定版本
+VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
 
-# 使用自定义选项运行
-docker run -d -p 8000:8000 -v /path/to/local/models:/app/models myocr:custom
+# 构建 GPU 版本 (示例标签)
+docker build -f Dockerfile-infer-GPU -t myocr:gpu-$VERSION .
+
+# 构建 CPU 版本 (示例标签)
+docker build -f Dockerfile-infer-CPU -t myocr:cpu-$VERSION .
+
+# 清理复制的模型
+rm -rf ./models
 ```
+
+请记住将 `$VERSION` 替换为实际的版本号。然后，您可以按照推理文档中的说明运行构建好的镜像。
 
 ## 许可证
 

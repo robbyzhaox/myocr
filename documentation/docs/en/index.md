@@ -37,13 +37,27 @@ Whether you need basic text extraction or complex structured data extraction fro
 Beyond using MyOCR as a Python library (see [Inference Guide](./inference/local.md)), you can also deploy it:
 
 *   **As a REST API:**
-    *   Start the built-in Flask server: `python main.py` (runs on port 5000 by default).
+    *   The service is run using `gunicorn` (as configured in the Docker images) and typically listens on port 8000.
+    *   For local development/testing, you might run `python main.py`, which may use a different port (check `main.py`).
     *   Endpoints: `GET /ping`, `POST /ocr` (basic OCR), `POST /ocr-json` (structured OCR).
     *   A separate UI is available: [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
 *   **Using Docker:**
-    *   Build CPU/GPU images using `Dockerfile-infer-CPU` or `Dockerfile-infer-GPU`.
-    *   Use the helper script: `scripts/build_docker_image.sh` for easy setup.
-    *   Example run: `docker run -d -p 8000:8000 myocr:gpu` (exposes service on port 8000).
+    *   Build CPU or GPU specific images using `Dockerfile-infer-CPU` or `Dockerfile-infer-GPU`.
+    *   Use the helper script for building (replace `[cpu|gpu]` and ensure `VERSION` is correct):
+        ```bash
+        # First, determine the version
+        VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
+        # Build the desired image (cpu or gpu)
+        bash scripts/build_docker_image.sh [cpu|gpu]
+        ```
+    *   Example run (replace `[cpu|gpu]` and `$VERSION` with actual values):
+        ```bash
+        # Example for GPU image version 0.1.0
+        docker run -d -p 8000:8000 myocr:gpu-0.1.0
+        # Example for CPU image version 0.1.0
+        docker run -d -p 8000:8000 myocr:cpu-0.1.0
+        ```
+    *   The service inside the container runs on port 8000.
 
 ## Additional Resources
 

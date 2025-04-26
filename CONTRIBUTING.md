@@ -144,41 +144,59 @@ When proposing new features:
 
 ## Docker Development
 
-We provide a utility script to simplify the Docker build and deployment process:
+We provide Dockerfiles for building CPU and GPU inference images, and a utility script to simplify the build process.
 
-### Using the Build Script
+### Using the Build Script (Recommended)
 
-The `scripts/build_docker_image.sh` script automates the process of building and running a Docker container:
+The `scripts/build_docker_image.sh` script automates building the versioned Docker images:
 
 ```bash
 # Make the script executable if it's not already
 chmod +x scripts/build_docker_image.sh
 
-# Run the script
-./scripts/build_docker_image.sh
+# Determine the application version
+VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
+
+# Run the script to build either the CPU or GPU image
+# Replace [cpu|gpu] with your target
+bash scripts/build_docker_image.sh [cpu|gpu]
+
+# Example: Build the CPU image
+# bash scripts/build_docker_image.sh cpu
 ```
 
 This script:
-1. Stops and removes any existing containers based on the MyOCR image
-2. Removes any existing MyOCR Docker images
-3. Copies models from your local configuration
-4. Builds a new Docker image using the GPU-enabled Dockerfile
-5. Runs a container exposing the service on port 8000
+1. Stops and removes any existing containers based on the *specific versioned tag* being built (e.g., `myocr:cpu-X.Y.Z`).
+2. Removes the existing Docker image for that specific tag.
+3. Copies models from `~/.MyOCR/models/` into the build context.
+4. Builds a new Docker image using the appropriate Dockerfile (`Dockerfile-infer-CPU` or `Dockerfile-infer-GPU`).
+5. Tags the image with a version (e.g., `myocr:cpu-X.Y.Z` or `myocr:gpu-X.Y.Z`).
+
+**Note:** This script only *builds* the image. See the [REST API Inference guide](./inference/rest.md#option-2-deploying-with-docker-recommended-for-production) for instructions on running the container.
 
 ### Manual Docker Build
 
-If you prefer to build the Docker image manually, or need to customize the process:
+If you prefer to build the Docker image manually:
 
 ```bash
-# For GPU version
-docker build -f Dockerfile-infer-GPU -t myocr:custom .
+# First, copy models to the build context
+mkdir -p models
+cp -r ~/.MyOCR/models/* ./models/
 
-# For CPU version
-docker build -f Dockerfile-infer-CPU -t myocr:custom-cpu .
+# Determine the version
+VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
 
-# Run with custom options
-docker run -d -p 8000:8000 -v /path/to/local/models:/app/models myocr:custom
+# For GPU version (example tag)
+docker build -f Dockerfile-infer-GPU -t myocr:gpu-$VERSION .
+
+# For CPU version (example tag)
+docker build -f Dockerfile-infer-CPU -t myocr:cpu-$VERSION .
+
+# Clean up copied models
+rm -rf ./models
 ```
+
+Remember to replace `$VERSION` with the actual version number. You can then run the built image as described in the inference documentation.
 
 ## License
 
