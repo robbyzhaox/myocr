@@ -52,11 +52,11 @@ This guide covers the necessary steps to install MyOCR and its dependencies.
     ```
 
     *   **Note:** The default location where MyOCR expects models is `~/.MyOCR/models/`. This path is defined in `myocr/config.py`. You can modify this configuration or place models elsewhere if needed, but you would need to adjust the paths in the pipeline configuration files (`myocr/pipelines/config/*.yaml`).
-    *   The `curl` commands above use Google Drive links([Baidu Pan links](https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j)). Ensure you can download from these links in your environment. You might need to adjust the commands or download the files manually if `curl` has issues with redirects or permissions.
+    *   The `curl` commands above use Google Drive links(Alternative: [Baidu Pan links](https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j)). Ensure you can download from these links in your environment. You might need to adjust the commands or download the files manually if `curl` has issues with redirects or permissions.
 
 ## Next Steps
 
 Once installation is complete and models are downloaded, you can proceed to:
 
 *   [Overview](overview.md): Get a high-level understanding of the library.
-*   [Inference Guide](../../inference/index.md): See examples of how to run OCR tasks.
+*   [Inference Guide](../inference/local.md): See examples of how to run OCR tasks.

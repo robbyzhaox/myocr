@@ -52,11 +52,11 @@
     ```
 
     *   **注意:** MyOCR 默认查找模型的位置是 `~/.MyOCR/models/`。此路径在 `myocr/config.py` 中定义。如果需要，您可以修改此配置或将模型放置在其他地方，但您需要调整流水线配置文件 (`myocr/pipelines/config/*.yaml`) 中的路径。
-    *   上面的 `curl` 命令使用了 Google Drive 链接, 也可从[Baidu网盘](https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j)链接下载。请确保您的环境可以从这些链接下载。如果 `curl` 处理重定向或权限时出现问题，您可能需要调整命令或手动下载文件。
+    *   上面的 `curl` 命令使用了 Google Drive （备用：[Baidu网盘](https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j)）链接下载。请确保您的环境可以从这些链接下载。如果 `curl` 处理重定向或权限时出现问题，您可能需要调整命令或手动下载文件。
 
 ## 后续步骤
 
 安装完成并下载模型后，您可以继续：
 
 *   [概览](overview.md): 对库有一个高层次的理解。
-*   [推理指南](../../inference/index.md): 查看如何运行 OCR 任务的示例。
+*   [推理指南](../inference/local.md): 查看如何运行 OCR 任务的示例。

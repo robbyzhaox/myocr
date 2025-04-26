@@ -37,6 +37,6 @@ MyOCR is built around several key concepts:
 
 MyOCR's modular design allows for easy customization.
 
-*   **[Adding New Models](../models/new-model.md):** Learn about the ways to introduce a new model by the model loader.
-*   **[Creating Custom Predictors](../predictors/new-predictor.md):** Learn about how to create a custom `Predictor` by `Model` and `ParamConverter`.
+*   **[Adding New Models](../models/add-model.md):** Learn about the ways to introduce a new model by the model loader.
+*   **[Creating Custom Predictors](../predictors/create-predictor.md):** Learn about how to create a custom `Predictor` by `Model` and `ParamConverter`.
 *   **[Building Custom Pipelines](../pipelines/build-pipeline.md):** Learn how to Orchestrates multiple `Predictor`'s to `Pipeline`

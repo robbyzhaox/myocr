@@ -215,4 +215,4 @@ onnx_output_path = os.path.join(OUTPUT_DIR, "trained_model.onnx")
 model_for_export.to_onnx(onnx_output_path, dummy_input)
 print(f"已将模型导出到 {onnx_output_path}")
 ```
-*   然后，您可以按照 [添加新模型](./new-model.md#option-1-adding-a-pre-trained-onnx-model) 中的步骤使用这个导出的 ONNX 模型。 
+*   然后，您可以按照 [添加新模型](./add-model.md#option-1-adding-a-pre-trained-onnx-model) 中的步骤使用这个导出的 ONNX 模型。 

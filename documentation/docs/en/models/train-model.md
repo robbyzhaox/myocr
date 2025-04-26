@@ -215,4 +215,4 @@ onnx_output_path = os.path.join(OUTPUT_DIR, "trained_model.onnx")
 model_for_export.to_onnx(onnx_output_path, dummy_input)
 print(f"Exported model to {onnx_output_path}")
 ```
-*   You can then use this exported ONNX model following the steps in [Adding New Models](./new-model.md#option-1-adding-a-pre-trained-onnx-model).
+*   You can then use this exported ONNX model following the steps in [Adding New Models](./add-model.md#option-1-adding-a-pre-trained-onnx-model).

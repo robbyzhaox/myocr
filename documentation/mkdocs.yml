@@ -108,8 +108,8 @@ plugins:
           nav:
             - Home: index.md
             - Getting Started:
-                - Overview: getting-started/overview.md
                 - Installation: getting-started/installation.md
+                - Overview: getting-started/overview.md
             - Components:
                 - Models: 
                     - Model: models/index.md
@@ -137,8 +137,8 @@ plugins:
           nav:
             - Home: index.md
             - 开始:
-                - 简述: getting-started/overview.md
                 - 安装: getting-started/installation.md
+                - 简述: getting-started/overview.md
             - 组件:
                 - 模型:
                     - 模型: models/index.md

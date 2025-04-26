@@ -41,7 +41,7 @@ While the system is flexible, common models used in MyOCR include:
 *   **Text Recognition:** Frequently employs **CRNN (Convolutional Recurrent Neural Network)** architectures. These typically use CNN backbones (like ResNet or VGG) followed by BiLSTM layers and a CTC (Connectionist Temporal Classification) head for sequence decoding.
 *   **Text Direction Classification:** Usually simpler CNN-based classifiers (e.g., adapted MobileNet or ResNet variants) trained to predict text orientation (e.g., 0 or 180 degrees).
 
-## Configuration
+## Model Configuration
 
 Custom models are configured using YAML files. These files specify:
 
@@ -82,7 +82,7 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
 
 ## Available Models
 
-### Text Detection Models
+### Text Detection (DBNet++)
 
 - **DBNet++**: A state-of-the-art text detection model based on DBNet architecture
   - Input: RGB image
@@ -91,8 +91,15 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
     - High accuracy for arbitrary-shaped text
     - Fast inference speed
     - Robust to various text orientations
+  - Architecture:
+    ```python
+    # Architecture overview
+    Backbone: ResNet
+    Neck: FPN
+    Head: DBHead
+    ```
 
-### Text Recognition Models
+### Text Recognition (CRNN)
 
 - **CRNN**: A hybrid CNN-RNN model for text recognition
   - Input: Cropped text region
@@ -101,6 +108,13 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
     - Supports Chinese and English characters
     - Handles variable-length text
     - Robust to different fonts and styles
+  - Architecture:
+    ```python
+    # Architecture overview
+    Backbone: CNN
+    Neck: BiLSTM
+    Head: CTC
+    ```
 
 ### Text Classification Models
 
@@ -110,53 +124,6 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
   - Features:
     - 0° and 180° classification
     - Helps improve recognition accuracy
-
-## Model Architecture
-
-### Text Detection (DBNet++)
-
-```python
-# Architecture overview
-Backbone: ResNet
-Neck: FPN
-Head: DBHead
-```
-
-Key components:
-- Feature Pyramid Network (FPN) for multi-scale feature extraction
-- Differentiable Binarization (DB) for accurate text region detection
-- Post-processing for polygon generation
-
-### Text Recognition (CRNN)
-
-```python
-# Architecture overview
-Backbone: CNN
-Neck: BiLSTM
-Head: CTC
-```
-
-Key components:
-- Convolutional layers for feature extraction
-- Bidirectional LSTM for sequence modeling
-- Connectionist Temporal Classification (CTC) for text decoding
-
-## Model Configuration
-
-Models can be configured through YAML files:
-
-```yaml
-model:
-  detection:
-    input_size: [640, 640]
-    mean: [0.485, 0.456, 0.406]
-    std: [0.229, 0.224, 0.225]
-  
-  recognition:
-    input_size: [100, 32]
-    mean: [0.5, 0.5, 0.5]
-    std: [0.5, 0.5, 0.5]
-```
 
 ## Model Performance
 
