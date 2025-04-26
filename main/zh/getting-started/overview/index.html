@@ -15,10 +15,10 @@
         <link rel="canonical" href="https://robbyzhaox.github.io/myocr/main/zh/getting-started/overview/">
       
       
-        <link rel="prev" href="../../">
+        <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../installation/">
+        <link rel="next" href="../../models/model-list/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -285,13 +285,13 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+        <a href="../installation/" class="md-tabs__link">
           
   
   
     
   
-  概述
+  开始
 
         </a>
       </li>
@@ -542,7 +542,7 @@
   
   
   <span class="md-ellipsis">
-    概述
+    开始
     
   </span>
   
@@ -553,9 +553,32 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            概述
+            开始
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    安装
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -692,29 +715,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    安装
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -1491,19 +1491,19 @@
 <p><img alt="MyOCR 类图" src="../../../assets/images/myocr_class_diagram.png" /></p>
 <ul>
 <li><strong>模型 (Model):</strong> 代表一个神经网络模型。MyOCR 支持加载 ONNX 模型 (<code>OrtModel</code>)、标准 PyTorch 模型 (<code>PyTorchModel</code>) 以及由 YAML 配置定义的自定义 PyTorch 模型 (<code>CustomModel</code>)。模型负责核心计算。<ul>
-<li>更多详情请参阅 <a href="../../models/index.md">模型部分</a>。</li>
+<li>更多详情请参阅 <a href="../../models/model-list/">模型部分</a>。</li>
 </ul>
 </li>
 <li><strong>转换器 (Converter / <code>ParamConverter</code>):</strong> 为模型准备输入数据，并将模型的原始输出处理成更易用的格式。每个预测器都使用特定的转换器。<ul>
-<li>转换器详情请参阅 <a href="../../predictors/index.md">预测器部分</a>。</li>
+<li>转换器详情请参阅 <a href="../../predictors/predictor-list/">预测器部分</a>。</li>
 </ul>
 </li>
 <li><strong>预测器 (Predictor):</strong> 结合一个 <code>Model</code> 和一个 <code>ParamConverter</code> 来执行特定的推理任务（例如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
-<li>可用预测器列表请参阅 <a href="../../predictors/index.md">预测器部分</a>。</li>
+<li>可用预测器列表请参阅 <a href="../../predictors/predictor-list/">预测器部分</a>。</li>
 </ul>
 </li>
 <li><strong>流水线 (Pipeline):</strong> 协调多个 <code>Predictors</code> 来执行复杂的多步骤任务，如端到端 OCR。流水线为最常见的用例提供了最高级别的接口。<ul>
-<li>可用流水线列表请参阅 <a href="../../pipelines/index.md">流水线部分</a>。</li>
+<li>可用流水线列表请参阅 <a href="../../pipelines/pipelines-list/">流水线部分</a>。</li>
 </ul>
 </li>
 </ul>
@@ -1573,7 +1573,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 07:13:50">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 09:43:57">2025年4月26日</span>
   </span>
 
     
@@ -1583,7 +1583,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 07:13:50">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 09:43:57">2025年4月26日</span>
   </span>
 
     

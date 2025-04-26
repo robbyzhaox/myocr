@@ -15,10 +15,10 @@
         <link rel="canonical" href="https://robbyzhaox.github.io/myocr/main/zh/getting-started/installation/">
       
       
-        <link rel="prev" href="../overview/">
+        <link rel="prev" href="../../">
       
       
-        <link rel="next" href="../../models/model-list/">
+        <link rel="next" href="../overview/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -285,13 +285,13 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../overview/" class="md-tabs__link">
+        <a href="./" class="md-tabs__link">
           
   
   
     
   
-  概述
+  开始
 
         </a>
       </li>
@@ -542,7 +542,7 @@
   
   
   <span class="md-ellipsis">
-    概述
+    开始
     
   </span>
   
@@ -553,32 +553,9 @@
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
-            概述
+            开始
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    概述
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -667,6 +644,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    概述
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1417,15 +1417,15 @@
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># 下载模型 (确保已安装 curl)</span>
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># 检测模型 (DBNet++)</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>curl<span class="w"> </span>-L<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/dbnet++.onnx
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/dbnet++.onnx
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># 识别模型 (类 CRNN)</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>curl<span class="w"> </span>-L<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/rec.onnx
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/rec.onnx
 <a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># 分类模型 (角度)</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>curl<span class="w"> </span>-L<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/cls.onnx
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>curl<span class="w"> </span>-fsSL<span class="w"> </span><span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX&quot;</span><span class="w"> </span>-o<span class="w"> </span>~/.MyOCR/models/cls.onnx
 </code></pre></div>
 <ul>
 <li><strong>注意:</strong> MyOCR 默认查找模型的位置是 <code>~/.MyOCR/models/</code>。此路径在 <code>myocr/config.py</code> 中定义。如果需要，您可以修改此配置或将模型放置在其他地方，但您需要调整流水线配置文件 (<code>myocr/pipelines/config/*.yaml</code>) 中的路径。</li>
-<li>上面的 <code>curl</code> 命令使用了 Google Drive 链接。请确保您的环境可以从这些链接下载。如果 <code>curl</code> 处理重定向或权限时出现问题，您可能需要调整命令或手动下载文件。</li>
+<li>上面的 <code>curl</code> 命令使用了 Google Drive 链接, 也可从<a href="https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j">Baidu网盘</a>链接下载。请确保您的环境可以从这些链接下载。如果 <code>curl</code> 处理重定向或权限时出现问题，您可能需要调整命令或手动下载文件。</li>
 </ul>
 </li>
 </ol>
@@ -1457,7 +1457,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 07:13:50">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 09:43:57">2025年4月26日</span>
   </span>
 
     
@@ -1467,7 +1467,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月25日 07:13:50">2025年4月25日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月26日 09:43:57">2025年4月26日</span>
   </span>
 
     
