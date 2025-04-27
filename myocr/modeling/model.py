@@ -3,20 +3,12 @@ from abc import ABC
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-import onnxruntime as ort
-import torch
-import torchvision
 import yaml  # type: ignore
-from torch import nn
 
 from ..base import ParamConverter, Predictor
 from .architectures import build_model
 
 logger = logging.getLogger(__name__)
-
-
-def is_cuda_available():
-    return torch.cuda.is_available()
 
 
 class Device:
@@ -93,6 +85,8 @@ class OrtModel(Model):
                 )
             )  # type: ignore
 
+        import onnxruntime as ort
+
         sess_options = ort.SessionOptions()
         sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
         sess_options.execution_mode = ort.ExecutionMode.ORT_SEQUENTIAL
@@ -147,6 +141,9 @@ class PyTorchModel(Model):
 
     def __init__(self, device):
         super().__init__(device)
+        import torch
+
+        self.torch = torch
 
     def load(self, model_name_or_path) -> None:
         if self.loaded:
@@ -160,6 +157,9 @@ class PyTorchModel(Model):
         if isinstance(self.device, Device):
             self.device = self.device.name
 
+        import torchvision
+        from torch import nn
+
         model_fn = getattr(torchvision.models, model_name_or_path)
         self.loaded_model: nn.Module = model_fn()
 
@@ -171,7 +171,7 @@ class PyTorchModel(Model):
 
     def forward_internal(self, *args, **kwargs):
         if self.loaded_model:
-            with torch.no_grad():
+            with self.torch.no_grad():
                 return self.loaded_model(*args, **kwargs)
         else:
             raise RuntimeError("model not loaded")
@@ -184,6 +184,9 @@ class CustomModel(Model):
 
     def __init__(self, device):
         super().__init__(device)
+        import torch
+
+        self.torch = torch
         if isinstance(self.device, Device):
             self.device = self.device.name
 
@@ -198,13 +201,15 @@ class CustomModel(Model):
 
         import copy
 
+        from torch import nn
+
         self.loaded_model: nn.Module = build_model(copy.deepcopy(config["Architecture"]))
         self.loaded_model.to(self.device)
         logger.info(f"loaded custom model from {model_path}")
         # pretrained model weights
         if "pretrained" in config and self.loaded_model:
             weight_path = config.pretrained
-            self.loaded_model.load_state_dict(torch.load(weight_path))
+            self.loaded_model.load_state_dict(self.torch.load(weight_path))
 
     def forward_internal(self, *args, **kwargs):
         if self.loaded_model:
@@ -227,7 +232,7 @@ class CustomModel(Model):
 
     def to_onnx(self, file_path: Union[str, Path], input_sample) -> None:
         file_path = str(file_path) if isinstance(file_path, Path) else file_path
-        torch.onnx.export(self.loaded_model, input_sample, file_path, export_params=True)
+        self.torch.onnx.export(self.loaded_model, input_sample, file_path, export_params=True)
         logger.info(f"successfuly exported model to {file_path}")
 
 

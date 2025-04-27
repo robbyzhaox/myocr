@@ -1,7 +1,6 @@
 import logging
 from typing import Optional
 
-from openai import OpenAI
 from pydantic import BaseModel
 
 from .base import Extractor
@@ -10,7 +9,10 @@ logger = logging.getLogger(__name__)
 
 
 class OpenAiChatExtractor(Extractor):
+
     def __init__(self, model, base_url, api_key):
+        from openai import OpenAI
+
         super().__init__()
         self.model = model
         self.chat_client = OpenAI(api_key=api_key, base_url=base_url)

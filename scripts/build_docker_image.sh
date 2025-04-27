@@ -65,7 +65,7 @@ rm -rf ./models
 echo "Image build complete: $IMAGE_TAG"
 
 # Optional: Run the container (consider if this should be separate)
-# echo "Running container $IMAGE_TAG..."
-# docker run -d -p 8000:8000 $IMAGE_TAG
+echo "Running container $IMAGE_TAG..."
+docker run -d -p 8000:8000 $IMAGE_TAG
 
 echo "Script finished successfully."

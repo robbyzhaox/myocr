@@ -1,4 +1,7 @@
 import importlib
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def check_module_name(module_name: str, module_map: dict):

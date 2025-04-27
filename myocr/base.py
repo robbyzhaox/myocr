@@ -1,8 +1,7 @@
 from abc import ABC
-from typing import Generic, Optional, TypeVar, Union
+from typing import Generic, Optional, TypeVar
 
 import numpy as np
-from torch import Tensor
 
 """ Generic type definition """
 InputType = TypeVar("InputType")
@@ -18,10 +17,10 @@ class ParamConverter(ABC, Generic[InputType, OutputType]):
     def __init__(self):
         super().__init__()
 
-    def convert_input(self, input_data: InputType) -> Optional[Union[Tensor, np.ndarray]]:
+    def convert_input(self, input_data: InputType) -> Optional[np.ndarray]:
         pass
 
-    def convert_output(self, internal_result: Union[Tensor, np.ndarray]) -> Optional[OutputType]:
+    def convert_output(self, internal_result: np.ndarray) -> Optional[OutputType]:
         pass
 
 

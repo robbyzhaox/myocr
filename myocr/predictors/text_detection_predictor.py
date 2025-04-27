@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, Union
+from typing import Optional
 
 import cv2
 import numpy as np
@@ -7,7 +7,6 @@ import pyclipper
 from PIL import Image as PIL
 from PIL.Image import Image
 from shapely.geometry import Polygon
-from torch import Tensor
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import DetectedObjects, RectBoundingBox
@@ -76,9 +75,7 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
         cv2.fillPoly(mask, box.reshape(1, -1, 2).astype(np.int32), 1)  # type: ignore
         return cv2.mean(bitmap[ymin : ymax + 1, xmin : xmax + 1], mask)[0]
 
-    def convert_output(
-        self, internal_result: Union[Tensor, np.ndarray]
-    ) -> Optional[DetectedObjects]:
+    def convert_output(self, internal_result: np.ndarray) -> Optional[DetectedObjects]:
         if self.origin_image is None:
             return None
 

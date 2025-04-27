@@ -1,7 +1,6 @@
 import logging
 
 import yaml  # type: ignore
-from pydantic import BaseModel
 
 from myocr.extractor.chat_extractor import OpenAiChatExtractor
 from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
@@ -29,4 +28,6 @@ class StructuredOutputOCRPipeline(CommonOCRPipeline):
         return self.extractor.extract_with_format(rec.get_content_text(), self.response_format)
 
     def set_response_format(self, json_schema):
+        from pydantic import BaseModel
+
         self.response_format: BaseModel = json_schema

@@ -1,10 +1,10 @@
 import json
 from typing import Optional
 
+import numpy as np
 import torch
 import torchvision.transforms as transforms
 from PIL.Image import Image
-from torch import Tensor
 
 from myocr.base import ParamConverter
 
@@ -38,14 +38,14 @@ class ImageClassificationParamConverter(ParamConverter[Image, Classification]):
         )
         self.name = self.__class__
 
-    def convert_input(self, input: Image) -> Optional[Tensor]:
+    def convert_input(self, input_data: Image) -> Optional[np.ndarray]:
 
-        tensor = self.transforms(input).to(self.device)  # type: ignore
+        tensor = self.transforms(input_data).to(self.device)  # type: ignore
         batch_tensor = tensor.unsqueeze(0)
         print(f"input.size={batch_tensor.shape}")
-        return batch_tensor
+        return batch_tensor.numpy()
 
-    def convert_output(self, internal_result: Tensor) -> Optional[Classification]:
+    def convert_output(self, internal_result: np.ndarray) -> Optional[Classification]:
         probabilities = torch.nn.functional.softmax(internal_result[0], dim=0)
         top1_prob, top1_catid = torch.topk(probabilities, 1)
         with open("myocr/predictors/imagenet-simple-labels.json", "r") as f:

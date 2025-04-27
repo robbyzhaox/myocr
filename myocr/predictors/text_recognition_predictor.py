@@ -2,7 +2,6 @@ import logging
 from typing import List, Optional
 
 import numpy as np
-from torch import Tensor
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import BoundingBox, DetectedObjects
@@ -94,7 +93,7 @@ class TextRecognitionParamConverter(ParamConverter[DetectedObjects, RecognizedTe
         # (B, C, H, W) eg: (8, 3, 32, 94)
         return np.stack(padded_batch, axis=0).transpose(0, 3, 1, 2)
 
-    def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[RecognizedTexts]:
+    def convert_output(self, internal_result: np.ndarray) -> Optional[RecognizedTexts]:
         preds = internal_result[0]
         logger.debug(f"text recognition output shape: {preds.shape}")
         # preds shape: (Time Steps, Batch Size, Num Classes)

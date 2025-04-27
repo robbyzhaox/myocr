@@ -1,6 +1,5 @@
 import time
 
-import matplotlib.pyplot as plt
 import numpy as np
 import PIL
 import PIL.Image
@@ -32,6 +31,8 @@ except ImportError:
 
 
 def setup_plots():
+    import matplotlib.pyplot as plt
+
     """Initialize plotting area for visualization"""
     # plt.close('all')  # Close previous figures
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))

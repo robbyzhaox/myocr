@@ -2,7 +2,6 @@ import logging
 from typing import Optional
 
 import numpy as np
-from torch import Tensor
 
 from myocr.util import crop_rectangle
 
@@ -49,7 +48,7 @@ class TextDirectionParamConverter(ParamConverter[DetectedObjects, DetectedObject
         # (B, C, H, W) eg: (8, 3, 32, 94)
         return np.stack(padded_batch, axis=0).transpose(0, 3, 1, 2)
 
-    def convert_output(self, internal_result: Tensor | np.ndarray) -> Optional[DetectedObjects]:
+    def convert_output(self, internal_result: np.ndarray) -> Optional[DetectedObjects]:
         preds = internal_result[0]
         pred_idxs = np.argmax(preds, axis=1)
 
