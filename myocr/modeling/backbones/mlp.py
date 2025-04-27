@@ -1,3 +1,5 @@
+import numpy as np
+import torch
 from torch import nn
 
 
@@ -16,5 +18,7 @@ class MLP(nn.Module):
         self.out_channels = output_size
 
     def forward(self, x):
+        if isinstance(x, np.ndarray):
+            x = torch.from_numpy(x)
         x = x.view(x.size(0), -1)
         return self.layers(x)

@@ -39,11 +39,10 @@ class ImageClassificationParamConverter(ParamConverter[Image, Classification]):
         self.name = self.__class__
 
     def convert_input(self, input_data: Image) -> Optional[np.ndarray]:
-
         tensor = self.transforms(input_data).to(self.device)  # type: ignore
         batch_tensor = tensor.unsqueeze(0)
-        print(f"input.size={batch_tensor.shape}")
-        return batch_tensor.numpy()
+        print(f"input.size={batch_tensor.shape} {batch_tensor.size(0)}")
+        return batch_tensor
 
     def convert_output(self, internal_result: np.ndarray) -> Optional[Classification]:
         probabilities = torch.nn.functional.softmax(internal_result[0], dim=0)
