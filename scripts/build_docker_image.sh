@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set +e
+set -e
 
 # Check for argument
 if [ -z "$1" ] || { [ "$1" != "cpu" ] && [ "$1" != "gpu" ]; }; then

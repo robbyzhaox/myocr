@@ -136,3 +136,22 @@ class LabelTranslator:
                 if t[i] != 0 and (not (i > 0 and t[i - 1] == t[i])):
                     char_list.append(self.alphabet[t[i] - 1])
             return "".join(char_list)
+
+
+def poly_area(points):
+    area = 0.0
+    for i in range(len(points)):
+        j = (i + 1) % len(points)
+        area += points[i][0] * points[j][1]
+        area -= points[j][0] * points[i][1]
+    return abs(area) / 2.0
+
+
+def poly_perimeter(points):
+    perimeter = 0.0
+    for i in range(len(points)):
+        j = (i + 1) % len(points)
+        dx = points[j][0] - points[i][0]
+        dy = points[j][1] - points[i][1]
+        perimeter += (dx * dx + dy * dy) ** 0.5
+    return perimeter

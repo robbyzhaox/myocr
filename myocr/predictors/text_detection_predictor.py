@@ -6,10 +6,10 @@ import numpy as np
 import pyclipper
 from PIL import Image as PIL
 from PIL.Image import Image
-from shapely.geometry import Polygon
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import DetectedObjects, RectBoundingBox
+from myocr.util import poly_area, poly_perimeter
 
 logger = logging.getLogger(__name__)
 
@@ -52,8 +52,9 @@ class TextDetectionParamConverter(ParamConverter[Image, DetectedObjects]):
 
     def _unclip(self, box_points, unclip_ratio=1.5):
         """输入多边形坐标[N,2]，返回扩展后的多边形坐标"""
-        poly = Polygon(box_points)
-        distance = poly.area * unclip_ratio / poly.length
+        area = poly_area(box_points)
+        perimeter = poly_perimeter(box_points)
+        distance = area * unclip_ratio / perimeter
         offset = pyclipper.PyclipperOffset()  # type: ignore
         offset.AddPath(box_points, pyclipper.JT_ROUND, pyclipper.ET_CLOSEDPOLYGON)  # type: ignore
         expanded = offset.Execute(distance)

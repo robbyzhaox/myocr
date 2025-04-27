@@ -23,6 +23,7 @@ COPY main.py pyproject.toml /app/
 RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install --no-cache-dir . && \
     python3 -m pip install --no-cache-dir gunicorn && \
+    python3 -m pip uninstall -y pip setuptools wheel && \
     find /usr/local/lib/python3.11 -type f -name '*.pyc' -delete && \
     find /usr/local/lib/python3.11 -type d -name '__pycache__' -exec rm -rf {} +
 
@@ -42,7 +43,8 @@ COPY --from=builder --chown=root:root /usr/local/bin/gunicorn /usr/local/bin/
 COPY --from=builder --chown=root:root /app /app
 
 RUN find /app -type f -name '*.pyc' -delete && \
-    find /app -type d -name '__pycache__' -exec rm -rf {} +
+    find /app -type d -name '__pycache__' -exec rm -rf {} + && \
+    rm -f /usr/local/bin/pip* /usr/local/bin/easy_install* || true
 
 WORKDIR /app
 EXPOSE 8000
