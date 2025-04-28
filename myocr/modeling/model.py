@@ -136,7 +136,7 @@ class OrtModel(Model):
 
 class PyTorchModel(Model):
     """
-    PyTorchModel is responsible for load pytorch predifined models
+    PyTorchModel is responsible for load pytorch predefined models
     """
 
     def __init__(self, device):
@@ -241,7 +241,7 @@ class CustomModel(Model):
             export_params=True,
             dynamic_axes={"input": {0: "batch_size", 2: "width", 3: "height"}},
         )
-        logger.info(f"successfuly exported model to {file_path}")
+        logger.info(f"successfully exported model to {file_path}")
 
 
 class ModelLoader(ABC):
