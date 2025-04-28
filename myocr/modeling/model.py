@@ -232,7 +232,15 @@ class CustomModel(Model):
 
     def to_onnx(self, file_path: Union[str, Path], input_sample) -> None:
         file_path = str(file_path) if isinstance(file_path, Path) else file_path
-        self.torch.onnx.export(self.loaded_model, input_sample, file_path, export_params=True)
+        self.torch.onnx.export(
+            self.loaded_model,
+            input_sample,
+            file_path,
+            input_names=["input"],
+            output_names=["outputs"],
+            export_params=True,
+            dynamic_axes={"input": {0: "batch_size", 2: "width", 3: "height"}},
+        )
         logger.info(f"successfuly exported model to {file_path}")
 
 
