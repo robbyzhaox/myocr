@@ -22,7 +22,7 @@ MyOCR is a Python package designed to streamline the development of production-r
 **🔌 Developer-Centric – Clean** Python APIs, prebuilt pipelines, and easy custom training.
 
 ## 📣 Updates
-- **🔥2025.04.24 release MyOCR alpha version**:
+- **🔥2025.04.28 release MyOCR alpha version**:
     - Release image detection, class, recognition models
     - All components can work together
 
