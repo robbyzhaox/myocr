@@ -57,7 +57,7 @@ curl -fsSL "https://drive.google.com/file/d/1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX/vi
 
 ## ⏭️  Quick Start
 
-### 📝  Local Ieference
+### 📝  Local Inference
 
 #### Basic OCR Recognition
 
