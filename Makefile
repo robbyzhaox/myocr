@@ -1,7 +1,6 @@
 .PHONY : docs
 docs :
-	rm -rf docs/build/
-	sphinx-autobuild -b html --watch myocr/ docs/source/ docs/build/
+	cd documentation && rm -rf site && mkdocs build
 
 .PHONY : run-format
 run-format :

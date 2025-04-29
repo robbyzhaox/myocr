@@ -19,6 +19,7 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
+    "numpy==2.2.4",
     "pillow==11.2.1",
     "opencv-python-headless~=4.11.0",
     "onnxruntime==1.21.0",
@@ -45,8 +46,6 @@ dev = [
     "torch>=2.5.1",
     "torchvision==0.21.0",
     "scipy==1.15.2",
-    "numpy==2.2.4",
-    "onnxruntime==1.21.0",
     "flask>=3.1.0",
     "flask-cors==5.0.1",
     "matplotlib==3.10.1",
@@ -56,11 +55,16 @@ dev = [
     "black>=23.0,<26.0",
     "isort>=5.12,<6.1",
     "pytest",
-    "pytest-sphinx",
     "pytest-cov",
     "twine>=1.11.0",
-    "furo==2024.8.6",
-    "myst-parser>=1.0",
+]
+docs = [
+    "mkdocs",
+    "mkdocs-material",
+    "jieba",
+    "mkdocs-git-revision-date-localized-plugin",
+    "mkdocs-git-committers-plugin-2",
+    "mkdocs-static-i18n",
 ]
 
 [tool.setuptools.packages.find]
