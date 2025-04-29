@@ -1,5 +1,5 @@
 name: 📚 Documentation
-description: Report an issue related to https://myocr.readthedocs.io/latest
+description: Report an issue related to https://robbyzhaox.github.io/myocr
 labels: 'documentation'
 
 body:
@@ -7,7 +7,7 @@ body:
   attributes:
     label: 📚 The doc issue
     description: >
-      A clear and concise description of what content in https://myocr.readthedocs.io/latest is an issue.
+      A clear and concise description of what content in https://robbyzhaox.github.io/myocr is an issue.
   validations:
     required: true
 - type: textarea
