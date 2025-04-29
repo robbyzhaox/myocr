@@ -49,7 +49,7 @@ dev = [
     "flask>=3.1.0",
     "flask-cors==5.0.1",
     "matplotlib==3.10.1",
-    "pydantic==2.11.2",
+    "pydantic==2.11.4",
     "ruff",
     "mypy>=1.0,<2.0",
     "black>=23.0,<26.0",
