@@ -28,7 +28,7 @@ dependencies = [
     "PyYAML==6.0.2",
     "pyclipper~=1.3.0",
     "openai==1.72.0",
-]
+    ]
 license = {file = "LICENSE"}
 
 [project.urls]
@@ -59,6 +59,7 @@ dev = [
     "twine>=1.11.0",
 ]
 docs = [
+    "mike",
     "mkdocs",
     "mkdocs-material",
     "jieba",

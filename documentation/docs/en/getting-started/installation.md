@@ -42,13 +42,8 @@ This guide covers the necessary steps to install MyOCR and its dependencies.
     # mkdir -p ~/AppData/Local/MyOCR/models/
     # Note: Adjust the Windows path if needed based on your environment.
 
-    # Download models (ensure curl is installed)
-    # Detection Model (DBNet++)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9" -o ~/.MyOCR/models/dbnet++.onnx
-    # Recognition Model (CRNN-like)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX" -o ~/.MyOCR/models/rec.onnx
-    # Classification Model (Angle)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX" -o ~/.MyOCR/models/cls.onnx
+    # Download models from: https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
+    
     ```
 
     *   **Note:** The default location where MyOCR expects models is `~/.MyOCR/models/`. This path is defined in `myocr/config.py`. You can modify this configuration or place models elsewhere if needed, but you would need to adjust the paths in the pipeline configuration files (`myocr/pipelines/config/*.yaml`).

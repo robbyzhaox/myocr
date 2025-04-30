@@ -42,13 +42,7 @@
     # mkdir -p ~/AppData/Local/MyOCR/models/
     # 注意: 如果需要，请根据您的环境调整 Windows 路径。
 
-    # 下载模型 (确保已安装 curl)
-    # 检测模型 (DBNet++)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9" -o ~/.MyOCR/models/dbnet++.onnx
-    # 识别模型 (类 CRNN)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX" -o ~/.MyOCR/models/rec.onnx
-    # 分类模型 (角度)
-    curl -fsSL "https://drive.google.com/uc?export=download&id=1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX" -o ~/.MyOCR/models/cls.onnx
+    # 下载模型 https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
     ```
 
     *   **注意:** MyOCR 默认查找模型的位置是 `~/.MyOCR/models/`。此路径在 `myocr/config.py` 中定义。如果需要，您可以修改此配置或将模型放置在其他地方，但您需要调整流水线配置文件 (`myocr/pipelines/config/*.yaml`) 中的路径。
