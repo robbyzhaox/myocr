@@ -57,6 +57,7 @@ dev = [
     "pytest",
     "pytest-cov",
     "twine>=1.11.0",
+    "notebook",
 ]
 docs = [
     "mike",
