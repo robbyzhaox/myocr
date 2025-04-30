@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from myocr.modeling.act import Activation
+from myocr.modeling.activation import Activation
 
 
 def make_divisible(v, divisor=8, min_value=None):

@@ -9,7 +9,7 @@ from PIL.Image import Image
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import DetectedObjects, RectBoundingBox
-from myocr.util import poly_area, poly_perimeter
+from myocr.utils import poly_area, poly_perimeter
 
 logger = logging.getLogger(__name__)
 

@@ -1,1 +1,1 @@
-from .version import VERSION, VERSION_SHORT
+from myocr.version import VERSION, VERSION_SHORT

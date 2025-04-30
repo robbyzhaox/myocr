@@ -1,11 +1,22 @@
 from abc import ABC
-from typing import Generic, Optional, TypeVar
+from typing import Any, Generic, Optional, TypeVar
 
 import numpy as np
 
 """ Generic type definition """
 InputType = TypeVar("InputType")
 OutputType = TypeVar("OutputType")
+
+
+class Processor(ABC, Generic[InputType, OutputType]):
+    def __init__(self):
+        super().__init__()
+
+    def pre_process(self, input_data: InputType) -> Any:
+        pass
+
+    def post_process(self, output_data: Any) -> Optional[OutputType]:
+        pass
 
 
 class ParamConverter(ABC, Generic[InputType, OutputType]):

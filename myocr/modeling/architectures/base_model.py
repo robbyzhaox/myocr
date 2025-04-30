@@ -1,6 +1,6 @@
 from torch import nn
 
-from ..util import build_component
+from ..utils import build_component
 
 __all__ = ["BaseModel"]
 

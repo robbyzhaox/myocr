@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from myocr.modeling.act import Activation
+from myocr.modeling.activation import Activation
 
 
 def drop_path(x, drop_prob=0.0, training=False):

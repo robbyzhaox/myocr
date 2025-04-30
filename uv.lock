@@ -1127,7 +1127,6 @@ source = { editable = "." }
 dependencies = [
     { name = "flask" },
     { name = "flask-cors" },
-    { name = "mike" },
     { name = "numpy" },
     { name = "onnxruntime" },
     { name = "openai" },
@@ -1160,6 +1159,7 @@ dev = [
 ]
 docs = [
     { name = "jieba" },
+    { name = "mike" },
     { name = "mkdocs" },
     { name = "mkdocs-git-committers-plugin-2" },
     { name = "mkdocs-git-revision-date-localized-plugin" },
@@ -1178,7 +1178,7 @@ requires-dist = [
     { name = "isort", marker = "extra == 'dev'", specifier = ">=5.12,<6.1" },
     { name = "jieba", marker = "extra == 'docs'" },
     { name = "matplotlib", marker = "extra == 'dev'", specifier = "==3.10.1" },
-    { name = "mike", specifier = ">=2.1.3" },
+    { name = "mike", marker = "extra == 'docs'" },
     { name = "mkdocs", marker = "extra == 'docs'" },
     { name = "mkdocs-git-committers-plugin-2", marker = "extra == 'docs'" },
     { name = "mkdocs-git-revision-date-localized-plugin", marker = "extra == 'docs'" },

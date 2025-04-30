@@ -5,7 +5,7 @@ import numpy as np
 
 from myocr.base import ParamConverter
 from myocr.predictors.base import BoundingBox, DetectedObjects
-from myocr.util import LabelTranslator, softmax
+from myocr.utils import LabelTranslator, softmax
 
 logger = logging.getLogger(__name__)
 

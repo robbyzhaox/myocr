@@ -5,7 +5,8 @@ from typing import Any, Dict, List, Optional, Union
 
 import yaml  # type: ignore
 
-from ..base import ParamConverter, Predictor
+from myocr.base import ParamConverter, Predictor
+
 from .architectures import build_model
 
 logger = logging.getLogger(__name__)

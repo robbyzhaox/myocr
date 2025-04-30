@@ -3,7 +3,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from myocr.modeling.act import Activation
+from myocr.modeling.activation import Activation
 
 
 class ConvBNLayer(nn.Module):

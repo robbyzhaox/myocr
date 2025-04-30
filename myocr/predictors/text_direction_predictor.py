@@ -3,10 +3,9 @@ from typing import Optional
 
 import numpy as np
 
-from myocr.util import crop_rectangle
-
-from ..base import ParamConverter
-from .base import DetectedObjects
+from myocr.base import ParamConverter
+from myocr.predictors.base import DetectedObjects
+from myocr.utils import crop_rectangle
 
 logger = logging.getLogger(__name__)
 

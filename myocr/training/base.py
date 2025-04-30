@@ -2,7 +2,7 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from myocr.util import setup_plots, update_plots
+from myocr.utils import setup_plots, update_plots
 
 
 class Evaluator:

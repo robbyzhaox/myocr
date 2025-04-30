@@ -4,13 +4,12 @@ from pathlib import Path
 import yaml  # type: ignore
 from PIL import Image
 
+from myocr.base import Pipeline
 from myocr.config import MODEL_PATH
 from myocr.modeling.model import ModelZoo
 from myocr.predictors.text_detection_predictor import TextDetectionParamConverter
 from myocr.predictors.text_direction_predictor import TextDirectionParamConverter
 from myocr.predictors.text_recognition_predictor import TextRecognitionParamConverter
-
-from ..base import Pipeline
 
 logger = logging.getLogger(__name__)
 

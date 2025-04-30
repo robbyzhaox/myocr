@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from myocr.modeling.act import Activation
+from myocr.modeling.activation import Activation
 from myocr.modeling.backbones.mobilenet import ConvBNLayer
 
 
