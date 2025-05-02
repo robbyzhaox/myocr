@@ -1,11 +1,9 @@
 import logging
 from abc import ABC
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Union
 
 import yaml  # type: ignore
-
-from myocr.base import ParamConverter, Predictor
 
 from .architectures import build_model
 
@@ -23,13 +21,6 @@ class Model:
         self.device = device
         self.loaded_model = None
         self.loaded = False
-
-    def predictor(self, converter: Optional[ParamConverter]) -> Predictor:
-        """
-        build predictor by processors
-        """
-        predictor = Predictor(self, converter)
-        return predictor
 
     def forward_internal(self, *args, **kwargs):
         raise NotImplementedError("Should implement forward_internal in sub class")

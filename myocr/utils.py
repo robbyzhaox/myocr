@@ -1,9 +1,7 @@
 import time
 
+import cv2
 import numpy as np
-import PIL
-import PIL.Image
-from PIL.Image import Image
 
 
 def define_fallback_functions():
@@ -81,22 +79,23 @@ def update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, 
     time.sleep(0.1)
 
 
-def crop_rectangle(image: Image, box, target_height=32):
+def crop_rectangle(image: np.ndarray, box, target_height=32):
     """Crop a rectangle from an image and resize it to a target height while preserving aspect ratio"""
     left, top, right, bottom = map(int, (box.left, box.top, box.right, box.bottom))
-    width, height = image.size
+
+    height, width = image.shape[:2]
 
     left = max(0, min(left, width - 1))
     top = max(0, min(top, height - 1))
     right = max(left + 1, min(right, width))
     bottom = max(top + 1, min(bottom, height))
 
-    cropped = image.crop((left, top, right, bottom))
-    orig_width, orig_height = cropped.size
+    cropped = image[top:bottom, left:right]
+    orig_height, orig_width = cropped.shape[:2]
     aspect_ratio = orig_width / orig_height
 
     new_width = int(target_height * aspect_ratio)
-    resized = cropped.resize((new_width, target_height), PIL.Image.Resampling.BICUBIC)
+    resized = cv2.resize(cropped, (new_width, target_height), interpolation=cv2.INTER_CUBIC)
     return resized
 
 
@@ -136,22 +135,3 @@ class LabelTranslator:
                 if t[i] != 0 and (not (i > 0 and t[i - 1] == t[i])):
                     char_list.append(self.alphabet[t[i] - 1])
             return "".join(char_list)
-
-
-def poly_area(points):
-    area = 0.0
-    for i in range(len(points)):
-        j = (i + 1) % len(points)
-        area += points[i][0] * points[j][1]
-        area -= points[j][0] * points[i][1]
-    return abs(area) / 2.0
-
-
-def poly_perimeter(points):
-    perimeter = 0.0
-    for i in range(len(points)):
-        j = (i + 1) % len(points)
-        dx = points[j][0] - points[i][0]
-        dy = points[j][1] - points[i][1]
-        perimeter += (dx * dx + dy * dy) ** 0.5
-    return perimeter

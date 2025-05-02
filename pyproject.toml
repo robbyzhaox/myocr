@@ -20,7 +20,6 @@ authors = [
 requires-python = ">=3.11"
 dependencies = [
     "numpy==2.2.4",
-    "pillow==11.2.1",
     "opencv-python-headless~=4.11.0",
     "onnxruntime==1.21.0",
     "flask>=3.1.0",
@@ -28,7 +27,7 @@ dependencies = [
     "PyYAML==6.0.2",
     "pyclipper~=1.3.0",
     "openai==1.72.0",
-    ]
+]
 license = {file = "LICENSE"}
 
 [project.urls]
@@ -53,6 +52,7 @@ dev = [
     "ruff",
     "mypy>=1.0,<2.0",
     "black>=23.0,<26.0",
+    "black[jupyter]",
     "isort>=5.12,<6.1",
     "pytest",
     "pytest-cov",

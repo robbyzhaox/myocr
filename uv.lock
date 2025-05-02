@@ -187,6 +187,12 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/09/71/54e999902aed72baf26bca0d50781b01838251a462612966e9fc4891eadd/black-25.1.0-py3-none-any.whl", hash = "sha256:95e8176dae143ba9097f351d174fdaf0ccd29efb414b362ae3fd72bf0f710717", size = 207646, upload-time = "2025-01-29T04:15:38.082Z" },
 ]
 
+[package.optional-dependencies]
+jupyter = [
+    { name = "ipython" },
+    { name = "tokenize-rt" },
+]
+
 [[package]]
 name = "bleach"
 version = "6.2.0"
@@ -1648,14 +1654,13 @@ dependencies = [
     { name = "onnxruntime" },
     { name = "openai" },
     { name = "opencv-python-headless" },
-    { name = "pillow" },
     { name = "pyclipper" },
     { name = "pyyaml" },
 ]
 
 [package.optional-dependencies]
 dev = [
-    { name = "black" },
+    { name = "black", extra = ["jupyter"] },
     { name = "build" },
     { name = "flask" },
     { name = "flask-cors" },
@@ -1688,6 +1693,7 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "black", marker = "extra == 'dev'", specifier = ">=23.0,<26.0" },
+    { name = "black", extras = ["jupyter"], marker = "extra == 'dev'" },
     { name = "build", marker = "extra == 'dev'" },
     { name = "flask", specifier = ">=3.1.0" },
     { name = "flask", marker = "extra == 'dev'", specifier = ">=3.1.0" },
@@ -1709,7 +1715,6 @@ requires-dist = [
     { name = "openai", specifier = "==1.72.0" },
     { name = "opencv-python-headless", specifier = "~=4.11.0" },
     { name = "packaging", marker = "extra == 'dev'" },
-    { name = "pillow", specifier = "==11.2.1" },
     { name = "pyclipper", specifier = "~=1.3.0" },
     { name = "pydantic", marker = "extra == 'dev'", specifier = "==2.11.2" },
     { name = "pytest", marker = "extra == 'dev'" },
@@ -3060,6 +3065,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/7a/fd/7a5ee21fd08ff70d3d33a5781c255cbe779659bd03278feb98b19ee550f4/tinycss2-1.4.0.tar.gz", hash = "sha256:10c0972f6fc0fbee87c3edb76549357415e94548c1ae10ebccdea16fb404a9b7", size = 87085, upload-time = "2024-10-24T14:58:29.895Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e6/34/ebdc18bae6aa14fbee1a08b63c015c72b64868ff7dae68808ab500c492e2/tinycss2-1.4.0-py3-none-any.whl", hash = "sha256:3a49cf47b7675da0b15d0c6e1df8df4ebd96e9394bb905a5775adb0d884c5289", size = 26610, upload-time = "2024-10-24T14:58:28.029Z" },
+]
+
+[[package]]
+name = "tokenize-rt"
+version = "6.1.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/6b/0a/5854d8ced8c1e00193d1353d13db82d7f813f99bd5dcb776ce3e2a4c0d19/tokenize_rt-6.1.0.tar.gz", hash = "sha256:e8ee836616c0877ab7c7b54776d2fefcc3bde714449a206762425ae114b53c86", size = 5506, upload-time = "2024-10-22T00:14:59.189Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/87/ba/576aac29b10dfa49a6ce650001d1bb31f81e734660555eaf144bfe5b8995/tokenize_rt-6.1.0-py2.py3-none-any.whl", hash = "sha256:d706141cdec4aa5f358945abe36b911b8cbdc844545da99e811250c0cee9b6fc", size = 6015, upload-time = "2024-10-22T00:14:57.469Z" },
 ]
 
 [[package]]

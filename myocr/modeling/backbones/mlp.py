@@ -20,5 +20,5 @@ class MLP(nn.Module):
     def forward(self, x):
         if isinstance(x, np.ndarray):
             x = torch.from_numpy(x)
-        x = x.view(x.size(0), -1)
+        x = x.reshape(x.size(0), -1)
         return self.layers(x)

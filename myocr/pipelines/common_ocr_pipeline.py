@@ -1,15 +1,17 @@
 import logging
 from pathlib import Path
 
+import cv2
 import yaml  # type: ignore
-from PIL import Image
 
-from myocr.base import Pipeline
+from myocr.base import Pipeline, Predictor
 from myocr.config import MODEL_PATH
 from myocr.modeling.model import ModelZoo
-from myocr.predictors.text_detection_predictor import TextDetectionParamConverter
-from myocr.predictors.text_direction_predictor import TextDirectionParamConverter
-from myocr.predictors.text_recognition_predictor import TextRecognitionParamConverter
+from myocr.processors import (
+    TextDetectionProcessor,
+    TextDirectionProcessor,
+    TextRecognitionProcessor,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -28,18 +30,20 @@ class CommonOCRPipeline(Pipeline):
         )
         rec_model = ModelZoo.load_model("onnx", MODEL_PATH + config["model"]["recognition"], device)
 
-        self.dec_predictor = det_model.predictor(TextDetectionParamConverter(det_model.device))
-        self.cls_predictor = cls_model.predictor(TextDirectionParamConverter())
-        self.rec_predictor = rec_model.predictor(TextRecognitionParamConverter())
+        self.dec_predictor = Predictor(det_model, TextDetectionProcessor(det_model.device))
+        self.cls_predictor = Predictor(cls_model, TextDirectionProcessor())
+        self.rec_predictor = Predictor(rec_model, TextRecognitionProcessor())
 
     def process(self, img_path: str):
-        orig_image = Image.open(img_path).convert("RGB")
+        orig_image = cv2.imread(img_path, cv2.IMREAD_COLOR_RGB)
+        if orig_image is None:
+            raise ValueError(f"path invalid: {img_path}")
         detected = self.dec_predictor.predict(orig_image)
         if not detected:
             return None
 
         detected = self.cls_predictor(detected)
         rec = self.rec_predictor.predict(detected)
-        rec.original(orig_image.size[0], orig_image.size[1])  # type: ignore
+        rec.original(width=orig_image.shape[1], height=orig_image.shape[0])  # type: ignore
         logger.debug(f"recognized texts is: {rec}")
         return rec

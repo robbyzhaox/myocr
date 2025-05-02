@@ -1,58 +1,70 @@
-from abc import ABC
-from typing import Any, Generic, Optional, TypeVar
+from abc import ABC, abstractmethod
+from typing import Dict, Generic, Optional, TypeVar
 
-import numpy as np
+from myocr.modeling.model import Model
+
+from .types import NDArray
 
 """ Generic type definition """
 InputType = TypeVar("InputType")
 OutputType = TypeVar("OutputType")
 
 
-class Processor(ABC, Generic[InputType, OutputType]):
-    def __init__(self):
-        super().__init__()
+class Processor(ABC):
+    pass
 
-    def pre_process(self, input_data: InputType) -> Any:
+
+class PreProcessor(Processor, Generic[InputType], ABC):
+    @abstractmethod
+    def preprocess(self, input_data: InputType) -> Optional[NDArray]:
         pass
 
-    def post_process(self, output_data: Any) -> Optional[OutputType]:
+
+class PostProcessor(Processor, Generic[OutputType], ABC):
+    @abstractmethod
+    def postprocess(self, internal_result: NDArray) -> Optional[OutputType]:
         pass
 
 
-class ParamConverter(ABC, Generic[InputType, OutputType]):
+class CompositeProcessor(
+    PreProcessor[InputType], PostProcessor[OutputType], Generic[InputType, OutputType], ABC
+):
     """
-    The implementation of this converter is responsible for converting the
-    input and output for a specific model.
+    The implementation of this processor is responsible for processing the
+    input and output for a specific model for referencing
     """
 
-    def __init__(self):
+    def __init__(self, context: Dict = {}):
         super().__init__()
+        self.context = context
 
-    def convert_input(self, input_data: InputType) -> Optional[np.ndarray]:
+    @abstractmethod
+    def preprocess(self, input_data: InputType) -> Optional[NDArray]:
         pass
 
-    def convert_output(self, internal_result: np.ndarray) -> Optional[OutputType]:
+    @abstractmethod
+    def postprocess(self, internal_result: NDArray) -> Optional[OutputType]:
         pass
 
 
 class Predictor:
     """
     A predictor is a combination of a model and its input & output
-    parameter converter.
+    parameter processors.
 
     It will first convert the input for the model, then do inference
     by the model, finally convert the model output.
     """
 
-    def __init__(self, model, converter: Optional[ParamConverter] = None):
+    def __init__(self, model: Model, processor: Optional[CompositeProcessor] = None):
         self.model = model
-        self.converter = converter
+        self.processor = processor
 
     def predict(self, input_data, **kwargs):
-        if self.converter:
-            arr = self.converter.convert_input(input_data)
+        if self.processor:
+            arr = self.processor.preprocess(input_data)
             res = self.model(arr)
-            return self.converter.convert_output(res)
+            return self.processor.postprocess(res)
         else:
             return self.model(input_data)
 
