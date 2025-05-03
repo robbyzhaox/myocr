@@ -31,21 +31,16 @@ class MyCustomPipeline(Pipeline):
 The `__init__` method is where you typically load the models and create the predictor instances your pipeline will use.
 
 *   **Load Models:** Use `myocr.modeling.model.ModelLoader` to load the necessary ONNX or custom PyTorch models.
-*   **Instantiate Converters:** Create instances of the required `ParamConverter` classes (e.g., `TextDetectionParamConverter`, `TextRecognitionParamConverter`, or custom ones).
-*   **Create Predictors:** Combine the loaded models and converters using the `model.predictor(converter)` method.
+*   **Instantiate Processors:** Create instances of the required `CompositeProcessor` classes (e.g., `TextDetectionProcessor`, `TextRecognitionProcessor`, or custom ones).
+*   **Create Predictors:** Combine the loaded models and `CompositeProcessor` using the `Predictor(processor)` method.
 *   **Store Predictors:** Store the created predictor instances as attributes of your pipeline class (e.g., `self.det_predictor`).
 
 ```python
 import logging
-from myocr.base import Pipeline
+from myocr.base import Pipeline,Predictor
 from myocr.modeling.model import ModelLoader, Device
 from myocr.config import MODEL_PATH # Default model directory path
-from myocr.predictors import (
-    TextDetectionParamConverter,
-    TextDirectionParamConverter,
-    TextRecognitionParamConverter
-)
-# Import any custom converters or models if needed
+from myocr.processors import TextDetectionProcessor
 
 logger = logging.getLogger(__name__)
 
@@ -53,23 +48,15 @@ class MyDetectionOnlyPipeline(Pipeline):
     def __init__(self, device: Device, detection_model_name: str = "dbnet++.onnx"):
         super().__init__()
         self.device = device
+        # --- Load Detection Model ---
+        det_model_path = MODEL_PATH + detection_model_name
+        det_model = ModelLoader().load("onnx", det_model_path, self.device)
         
-        try:
-            # --- Load Detection Model ---
-            det_model_path = MODEL_PATH + detection_model_name
-            det_model = ModelLoader().load("onnx", det_model_path, self.device)
-            
-            # --- Create Detection Predictor ---
-            # Uses the standard converter for detection models
-            det_converter = TextDetectionParamConverter(det_model.device)
-            self.det_predictor = det_model.predictor(det_converter)
-            
-            logger.info(f"DetectionOnlyPipeline initialized with {detection_model_name} on {device.name}")
-            
-        except Exception as e:
-            logger.error(f"Failed to initialize MyDetectionOnlyPipeline: {e}")
-            raise # Re-raise the exception to signal failure
-
+        # --- Create Detection Predictor ---
+        det_processor = TextDetectionProcessor(det_model.device)
+        self.det_predictor = Predictor(det_processor)
+        logger.info(f"DetectionOnlyPipeline initialized with {detection_model_name} on {device.name}")
+        
     def process(self, input_data):
         # Implementation in the next step
         pass
@@ -82,7 +69,8 @@ This method defines the core logic of your pipeline. It takes the input data (e.
 ```python
 from PIL import Image
 from typing import Optional
-from myocr.predictors.base import DetectedObjects # Import necessary data structures
+from myocr.base import Predictor
+from myocr.types import DetectedObjects # Import necessary data structures
 
 class MyDetectionOnlyPipeline(Pipeline):
     def __init__(self, device: Device, detection_model_name: str = "dbnet++.onnx"):
@@ -90,36 +78,22 @@ class MyDetectionOnlyPipeline(Pipeline):
         super().__init__()
         self.device = device
         
-        try:
-            det_model_path = MODEL_PATH + detection_model_name
-            det_model = ModelLoader().load("onnx", det_model_path, self.device)
-            det_converter = TextDetectionParamConverter(det_model.device)
-            self.det_predictor = det_model.predictor(det_converter)
-            logger.info(f"DetectionOnlyPipeline initialized with {detection_model_name} on {device.name}")
-        except Exception as e:
-            logger.error(f"Failed to initialize MyDetectionOnlyPipeline: {e}")
-            raise
+        det_model_path = MODEL_PATH + detection_model_name
+        det_model = ModelLoader().load("onnx", det_model_path, self.device)
+        det_processor = TextDetectionProcessor(det_model.device)
+        self.det_predictor = Predictor(det_processor)
+        logger.info(f"DetectionOnlyPipeline initialized with {detection_model_name} on {device.name}")
+        
 
     def process(self, image_path: str) -> Optional[DetectedObjects]:
         """Processes an image file and returns detected objects."""
-        try:
-            # 1. Load Image (Example: handling path input)
-            logger.debug(f"Loading image from: {image_path}")
-            image = Image.open(image_path).convert("RGB")
-        except FileNotFoundError:
-            logger.error(f"Image file not found: {image_path}")
-            return None
-        except Exception as e:
-            logger.error(f"Error loading image {image_path}: {e}")
+        # 1. Load Image (Example: handling path input)
+        image = Image.open(image_path).convert("RGB")
+        if image is None:
             return None
             
         # 2. Run Detection Predictor
-        logger.debug("Running text detection predictor...")
-        try:
-            detected_objects = self.det_predictor.predict(image)
-        except Exception as e:
-            logger.error(f"Error during detection prediction: {e}")
-            return None
+        detected_objects = self.det_predictor.predict(image)
 
         # 3. Return Results
         if detected_objects:
@@ -145,9 +119,9 @@ class MyFullOCRPipeline(Pipeline):
         rec_model = ModelLoader().load("onnx", MODEL_PATH + "rec.onnx", device)
         
         # --- Create predictors ---
-        self.det_predictor = det_model.predictor(TextDetectionParamConverter(device))
-        self.cls_predictor = cls_model.predictor(TextDirectionParamConverter())
-        self.rec_predictor = rec_model.predictor(TextRecognitionParamConverter())
+        self.det_predictor = Predictor(TextDetectionProcessor(device))
+        self.cls_predictor = Predictor(TextDirectionProcessor())
+        self.rec_predictor = Predictor(TextRecognitionProcessor())
         logger.info(f"MyFullOCRPipeline initialized on {device.name}")
 
     def process(self, image_path: str):
@@ -181,7 +155,6 @@ class MyFullOCRPipeline(Pipeline):
         
         # Add original image size info if needed by consumers
         recognized_texts.original(image.size[0], image.size[1])
-        
         return recognized_texts # Final result
 ```
 

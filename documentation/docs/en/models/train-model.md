@@ -121,69 +121,8 @@ optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 import os
 
 print(f"Starting training on {device.name}...")
-best_val_loss = float('inf')
-
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-for epoch in range(NUM_EPOCHS):
-    # --- Training Phase ---
-    model.train() # Set model to training mode
-    running_loss = 0.0
-    for i, (inputs, labels) in enumerate(train_loader):
-        inputs = inputs.to(device.name)
-        # --- Format labels and inputs as required by your model and loss --- 
-        # e.g., for CTC Loss, labels need target lengths
-        formatted_labels = ... 
-        target_lengths = ... 
-        input_lengths = ... # Often needed for CTC
-        
-        optimizer.zero_grad()
-        
-        # Forward pass
-        outputs = model(inputs) # Model returns raw output for training
-        
-        # Calculate Loss (adjust based on your criterion)
-        # loss = criterion(outputs.log_softmax(2), formatted_labels, input_lengths, target_lengths)
-        loss = ... # Calculate loss based on your specific setup
-        
-        # Backward pass and optimize
-        loss.backward()
-        optimizer.step()
-        
-        running_loss += loss.item()
-        if i % 100 == 99: # Print progress every 100 batches
-            print(f'[Epoch {epoch + 1}, Batch {i + 1}] Training loss: {running_loss / 100:.4f}')
-            running_loss = 0.0
-
-    # --- Validation Phase ---
-    model.eval() # Set model to evaluation mode
-    val_loss = 0.0
-    with torch.no_grad():
-        for inputs, labels in val_loader:
-            inputs = inputs.to(device.name)
-            # --- Format labels and inputs ---
-            formatted_labels = ...
-            target_lengths = ...
-            input_lengths = ...
-            
-            outputs = model(inputs)
-            # loss = criterion(outputs.log_softmax(2), formatted_labels, input_lengths, target_lengths)
-            loss = ... # Calculate validation loss
-            val_loss += loss.item()
-            
-    avg_val_loss = val_loss / len(val_loader)
-    print(f'Epoch {epoch + 1} - Validation Loss: {avg_val_loss:.4f}')
-
-    # --- Save Best Model --- 
-    if avg_val_loss < best_val_loss:
-        best_val_loss = avg_val_loss
-        best_model_path = os.path.join(OUTPUT_DIR, f"best_model_epoch_{epoch+1}.pth")
-        # Save only the model state_dict
-        torch.save(model.loaded_model.state_dict(), best_model_path) 
-        print(f"Saved new best model to {best_model_path}")
-
-    # Optional: Update learning rate scheduler
-    # if scheduler: scheduler.step()
+trainer = Trainer(model,[], nn.CrossEntropyLoss(), optimizer=Adam(model.parameters(), lr=0.001), num_epochs=50, batch_size = 64)
+trainer.fit(train_dataset, val_dataset)
 
 print('Finished Training')
 

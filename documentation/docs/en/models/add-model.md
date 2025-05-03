@@ -4,7 +4,7 @@ MyOCR's modular design allows you to integrate new or custom models into the sys
 
 ## Option 1: Adding a Pre-trained ONNX Model
 
-This is the simplest way, especially if your model fits one of the standard tasks (detection, classification, recognition) and has compatible input/output formats with existing `ParamConverter` classes.
+This is the simplest way, especially if your model fits one of the standard tasks (detection, classification, recognition) and has compatible input/output formats with existing `CompositeProcessor` classes.
 
 1.  **Place the Model File:**
     *   Copy your pre-trained `.onnx` model file into the default model directory (`~/.MyOCR/models/`) or another location accessible by your application.
@@ -23,7 +23,7 @@ This is the simplest way, especially if your model fits one of the standard task
     ```
 
 3.  **Verify Compatibility:**
-    *   Ensure your ONNX model's input and output shapes/types are compatible with the `ParamConverter` used by the pipeline for that step (e.g., `TextDetectionParamConverter` for detection). If not, you might need to create a custom converter (see Option 3).
+    *   Ensure your ONNX model's input and output shapes/types are compatible with the `CompositeProcessor` used by the pipeline for that step (e.g., `TextDetectionProcessor` for detection). If not, you might need to create a custom processor (see Option 3).
 
 ## Option 2: Adding a Custom PyTorch Model (Architecture & Weights)
 
@@ -68,17 +68,17 @@ If you have a custom model defined in PyTorch (using components potentially from
     )
     ```
 
-4.  **Create Predictor (with appropriate Converter):**
-    *   You will likely need a `ParamConverter` that matches your custom model's input pre-processing and output post-processing needs. You might be able to reuse an existing one (e.g., `TextDetectionParamConverter` if your output is similar) or you may need to create a custom converter class inheriting from `myocr.base.ParamConverter`.
+4.  **Create Predictor (with appropriate Processor):**
+    *   You will likely need a `CompositeProcessor` that matches your custom model's input pre-processing and output post-processing needs. You might be able to reuse an existing one (e.g., `TextDetectionProcessor` if your output is similar) or you may need to create a custom processor class inheriting from `myocr.base.CompositeProcessor`.
 
     ```python
-    # Option A: Reuse existing converter (if compatible)
-    from myocr.predictors import TextDetectionParamConverter
-    predictor = custom_model.predictor(TextDetectionParamConverter(custom_model.device))
+    # Option A: Reuse existing processor (if compatible)
+    from myocr.processors import TextDetectionProcessor
+    predictor = custom_model.predictor(TextDetectionProcessor(custom_model.device))
 
-    # Option B: Create and use a custom converter
-    # from my_custom_converters import MyCustomParamConverter 
-    # predictor = custom_model.predictor(MyCustomParamConverter(...))
+    # Option B: Create and use a custom processor
+    # from my_custom_processors import MyCustomProcessor 
+    # predictor = custom_model.predictor(MyCustomProcessor(...))
     ```
 
 5.  **Integrate into a Pipeline (Optional):**

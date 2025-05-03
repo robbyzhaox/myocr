@@ -118,52 +118,6 @@ Pipelines can be customized by:
 *   Creating new pipeline classes that inherit from `Pipeline` or existing pipelines.
 *   Integrating different predictors or extractors.
 
-## Pipeline Configuration
-
-Pipelines can be configured through YAML files:
-
-```yaml
-pipeline:
-  detection:
-    threshold: 0.3
-    unclip_ratio: 2.0
-  
-  recognition:
-    batch_size: 32
-    max_length: 25
-  
-  classification:
-    threshold: 0.5
-```
-
-## Pipeline Components
-
-### Text Detection
-
-- Input: RGB image
-- Output: Text region polygons
-- Post-processing:
-  - Non-maximum suppression
-  - Polygon generation
-  - Confidence filtering
-
-### Text Recognition
-
-- Input: Cropped text regions
-- Output: Recognized text
-- Features:
-  - Character-level recognition
-  - Confidence scores
-  - Language support
-
-### Text Classification
-
-- Input: Text regions
-- Output: Orientation angles
-- Used for:
-  - Text direction correction
-  - Improving recognition accuracy
-
 ## Performance Optimization
 
 ### Batch Processing

@@ -146,62 +146,6 @@ When proposing new features:
 3. **Pipeline integration**: Ensure that new components integrate well with the existing pipeline structure.
 4. **Model compatibility**: If adding new models, ensure they can be loaded with the existing ModelZoo system.
 
-## Docker Development
-
-We provide Dockerfiles for building CPU and GPU inference images, and a utility script to simplify the build process.
-
-### Using the Build Script (Recommended)
-
-The `scripts/build_docker_image.sh` script automates building the versioned Docker images:
-
-```bash
-# Make the script executable if it's not already
-chmod +x scripts/build_docker_image.sh
-
-# Determine the application version
-VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
-
-# Run the script to build either the CPU or GPU image
-# Replace [cpu|gpu] with your target
-bash scripts/build_docker_image.sh [cpu|gpu]
-
-# Example: Build the CPU image
-# bash scripts/build_docker_image.sh cpu
-```
-
-This script:
-1. Stops and removes any existing containers based on the *specific versioned tag* being built (e.g., `myocr:cpu-X.Y.Z`).
-2. Removes the existing Docker image for that specific tag.
-3. Copies models from `~/.MyOCR/models/` into the build context.
-4. Builds a new Docker image using the appropriate Dockerfile (`Dockerfile-infer-CPU` or `Dockerfile-infer-GPU`).
-5. Tags the image with a version (e.g., `myocr:cpu-X.Y.Z` or `myocr:gpu-X.Y.Z`).
-
-**Note:** This script only *builds* the image. See the [REST API Inference guide](./inference/rest.md#option-2-deploying-with-docker-recommended-for-production) for instructions on running the container.
-
-### Manual Docker Build
-
-If you prefer to build the Docker image manually:
-
-```bash
-# First, copy models to the build context
-mkdir -p models
-cp -r ~/.MyOCR/models/* ./models/
-
-# Determine the version
-VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
-
-# For GPU version (example tag)
-docker build -f Dockerfile-infer-GPU -t myocr:gpu-$VERSION .
-
-# For CPU version (example tag)
-docker build -f Dockerfile-infer-CPU -t myocr:cpu-$VERSION .
-
-# Clean up copied models
-rm -rf ./models
-```
-
-Remember to replace `$VERSION` with the actual version number. You can then run the built image as described in the inference documentation.
-
 ## License
 
 By contributing to MyOCR, you agree that your contributions will be licensed under the project's  [Apache 2.0 license](LICENSE).

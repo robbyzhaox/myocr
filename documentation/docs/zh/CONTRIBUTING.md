@@ -52,43 +52,47 @@
 6.  **PR 描述**: 提供清晰的更改描述，并引用任何相关的问题 (Issue)。
 7.  **代码审查**: 积极响应代码审查意见，并进行必要的调整。
 
-##编码规范
+## 编码规范
 
 我们使用多种工具来强制执行编码规范。确保您的代码符合这些标准的最简单方法是使用提供的 Makefile 命令：
 
-### 使用 Makefile
+### 📦 开发工具
+
+MyOCR 包含几个 Makefile 命令来帮助开发：
 
 ```bash
-# 格式化所有代码 (运行 isort, black, 和 ruff fix)
+# 格式化代码（运行 isort、black 和 ruff fix）
 make run-format
 
-# 运行代码质量检查 (isort, black, ruff, mypy, pytest)
+# 运行代码质量检查（isort、black、ruff、mypy、pytest）
 make run-checks
-```
 
-### 单独的工具
+# 在本地预览文档
+cd documentation
+mkdocs serve -a 127.0.0.1:8001
+```
 
 如果您喜欢单独运行这些工具：
 
-1.  **Black**: 用于代码格式化
-    ```bash
-    black .
-    ```
+**Black**: 用于代码格式化
+   ```bash
+   black .
+   ```
 
-2.  **isort**: 用于导入排序
-    ```bash
-    isort .
-    ```
+**isort**: 用于导入排序
+   ```bash
+   isort .
+   ```
 
-3.  **Ruff**: 用于代码检查 (Linting)
-    ```bash
-    ruff check .
-    ```
+**Ruff**: 用于代码检查
+   ```bash
+   ruff check .
+   ```
 
-4.  **mypy**: 用于类型检查
-    ```bash
-    mypy myocr
-    ```
+**mypy**: 用于类型检查
+   ```bash
+   mypy myocr
+   ```
 
 这些工具的配置位于 `pyproject.toml` 文件中。
 
@@ -114,7 +118,8 @@ make run-checks
 您可以使用以下命令在本地构建文档：
 
 ```bash
-make docs
+cd documentation
+mkdocs build
 ```
 
 此命令将生成 HTML 文档并启动本地服务器以供查看。
@@ -141,65 +146,9 @@ make docs
 3.  **流水线集成**: 确保新组件能与现有流水线结构良好集成。
 4.  **模型兼容性**: 如果添加新模型，请确保它们可以使用现有的 ModelZoo 系统加载。
 
-## Docker 开发
-
-我们提供了用于构建 CPU 和 GPU 推理镜像的 Dockerfile，以及一个简化构建过程的实用脚本。
-
-### 使用构建脚本 (推荐)
-
-`scripts/build_docker_image.sh` 脚本可自动构建带有版本的 Docker 镜像：
-
-```bash
-# 如果脚本尚未具有执行权限，请添加
-chmod +x scripts/build_docker_image.sh
-
-# 确定应用程序版本
-VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
-
-# 运行脚本以构建 CPU 或 GPU 镜像
-# 将 [cpu|gpu] 替换为您的目标环境
-bash scripts/build_docker_image.sh [cpu|gpu]
-
-# 示例：构建 CPU 镜像
-# bash scripts/build_docker_image.sh cpu
-```
-
-此脚本会：
-1. 停止并删除任何基于正在构建的*特定版本标签*（例如 `myocr:cpu-X.Y.Z`）的现有容器。
-2. 删除该特定标签的现有 Docker 镜像。
-3. 将模型从 `~/.MyOCR/models/` 复制到构建上下文中。
-4. 使用相应的 Dockerfile（`Dockerfile-infer-CPU` 或 `Dockerfile-infer-GPU`）构建新的 Docker 镜像。
-5. 使用版本号标记镜像（例如 `myocr:cpu-X.Y.Z` 或 `myocr:gpu-X.Y.Z`）。
-
-**注意：** 此脚本仅*构建*镜像。有关运行容器的说明，请参阅 [REST API 推理指南](./inference/rest.md#方式二使用-docker-部署-生产环境推荐)。
-
-### 手动 Docker 构建
-
-如果您倾向于手动构建 Docker 镜像：
-
-```bash
-# 首先，将模型复制到构建上下文
-mkdir -p models
-cp -r ~/.MyOCR/models/* ./models/
-
-# 确定版本
-VERSION=$(python -c 'import myocr.version; print(myocr.version.VERSION)')
-
-# 构建 GPU 版本 (示例标签)
-docker build -f Dockerfile-infer-GPU -t myocr:gpu-$VERSION .
-
-# 构建 CPU 版本 (示例标签)
-docker build -f Dockerfile-infer-CPU -t myocr:cpu-$VERSION .
-
-# 清理复制的模型
-rm -rf ./models
-```
-
-请记住将 `$VERSION` 替换为实际的版本号。然后，您可以按照推理文档中的说明运行构建好的镜像。
-
 ## 许可证
 
-为 MyOCR 做出贡献，即表示您同意您的贡献将根据项目的 Apache 2.0 许可证进行许可。
+为 MyOCR 做出贡献，即表示您同意您的贡献将根据项目的 [Apache 2.0 许可证](LICENSE) 进行许可。
 
 ---
 

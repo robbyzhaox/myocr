@@ -4,10 +4,13 @@
 
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
+
+English | [简体中文](./README_zh.md)
 </div>
 
 MyOCR is a highly extensible and customizable framework for building OCR systems. Engineers can easily train, integrate deep learning models into custom OCR pipelines for real-world applications.
 
+<!-- Try the online demo(TBD) -->
 
 ## **🌟 Key Features**:
 
@@ -20,7 +23,7 @@ MyOCR is a highly extensible and customizable framework for building OCR systems
 **🚀 Production-Ready Performance** – ONNX runtime support for fast CPU/GPU inference, support various ways of deployment.
 
 ## 📣 Updates
-- **🔥2025.05.03 prepare for version 0.1.0**
+- **🔥2025.05.03 inner refactoring & update docs**
 - **2025.04.28 release MyOCR alpha version**:
     - Release image detection, class, recognition models
     - All components can work together
@@ -28,11 +31,11 @@ MyOCR is a highly extensible and customizable framework for building OCR systems
 
 ## 🛠️ Installation
 
-### 💻 Requirements
+### 📦 Requirements
 - Python 3.11+
-- CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
+- Optional: CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
 
-### ⬇️  Install Dependencies
+### 📥  Install Dependencies
 
 ```bash
 # Clone the code from GitHub
@@ -54,9 +57,9 @@ Download weights from: https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4
 # Alternative download link: https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j
 ```
 
-## ⏭️  Quick Start
+## 🚀 Quick Start
 
-### 📝  Local Inference
+### 🖥️ Local Inference
 
 #### Basic OCR Recognition
 
@@ -96,23 +99,6 @@ result = pipeline("path/to/invoice.jpg")
 print(result.to_dict())
 ```
 
-### 🔗 Using Rest API
-
-The framework provides a simple Flask API service that can be called via HTTP interface:
-
-```bash
-# Start the service default port: 5000
-python main.py 
-```
-
-API endpoints:
-- `GET /ping`: Check if the service is running properly
-- `POST /ocr`: Basic OCR recognition
-- `POST /ocr-json`: Structured OCR output
-
-We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
-
-
 ### 🐳 Docker Deployment
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
@@ -129,13 +115,34 @@ docker run -d -p 8000:8000 robbyzhaox/myocr:cpu-0.1.0
 IMAGE_PATH="your_image.jpg"
 
 BASE64_IMAGE=$(base64 -w 0 "$IMAGE_PATH")  # Linux
-#BASE64_IMAGE=$(base64 "$IMAGE_PATH" | tr -d '\n') # macOS
+#BASE64_IMAGE=$(base64 -i "$IMAGE_PATH" | tr -d '\n') # macOS
 
-curl -X POST http://localhost:8000/ocr \
+curl -X POST \
   -H "Content-Type: application/json" \
-  -d "{\"image\": \"${BASE64_IMAGE}\"}"
+  -d "{\"image\": \"${BASE64_IMAGE}\"}" \
+  http://localhost:8000/ocr
 
 ```
+
+### 🔗 Using Rest API
+
+The framework provides a simple Flask API service that can be called via HTTP interface:
+
+```bash
+# Start the service default port: 5000
+python main.py 
+```
+
+API endpoints:
+- `GET /ping`: Check if the service is running properly
+- `POST /ocr`: Basic OCR recognition
+- `POST /ocr-json`: Structured OCR output
+
+We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=robbyzhaox/myocr&type=Date)](https://www.star-history.com/#robbyzhaox/myocr&Date)
 
 
 ## 🎖 Contribution Guidelines

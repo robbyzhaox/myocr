@@ -31,21 +31,17 @@ class MyCustomPipeline(Pipeline):
 `__init__` 方法通常是您加载模型并创建流水线将使用的预测器实例的地方。
 
 *   **加载模型：** 使用 `myocr.modeling.model.ModelLoader` 加载所需的 ONNX 或自定义 PyTorch 模型。
-*   **实例化转换器：** 创建所需的 `ParamConverter` 类的实例（例如 `TextDetectionParamConverter`、`TextRecognitionParamConverter` 或自定义的转换器）。
-*   **创建预测器：** 使用 `model.predictor(converter)` 方法组合加载的模型和转换器。
+*   **实例化处理器：** 创建所需的 `CompositeProcessor` 类的实例（例如 `TextDetectionProcessor`、`TextRecognitionProcessor` 或自定义的处理器）。
+*   **创建预测器：** 使用 `Predictor(processor)` 方法组合加载的模型和处理器。
 *   **存储预测器：** 将创建的预测器实例存储为流水线类的属性（例如 `self.det_predictor`）。
 
 ```python
 import logging
-from myocr.base import Pipeline
+from myocr.base import Pipeline, Predictor
 from myocr.modeling.model import ModelLoader, Device
 from myocr.config import MODEL_PATH # 默认模型目录路径
-from myocr.predictors import (
-    TextDetectionParamConverter,
-    TextDirectionParamConverter,
-    TextRecognitionParamConverter
-)
-# 如果需要，导入任何自定义转换器或模型
+from myocr.processors import TextDetectionProcessor
+# 如果需要，导入任何自定义处理器或模型
 
 logger = logging.getLogger(__name__)
 
@@ -53,23 +49,15 @@ class MyDetectionOnlyPipeline(Pipeline):
     def __init__(self, device: Device, detection_model_name: str = "dbnet++.onnx"):
         super().__init__()
         self.device = device
+        # --- 加载检测模型 ---
+        det_model_path = MODEL_PATH + detection_model_name
+        det_model = ModelLoader().load("onnx", det_model_path, self.device)
         
-        try:
-            # --- 加载检测模型 ---
-            det_model_path = MODEL_PATH + detection_model_name
-            det_model = ModelLoader().load("onnx", det_model_path, self.device)
-            
-            # --- 创建检测预测器 ---
-            # 使用检测模型的标准转换器
-            det_converter = TextDetectionParamConverter(det_model.device)
-            self.det_predictor = det_model.predictor(det_converter)
-            
-            logger.info(f"DetectionOnlyPipeline 使用 {detection_model_name} 在 {device.name} 上初始化完成")
-            
-        except Exception as e:
-            logger.error(f"初始化 MyDetectionOnlyPipeline 失败: {e}")
-            raise # 重新抛出异常以表示失败
-
+        # --- 创建检测预测器 ---
+        det_processor = TextDetectionProcessor(det_model.device)
+        self.det_predictor = Predictor(det_processor)
+        logger.info(f"DetectionOnlyPipeline 使用 {detection_model_name} 在 {device.name} 上初始化完成")
+        
     def process(self, input_data):
         # 在下一步中实现
         pass
@@ -90,36 +78,21 @@ class MyDetectionOnlyPipeline(Pipeline):
         super().__init__()
         self.device = device
         
-        try:
-            det_model_path = MODEL_PATH + detection_model_name
-            det_model = ModelLoader().load("onnx", det_model_path, self.device)
-            det_converter = TextDetectionParamConverter(det_model.device)
-            self.det_predictor = det_model.predictor(det_converter)
-            logger.info(f"DetectionOnlyPipeline 使用 {detection_model_name} 在 {device.name} 上初始化完成")
-        except Exception as e:
-            logger.error(f"初始化 MyDetectionOnlyPipeline 失败: {e}")
-            raise
+        det_model_path = MODEL_PATH + detection_model_name
+        det_model = ModelLoader().load("onnx", det_model_path, self.device)
+        det_processor = TextDetectionProcessor(det_model.device)
+        self.det_predictor = Predictor(det_processor)
+        logger.info(f"DetectionOnlyPipeline 使用 {detection_model_name} 在 {device.name} 上初始化完成")
 
     def process(self, image_path: str) -> Optional[DetectedObjects]:
         """处理图像文件并返回检测到的对象。"""
-        try:
-            # 1. 加载图像 (示例：处理路径输入)
-            logger.debug(f"从以下路径加载图像: {image_path}")
-            image = Image.open(image_path).convert("RGB")
-        except FileNotFoundError:
-            logger.error(f"未找到图像文件: {image_path}")
-            return None
-        except Exception as e:
-            logger.error(f"加载图像 {image_path} 时出错: {e}")
+        # 1. 加载图像 (示例：处理路径输入)
+        image = Image.open(image_path).convert("RGB")
+        if image is None:
             return None
             
         # 2. 运行检测预测器
-        logger.debug("运行文本检测预测器...")
-        try:
-            detected_objects = self.det_predictor.predict(image)
-        except Exception as e:
-            logger.error(f"检测预测期间出错: {e}")
-            return None
+        detected_objects = self.det_predictor.predict(image)
 
         # 3. 返回结果
         if detected_objects:
@@ -130,7 +103,7 @@ class MyDetectionOnlyPipeline(Pipeline):
         return detected_objects # 返回检测预测器的输出
 ```
 
-## 示例：组合预测器（概念性）
+**示例：组合预测器（概念性）**
 
 如果您需要多个步骤，可以链式调用预测器，将一个步骤的输出作为下一个步骤的输入（如果兼容）。
 
@@ -145,9 +118,9 @@ class MyFullOCRPipeline(Pipeline):
         rec_model = ModelLoader().load("onnx", MODEL_PATH + "rec.onnx", device)
         
         # --- 创建预测器 ---
-        self.det_predictor = det_model.predictor(TextDetectionParamConverter(device))
-        self.cls_predictor = cls_model.predictor(TextDirectionParamConverter())
-        self.rec_predictor = rec_model.predictor(TextRecognitionParamConverter())
+        self.det_predictor = Predictor(TextDetectionProcessor(device))
+        self.cls_predictor = Predictor(TextDirectionProcessor())
+        self.rec_predictor = Predictor(TextRecognitionProcessor())
         logger.info(f"MyFullOCRPipeline 在 {device.name} 上初始化完成")
 
     def process(self, image_path: str):
@@ -181,11 +154,10 @@ class MyFullOCRPipeline(Pipeline):
         
         # 如果消费者需要，添加原始图像尺寸信息
         recognized_texts.original(image.size[0], image.size[1])
-        
         return recognized_texts # 最终结果
 ```
 
-## 使用您的自定义流水线
+## 4. 使用您的自定义流水线
 
 定义后，您可以像使用内置流水线一样导入和使用您的自定义流水线。
 

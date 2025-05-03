@@ -121,69 +121,8 @@ optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
 import os
 
 print(f"在 {device.name} 上开始训练...")
-best_val_loss = float('inf')
-
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-for epoch in range(NUM_EPOCHS):
-    # --- 训练阶段 ---
-    model.train() # 将模型设置为训练模式
-    running_loss = 0.0
-    for i, (inputs, labels) in enumerate(train_loader):
-        inputs = inputs.to(device.name)
-        # --- 根据您的模型和损失要求格式化标签和输入 ---
-        # 例如，对于 CTC Loss，标签需要目标长度
-        formatted_labels = ... 
-        target_lengths = ... 
-        input_lengths = ... # CTC 通常需要
-        
-        optimizer.zero_grad()
-        
-        # 前向传播
-        outputs = model(inputs) # 模型返回用于训练的原始输出
-        
-        # 计算损失 (根据您的标准调整)
-        # loss = criterion(outputs.log_softmax(2), formatted_labels, input_lengths, target_lengths)
-        loss = ... # 根据您的具体设置计算损失
-        
-        # 反向传播和优化
-        loss.backward()
-        optimizer.step()
-        
-        running_loss += loss.item()
-        if i % 100 == 99: # 每 100 个批次打印一次进度
-            print(f'[Epoch {epoch + 1}, Batch {i + 1}] 训练损失: {running_loss / 100:.4f}')
-            running_loss = 0.0
-
-    # --- 验证阶段 ---
-    model.eval() # 将模型设置为评估模式
-    val_loss = 0.0
-    with torch.no_grad():
-        for inputs, labels in val_loader:
-            inputs = inputs.to(device.name)
-            # --- 格式化标签和输入 ---
-            formatted_labels = ...
-            target_lengths = ...
-            input_lengths = ...
-            
-            outputs = model(inputs)
-            # loss = criterion(outputs.log_softmax(2), formatted_labels, input_lengths, target_lengths)
-            loss = ... # 计算验证损失
-            val_loss += loss.item()
-            
-    avg_val_loss = val_loss / len(val_loader)
-    print(f'Epoch {epoch + 1} - 验证损失: {avg_val_loss:.4f}')
-
-    # --- 保存最佳模型 ---
-    if avg_val_loss < best_val_loss:
-        best_val_loss = avg_val_loss
-        best_model_path = os.path.join(OUTPUT_DIR, f"best_model_epoch_{epoch+1}.pth")
-        # 仅保存模型 state_dict
-        torch.save(model.loaded_model.state_dict(), best_model_path) 
-        print(f"已将新的最佳模型保存到 {best_model_path}")
-
-    # 可选: 更新学习率调度器
-    # if scheduler: scheduler.step()
+trainer = Trainer(model,[], nn.CrossEntropyLoss(), optimizer=Adam(model.parameters(), lr=0.001), num_epochs=50, batch_size = 64)
+trainer.fit(train_dataset, val_dataset)
 
 print('训练完成')
 
@@ -199,15 +138,15 @@ print(f"已将最终模型保存到 {final_model_path}")
 *   **ONNX 导出 (可选):** 为了优化推理，您可以使用 `CustomModel` 的 `to_onnx` 方法将训练好的 PyTorch 模型转换为 ONNX 格式。
 
 ```python
-# 加载训练好的模型 (假设 YAML 通过 'pretrained' 键指向保存的 .pth 文件)
+# 加载训练好的模型（假设 YAML 通过 'pretrained' 键指向保存的 .pth 文件）
 # trained_model = loader.load('custom', MODEL_CONFIG_PATH, device)
 
-# --- 或者在加载架构后手动加载 state dict ---
+# --- 或者在加载架构后手动加载 state dict --- 
 model_for_export = loader.load('custom', MODEL_CONFIG_PATH, device)
 model_for_export.loaded_model.load_state_dict(torch.load(best_model_path, map_location=device.name))
 model_for_export.eval()
 
-# 创建具有正确形状和类型的虚拟输入
+# 创建一个具有正确形状和类型的虚拟输入
 dummy_input = torch.randn(1, 3, 640, 640).to(device.name) # 根据需要调整形状
 
 onnx_output_path = os.path.join(OUTPUT_DIR, "trained_model.onnx")
@@ -215,4 +154,4 @@ onnx_output_path = os.path.join(OUTPUT_DIR, "trained_model.onnx")
 model_for_export.to_onnx(onnx_output_path, dummy_input)
 print(f"已将模型导出到 {onnx_output_path}")
 ```
-*   然后，您可以按照 [添加新模型](./add-model.md#option-1-adding-a-pre-trained-onnx-model) 中的步骤使用这个导出的 ONNX 模型。 
+*   然后，您可以按照[添加新模型](./add-model.md)中的步骤使用这个导出的 ONNX 模型。 

@@ -32,30 +32,31 @@ python main.py
     curl http://127.0.0.1:5000/ping
     ```
 *   **`POST /ocr`**: Performs basic OCR on an uploaded image.
-    *   **Request:** Send a `POST` request with the image file included as `multipart/form-data`. The file part should be named `file`.
+    *   **Request:** Send a `POST` request with the image as base64 encoded string.
     ```bash
-    curl -X POST -F "file=@/path/to/your/image.jpg" http://127.0.0.1:5000/ocr 
+    curl -X POST \
+        -H "Content-Type: application/json" \
+        -d '{"image": "BASE64_IMAGE"}'' \
+        http://127.0.0.1:5000/ocr
     ```
+
     *   **Response:** Returns a JSON object containing the recognized text and bounding box information (similar to the output of `CommonOCRPipeline`).
 *   **`POST /ocr-json`**: Performs OCR and extracts structured information based on a schema.
-    *   **Request:** Send a `POST` request with the image file (`file`) and the desired JSON schema (`schema_json`) as `multipart/form-data`.
-        *   `schema_json`: A JSON string representing the Pydantic model schema (including descriptions for fields).
+    *   **Request:** Send a `POST` request with the image base64 string
+        
     ```bash
-    # Example using the pre-defined InvoiceModel schema (get schema first if needed)
-    # NOTE: Generating the correct schema_json might require a helper script or knowing the exact format expected by the API.
-    # This example assumes schema_json contains the JSON representation of InvoiceModel.schema()
-    SCHEMA='{...}' # Replace with actual JSON schema string
 
     curl -X POST \
-      -F "file=@/path/to/your/invoice.png" \
-      -F "schema_json=$SCHEMA" \
-      http://127.0.0.1:5000/ocr-json
+        -H "Content-Type: application/json" \
+        -d '{"image": "BASE64_IMAGE"}'' \
+        http://127.0.0.1:5000/ocr-json
     ```
+
     *   **Response:** Returns a JSON object matching the provided schema, populated with the extracted data.
 
 **4. Optional UI:**
 
-A separate Streamlit-based UI is available for interacting with these endpoints: [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui).
+A separate Next.js based UI is available for interacting with these endpoints: [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui).
 
 ## Option 2: Deploying with Docker (Recommended for Production)
 
@@ -111,14 +112,22 @@ Once the container is running, access the API endpoints using the host machine's
 # Example Ping
 curl http://localhost:8000/ping 
 
-# Example Basic OCR
-curl -X POST -F "file=@/path/to/your/image.jpg" http://localhost:8000/ocr
+# Image base64 encode
+IMAGE_PATH="your_image.jpg"
 
-# Example Structured OCR (replace $SCHEMA with actual JSON schema string)
-SCHEMA='{...}' 
+BASE64_IMAGE=$(base64 -w 0 "$IMAGE_PATH")  # Linux
+#BASE64_IMAGE=$(base64 -i "$IMAGE_PATH" | tr -d '\n') # macOS
+
+# Example Basic OCR
 curl -X POST \
-  -F "file=@/path/to/your/invoice.png" \
-  -F "schema_json=$SCHEMA" \
+  -H "Content-Type: application/json" \
+  -d "{\"image\": \"${BASE64_IMAGE}\"}" \
+  http://localhost:8000/ocr
+
+# Example Structured OCR
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d "{\"image\": \"${BASE64_IMAGE}\"}" \
   http://localhost:8000/ocr-json
 ```
 

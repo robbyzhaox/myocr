@@ -143,7 +143,3 @@ On NVIDIA T4 GPU:
 - Detection: ~50ms per image
 - Recognition: ~20ms per text region
 - Classification: ~10ms per region
-
-## Model Training
-
-See the [Training Guide](../training/) for instructions on training custom models. 
