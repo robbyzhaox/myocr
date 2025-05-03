@@ -7,7 +7,7 @@ import pyclipper
 from myocr.utils import softmax
 
 from ..base import Processor
-from ..types import NDArray, Tensor, np
+from ..types import NDArray, np
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +91,7 @@ class ToNdarray(Processor):
     def __init__(self):
         super().__init__()
 
-    def process(self, data: Tensor) -> NDArray:
+    def process(self, data) -> NDArray:
         import torch
 
         if isinstance(data, torch.Tensor):

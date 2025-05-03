@@ -56,36 +56,40 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 We use several tools to enforce coding standards. The easiest way to ensure your code meets these standards is by using the provided Makefile commands:
 
-### Using the Makefile
+### 📦 Development Utilities
+
+MyOCR includes several Makefile commands to help with development:
 
 ```bash
-# Format all code (isort, black, ruff fix)
+# Format code (runs isort, black, and ruff fix)
 make run-format
 
 # Run code quality checks (isort, black, ruff, mypy, pytest)
 make run-checks
-```
 
-### Individual Tools
+# Preview documentation in local
+cd documentation
+mkdocs serve -a 127.0.0.1:8001
+```
 
 If you prefer to run the tools individually:
 
-1. **Black**: For code formatting
+**Black**: For code formatting
    ```bash
    black .
    ```
 
-2. **isort**: For import sorting
+**isort**: For import sorting
    ```bash
    isort .
    ```
 
-3. **Ruff**: For linting
+**Ruff**: For linting
    ```bash
    ruff check .
    ```
 
-4. **mypy**: For type checking
+**mypy**: For type checking
    ```bash
    mypy myocr
    ```

@@ -1,10 +1,14 @@
 from typing import List, Optional, TypeAlias
 
 import numpy as np
-import torch
 
 NDArray: TypeAlias = np.ndarray  # shape: (H, W, C), dtype: float32 or uint8
-Tensor: TypeAlias = torch.Tensor  # shape: (C, H, W), dtype: float32
+try:
+    import torch
+
+    Tensor: TypeAlias = torch.Tensor  # shape: (C, H, W), dtype: float32
+except ImportError:
+    pass
 
 
 class BoundingBox:

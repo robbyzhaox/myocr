@@ -6,23 +6,22 @@
 [![Docs](https://img.shields.io/badge/docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
 </div>
 
+MyOCR is a highly extensible and customizable framework for building OCR systems. Engineers can easily train, integrate deep learning models into custom OCR pipelines for real-world applications.
 
-MyOCR is a Python package designed to streamline the development of production-ready OCR systems. Engineers can easily train, customize, and deploy deep learning models into high-performance OCR pipelines for real-world applications.
 
 ## **🌟 Key Features**:
 
-**⚡️ End-to-End OCR Workflow** – Seamlessly integrate detection, recognition, and various models.
+**⚡️ End-to-End OCR Development Framework** – Designed for developers to build and integrate detection, recognition, and custom OCR models in a unified and flexible pipeline.
 
-**🛠️ Modular & Extensible**– Mix and match components (swap models, processors, or input output converters).
+**🛠️ Modular & Extensible** – Mix and match components - swap models, predictors, or input output processors with minimal changes.
 
-**🚀 Optimized for Production** – ONNX runtime support for high-speed CPU/GPU inference.
+**🔌 Developer-Friendly by Design** - Clean Python APIs, prebuilt pipelines and processors, and straightforward customization for training and inference.
 
-**📊 Smart Structured Outputs** – Convert raw OCR results into organized formats (e.g., invoices, forms).
-
-**🔌 Developer-Centric – Clean** Python APIs, prebuilt pipelines, and easy custom training.
+**🚀 Production-Ready Performance** – ONNX runtime support for fast CPU/GPU inference, support various ways of deployment.
 
 ## 📣 Updates
-- **🔥2025.04.28 release MyOCR alpha version**:
+- **🔥2025.05.03 prepare for version 0.1.0**
+- **2025.04.28 release MyOCR alpha version**:
     - Release image detection, class, recognition models
     - All components can work together
 
@@ -39,6 +38,9 @@ MyOCR is a Python package designed to streamline the development of production-r
 # Clone the code from GitHub
 git clone https://github.com/robbyzhaox/myocr.git
 cd myocr
+
+# create venv
+uv venv
 
 # Install dependencies
 pip install -e .
@@ -115,39 +117,26 @@ We also have a UI for these endpoints, please refer to [doc-insight-ui](https://
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
-#### Automated Build Script
-
-The easiest way to build and run a Docker container is to use the provided script:
+#### Run the Docker Container
 
 ```bash
-# Make the script executable
-chmod +x scripts/build_docker_image.sh
-
-# Run the script
-./scripts/build_docker_image.sh
+docker run -d -p 8000:8000 robbyzhaox/myocr:cpu-0.1.0
 ```
 
-This script will:
-- Stop and remove any existing MyOCR containers
-- Clean up existing Docker images
-- Copy models from your local configuration
-- Build a new GPU-enabled Docker image
-- Start a container with the service exposed on port 8000
-
-#### Manual Docker Commands
-
-If you need more control or customization:
+#### Accessing API Endpoints (Docker)
 
 ```bash
-# CPU version
-docker build -f Dockerfile-infer-CPU -t myocr:cpu .
+IMAGE_PATH="your_image.jpg"
 
-# GPU version
-docker build -f Dockerfile-infer-GPU -t myocr:gpu .
+BASE64_IMAGE=$(base64 -w 0 "$IMAGE_PATH")  # Linux
+#BASE64_IMAGE=$(base64 "$IMAGE_PATH" | tr -d '\n') # macOS
 
-# Run container
-docker run -d -p 8000:8000 myocr:gpu
+curl -X POST http://localhost:8000/ocr \
+  -H "Content-Type: application/json" \
+  -d '{\"image\": \"${BASE64_IMAGE}\"}'
+
 ```
+
 
 ## 🎖 Contribution Guidelines
 
@@ -157,24 +146,6 @@ We welcome any form of contribution, including but not limited to:
 - Adding new features
 - Improving documentation
 - Optimizing performance
-
-### 📦 Development Utilities
-
-MyOCR includes several Makefile commands to help with development:
-
-```bash
-# Format code (runs isort, black, and ruff fix)
-make run-format
-
-# Run code quality checks (isort, black, ruff, mypy, pytest)
-make run-checks
-
-# Preview documentation in local
-cd documentation
-mkdocs serve -a 127.0.0.1:8001
-```
-
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for more detailed contribution guidelines.
 
 ## 📄 License
 
