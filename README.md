@@ -96,7 +96,7 @@ result = pipeline("path/to/invoice.jpg")
 print(result.to_dict())
 ```
 
-### 🌐 Using Rest API
+### 🔗 Using Rest API
 
 The framework provides a simple Flask API service that can be called via HTTP interface:
 
@@ -113,7 +113,7 @@ API endpoints:
 We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
 
 
-### 🚗 Docker Deployment
+### 🐳 Docker Deployment
 
 The framework provides support for Docker deployment, which can be built and run using the following commands:
 
@@ -133,7 +133,7 @@ BASE64_IMAGE=$(base64 -w 0 "$IMAGE_PATH")  # Linux
 
 curl -X POST http://localhost:8000/ocr \
   -H "Content-Type: application/json" \
-  -d '{\"image\": \"${BASE64_IMAGE}\"}'
+  -d "{\"image\": \"${BASE64_IMAGE}\"}"
 
 ```
 

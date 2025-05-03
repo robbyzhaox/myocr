@@ -2,7 +2,6 @@ import json
 from typing import Optional
 
 import numpy as np
-import torch
 
 from myocr.base import CompositeProcessor
 from myocr.types import Classification
@@ -24,6 +23,10 @@ class ImageClassificationProcessor(CompositeProcessor[np.ndarray, Classification
             self.std = [0.5]
         self.name = self.__class__
 
+        import torch
+
+        self.torch = torch
+
     def preprocess(self, input_data: np.ndarray) -> Optional[np.ndarray]:
         img_np = ImgResize((self.resize, self.resize)).process(input_data)
         img_np = ImgCenterCrop((self.center_crop, self.center_crop)).process(img_np)
@@ -35,8 +38,8 @@ class ImageClassificationProcessor(CompositeProcessor[np.ndarray, Classification
         return batch_tensor.astype(np.float32)
 
     def postprocess(self, internal_result: np.ndarray) -> Optional[Classification]:
-        probabilities = torch.nn.functional.softmax(internal_result[0], dim=0)
-        top1_prob, top1_catid = torch.topk(probabilities, 1)
+        probabilities = self.torch.nn.functional.softmax(internal_result[0], dim=0)
+        top1_prob, top1_catid = self.torch.topk(probabilities, 1)
         with open("myocr/processors/imagenet-simple-labels.json", "r") as f:
             imagenet_classes = json.load(f)
         predicted_class_name = imagenet_classes[top1_catid.item()]
@@ -49,4 +52,4 @@ class RestNetImageClassificationProcessor(ImageClassificationProcessor):
 
     def preprocess(self, input_data):
         data = super().preprocess(input_data)
-        return torch.from_numpy(data)
+        return self.torch.from_numpy(data)
