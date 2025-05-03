@@ -544,7 +544,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      核心概念深入了解
+      核心概念
     </span>
   </a>
   
@@ -553,15 +553,6 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      部署选项
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
       其他资源
     </span>
   </a>
@@ -569,7 +560,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       许可证
     </span>
@@ -1389,7 +1380,7 @@
         <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
-      核心概念深入了解
+      核心概念
     </span>
   </a>
   
@@ -1398,15 +1389,6 @@
         <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      部署选项
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
       其他资源
     </span>
   </a>
@@ -1414,7 +1396,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
       许可证
     </span>
@@ -1461,64 +1443,33 @@
     <img width="150" alt="myocr logo" src="../assets/images/logomain.png">
 </div>
 
-<p><strong>MyOCR 是一个 Python 库，旨在简化生产级 OCR (光学字符识别) 系统的开发和部署。</strong></p>
-<p>无论您需要从文档中进行基本的文本提取，还是复杂的结构化数据提取，MyOCR 都提供了构建健壮高效流水线的工具。</p>
+<p><strong>MyOCR 是一个高度可扩展和可定制的框架，用于简化生产级 OCR 系统的开发和部署。</strong></p>
+<p>MyOCR 让您可以轻松训练自定义模型并将其无缝集成到您自己的 OCR 流水线中。</p>
 <h2 id="_1">主要特性<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>🚀 端到端流程与模块化设计:</strong> 通过组合模块化组件，构建完整的 OCR 工作流（检测、分类、识别）。</li>
-<li><strong>🛠️ 可扩展:</strong> 轻松集成自定义模型或处理逻辑。</li>
-<li><strong>⚡ 生产就绪:</strong> 基于 ONNX Runtime 优化，支持 CPU 与 GPU 高性能推理，为生产环境准备就绪。</li>
-<li><strong>📊 结构化输出:</strong> 利用 LLM 集成，将信息提取为预定义的 JSON 格式。</li>
-<li><strong>🔌 多种使用模式:</strong> 可作为 Python 库使用，部署为 REST API 服务，或在 Docker 中运行。</li>
-</ul>
+<p><strong>⚡️ 端到端 OCR 开发框架</strong> – 专为开发者设计，用于在统一且灵活的流水线中构建和集成检测、识别和自定义 OCR 模型。</p>
+<p><strong>🛠️ 模块化与可扩展</strong> – 混合搭配组件 - 以最小的更改交换模型、预测器或输入输出处理器。</p>
+<p><strong>🔌 开发者友好设计</strong> - 清晰的 Python API、预构建的流水线和处理器，以及简单直接的训练和推理自定义。</p>
+<p><strong>🚀 生产就绪性能</strong> – 支持 ONNX runtime 实现快速 CPU/GPU 推理，支持多种部署方式。</p>
 <h2 id="_2">快速入门<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong><a href="getting-started/installation/">安装</a>:</strong> 安装 MyOCR 并下载必要的模型。</li>
-<li><strong><a href="getting-started/overview/">概览</a>:</strong> 理解核心概念（模型、预测器、流水线）。</li>
-<li><strong><a href="inference/local/">推理指南</a>:</strong> 学习如何使用该库运行 OCR 任务。</li>
+<li><strong><a href="getting-started/installation/">安装</a>:</strong> 设置 MyOCR 并下载必要的模型。</li>
+<li><strong><a href="getting-started/overview/">概览</a>:</strong> 理解核心概念（模型、预测器、流水线）以构建您的 OCR 能力。</li>
+<li><strong><a href="inference/local/">推理指南</a>:</strong> 学习如何使用 MyOCR 运行 OCR 任务。</li>
 </ol>
-<h2 id="_3">核心概念深入了解<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h2 id="_3">核心概念<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="models/">模型</a>:</strong> 了解支持的模型类型（ONNX、PyTorch、自定义）和架构。</li>
-<li><strong><a href="predictors/">预测器</a>:</strong> 理解预测器如何包装模型及其输入输出处理逻辑以执行特定任务。</li>
-<li><strong><a href="pipelines/">流水线</a>:</strong> 探索协调多个预测器以实现端到端 OCR 的高级流水线。</li>
+<li><strong><a href="predictors/">预测器</a>:</strong> 了解模型如何与输入/输出处理器包装成 <code>Predictor</code>。</li>
+<li><strong><a href="pipelines/">流水线</a>:</strong> 探索协调预测器以实现端到端 OCR 的高级流水线。</li>
 </ul>
-<h2 id="_4">部署选项<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>除了将 MyOCR 作为 Python 库使用（请参阅 <a href="inference/local/">本地推理指南</a>），您还可以通过以下方式部署它：</p>
-<ul>
-<li><strong>作为 REST API:</strong><ul>
-<li>该服务使用 <code>gunicorn</code> 运行（如 Docker 镜像中所配置），通常监听端口 8000。</li>
-<li>对于本地开发/测试，您可以运行 <code>python main.py</code>，但这可能会使用不同的端口（请检查 <code>main.py</code>）。</li>
-<li>端点：<code>GET /ping</code>、<code>POST /ocr</code>（基本 OCR）、<code>POST /ocr-json</code>（结构化 OCR）。</li>
-<li>提供一个独立的 UI 界面：<a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a></li>
-</ul>
-</li>
-<li><strong>使用 Docker:</strong><ul>
-<li>使用 <code>Dockerfile-infer-CPU</code> 或 <code>Dockerfile-infer-GPU</code> 构建 CPU 或 GPU 特定镜像。</li>
-<li>使用辅助脚本进行构建（请替换 <code>[cpu|gpu]</code> 并确保 <code>VERSION</code> 正确）：
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 首先，确定版本</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># 构建所需的镜像 (cpu 或 gpu)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>bash<span class="w"> </span>scripts/build_docker_image.sh<span class="w"> </span><span class="o">[</span>cpu<span class="p">|</span>gpu<span class="o">]</span>
-</code></pre></div></li>
-<li>运行示例（请将 <code>[cpu|gpu]</code> 和 <code>$VERSION</code> 替换为实际值）：
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># GPU 镜像版本 0.1.0 示例</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>myocr:gpu-0.1.0
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># CPU 镜像版本 0.1.0 示例</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>myocr:cpu-0.1.0
-</code></pre></div></li>
-<li>容器内的服务运行在端口 8000。</li>
-</ul>
-</li>
-</ul>
-<h2 id="_5">其他资源<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_4">其他资源<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="faq/">常见问题解答</a>:</strong> 查找常见问题的答案。</li>
 <li><strong><a href="CHANGELOG/">更新日志</a>:</strong> 查看最近的更新和变更。</li>
 <li><strong><a href="CONTRIBUTING/">贡献指南</a>:</strong> 了解如何为项目做出贡献。</li>
 <li><strong><a href="https://github.com/robbyzhaox/myocr">GitHub 仓库</a>:</strong> 源代码、问题和讨论。</li>
 </ul>
-<h2 id="_6">许可证<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h2 id="_5">许可证<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <p>MyOCR 基于 <a href="https://github.com/robbyzhaox/myocr/blob/main/LICENSE">Apache 2.0 许可证</a> 开源。</p>
 
 
@@ -1542,7 +1493,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     
@@ -1552,7 +1503,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     

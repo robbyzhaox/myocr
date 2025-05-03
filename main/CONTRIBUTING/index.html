@@ -1297,18 +1297,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-the-makefile" class="md-nav__link">
+  <a href="#development-utilities" class="md-nav__link">
     <span class="md-ellipsis">
-      Using the Makefile
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#individual-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      Individual Tools
+      📦 Development Utilities
     </span>
   </a>
   
@@ -1367,39 +1358,6 @@
       Adding New Features
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Development
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Development">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-the-build-script-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using the Build Script (Recommended)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#manual-docker-build" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manual Docker Build
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1524,18 +1482,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#using-the-makefile" class="md-nav__link">
+  <a href="#development-utilities" class="md-nav__link">
     <span class="md-ellipsis">
-      Using the Makefile
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#individual-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      Individual Tools
+      📦 Development Utilities
     </span>
   </a>
   
@@ -1594,39 +1543,6 @@
       Adding New Features
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docker Development
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Docker Development">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-the-build-script-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      Using the Build Script (Recommended)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#manual-docker-build" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manual Docker Build
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1719,37 +1635,31 @@
 </ol>
 <h2 id="coding-standards">Coding Standards<a class="headerlink" href="#coding-standards" title="Permanent link">&para;</a></h2>
 <p>We use several tools to enforce coding standards. The easiest way to ensure your code meets these standards is by using the provided Makefile commands:</p>
-<h3 id="using-the-makefile">Using the Makefile<a class="headerlink" href="#using-the-makefile" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Format all code (isort, black, ruff fix)</span>
+<h3 id="development-utilities">📦 Development Utilities<a class="headerlink" href="#development-utilities" title="Permanent link">&para;</a></h3>
+<p>MyOCR includes several Makefile commands to help with development:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Format code (runs isort, black, and ruff fix)</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>make<span class="w"> </span>run-format
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># Run code quality checks (isort, black, ruff, mypy, pytest)</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>make<span class="w"> </span>run-checks
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Preview documentation in local</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="nb">cd</span><span class="w"> </span>documentation
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>mkdocs<span class="w"> </span>serve<span class="w"> </span>-a<span class="w"> </span><span class="m">127</span>.0.0.1:8001
 </code></pre></div>
-<h3 id="individual-tools">Individual Tools<a class="headerlink" href="#individual-tools" title="Permanent link">&para;</a></h3>
 <p>If you prefer to run the tools individually:</p>
-<ol>
-<li>
 <p><strong>Black</strong>: For code formatting
    <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>black<span class="w"> </span>.
 </code></pre></div></p>
-</li>
-<li>
 <p><strong>isort</strong>: For import sorting
    <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>isort<span class="w"> </span>.
 </code></pre></div></p>
-</li>
-<li>
 <p><strong>Ruff</strong>: For linting
    <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ruff<span class="w"> </span>check<span class="w"> </span>.
 </code></pre></div></p>
-</li>
-<li>
 <p><strong>mypy</strong>: For type checking
    <div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mypy<span class="w"> </span>myocr
 </code></pre></div></p>
-</li>
-</ol>
 <p>The configuration for these tools is in the <code>pyproject.toml</code> file.</p>
 <h2 id="testing-guidelines">Testing Guidelines<a class="headerlink" href="#testing-guidelines" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1793,49 +1703,6 @@
 <li><strong>Pipeline integration</strong>: Ensure that new components integrate well with the existing pipeline structure.</li>
 <li><strong>Model compatibility</strong>: If adding new models, ensure they can be loaded with the existing ModelZoo system.</li>
 </ol>
-<h2 id="docker-development">Docker Development<a class="headerlink" href="#docker-development" title="Permanent link">&para;</a></h2>
-<p>We provide Dockerfiles for building CPU and GPU inference images, and a utility script to simplify the build process.</p>
-<h3 id="using-the-build-script-recommended">Using the Build Script (Recommended)<a class="headerlink" href="#using-the-build-script-recommended" title="Permanent link">&para;</a></h3>
-<p>The <code>scripts/build_docker_image.sh</code> script automates building the versioned Docker images:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Make the script executable if it&#39;s not already</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/build_docker_image.sh
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Determine the application version</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Run the script to build either the CPU or GPU image</span>
-<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Replace [cpu|gpu] with your target</span>
-<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>bash<span class="w"> </span>scripts/build_docker_image.sh<span class="w"> </span><span class="o">[</span>cpu<span class="p">|</span>gpu<span class="o">]</span>
-<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
-<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># Example: Build the CPU image</span>
-<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="c1"># bash scripts/build_docker_image.sh cpu</span>
-</code></pre></div>
-<p>This script:
-1. Stops and removes any existing containers based on the <em>specific versioned tag</em> being built (e.g., <code>myocr:cpu-X.Y.Z</code>).
-2. Removes the existing Docker image for that specific tag.
-3. Copies models from <code>~/.MyOCR/models/</code> into the build context.
-4. Builds a new Docker image using the appropriate Dockerfile (<code>Dockerfile-infer-CPU</code> or <code>Dockerfile-infer-GPU</code>).
-5. Tags the image with a version (e.g., <code>myocr:cpu-X.Y.Z</code> or <code>myocr:gpu-X.Y.Z</code>).</p>
-<p><strong>Note:</strong> This script only <em>builds</em> the image. See the <a href="../inference/rest/#option-2-deploying-with-docker-recommended-for-production">REST API Inference guide</a> for instructions on running the container.</p>
-<h3 id="manual-docker-build">Manual Docker Build<a class="headerlink" href="#manual-docker-build" title="Permanent link">&para;</a></h3>
-<p>If you prefer to build the Docker image manually:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># First, copy models to the build context</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>models
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>cp<span class="w"> </span>-r<span class="w"> </span>~/.MyOCR/models/*<span class="w"> </span>./models/
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1"># Determine the version</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>
-<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="c1"># For GPU version (example tag)</span>
-<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-GPU<span class="w"> </span>-t<span class="w"> </span>myocr:gpu-<span class="nv">$VERSION</span><span class="w"> </span>.
-<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
-<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># For CPU version (example tag)</span>
-<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>docker<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Dockerfile-infer-CPU<span class="w"> </span>-t<span class="w"> </span>myocr:cpu-<span class="nv">$VERSION</span><span class="w"> </span>.
-<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
-<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="c1"># Clean up copied models</span>
-<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>rm<span class="w"> </span>-rf<span class="w"> </span>./models
-</code></pre></div>
-<p>Remember to replace <code>$VERSION</code> with the actual version number. You can then run the built image as described in the inference documentation.</p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p>By contributing to MyOCR, you agree that your contributions will be licensed under the project's  <a href="LICENSE">Apache 2.0 license</a>.</p>
 <hr />
@@ -1862,7 +1729,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2025 01:08:07">April 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
   </span>
 
     
@@ -1872,7 +1739,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2025 01:08:07">April 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
   </span>
 
     

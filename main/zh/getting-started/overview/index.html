@@ -1450,15 +1450,14 @@
 
 
 <h1 id="_1">概览<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>欢迎使用 MyOCR！该库提供了一个强大而灵活的框架，用于构建和部署光学字符识别 (OCR) 流水线。</p>
+<p>欢迎使用 MyOCR！该库提供了一个强大而灵活的框架，用于构建和部署您自己的 OCR 流水线。</p>
 <h2 id="myocr">为何选择 MyOCR？<a class="headerlink" href="#myocr" title="Permanent link">&para;</a></h2>
 <p>MyOCR 的设计兼顾了生产准备和开发者体验。主要特性包括：</p>
 <ul>
 <li><strong>端到端工作流:</strong> 无缝集成文本检测、方向分类和文本识别。</li>
-<li><strong>模块化与可扩展:</strong> 轻松替换模型、预处理/后处理步骤（通过转换器）或整个流水线。</li>
-<li><strong>生产优化:</strong> 利用 ONNX Runtime 实现高性能的 CPU 和 GPU 推理。</li>
-<li><strong>结构化数据提取:</strong> 超越原始文本，使用 LLM 将信息提取为结构化格式（如 JSON）。</li>
+<li><strong>模块化与可扩展:</strong> 轻松替换模型、预处理/后处理步骤（通过 <code>CompositeProcessor</code>）或整个流水线。</li>
 <li><strong>开发者友好:</strong> 提供简洁的 Python API 和预构建组件，以便快速上手。</li>
+<li><strong>生产优化:</strong> 利用 ONNX Runtime 实现高性能的 CPU 和 GPU 推理。</li>
 </ul>
 <h2 id="_2">核心组件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>MyOCR 围绕几个关键概念构建：</p>
@@ -1471,11 +1470,11 @@
 <li>更多详情请参阅 <a href="../../models/">模型部分</a>。</li>
 </ul>
 </li>
-<li><strong>转换器 (Converter / <code>ParamConverter</code>):</strong> 为模型准备输入数据，并将模型的原始输出处理成更易用的格式。每个预测器都使用特定的转换器。<ul>
-<li>转换器详情请参阅 <a href="../../predictors/">预测器部分</a>。</li>
+<li><strong>处理器 (<code>CompositeProcessor</code>):</strong> 为模型准备输入数据，并将模型的原始输出处理成更易用的格式。每个预测器都使用特定的处理器。<ul>
+<li>处理器详情请参阅 <a href="../../predictors/">预测器部分</a>。</li>
 </ul>
 </li>
-<li><strong>预测器 (Predictor):</strong> 结合一个 <code>Model</code> 和一个 <code>ParamConverter</code> 来执行特定的推理任务（例如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
+<li><strong>预测器 (Predictor):</strong> 结合一个 <code>Model</code> 和一个 <code>Processor</code> 来执行特定的推理任务（例如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
 <li>可用预测器列表请参阅 <a href="../../predictors/">预测器部分</a>。</li>
 </ul>
 </li>
@@ -1488,7 +1487,7 @@
 <p>MyOCR 的模块化设计允许轻松定制。</p>
 <ul>
 <li><strong><a href="../../models/add-model/">添加新模型</a>:</strong> 了解如何通过模型加载器引入新模型。</li>
-<li><strong><a href="../../predictors/create-predictor/">创建自定义预测器</a>:</strong> 了解如何通过 <code>Model</code> 和 <code>ParamConverter</code> 创建自定义 <code>Predictor</code>。</li>
+<li><strong><a href="../../predictors/create-predictor/">创建自定义预测器</a>:</strong> 了解如何通过 <code>Model</code> 和 <code>CompositeProcessor</code> 创建自定义 <code>Predictor</code>。</li>
 <li><strong><a href="../../pipelines/build-pipeline/">构建自定义流水线</a>:</strong> 了解如何将多个 <code>Predictor</code> 组合成 <code>Pipeline</code>。</li>
 </ul>
 
@@ -1513,7 +1512,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     
@@ -1523,7 +1522,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     

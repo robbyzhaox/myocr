@@ -542,18 +542,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-concepts-deep-dive" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Core Concepts Deep Dive
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deployment-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deployment Options
+      Core Concepts
     </span>
   </a>
   
@@ -1387,18 +1378,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-concepts-deep-dive" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Core Concepts Deep Dive
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#deployment-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Deployment Options
+      Core Concepts
     </span>
   </a>
   
@@ -1461,55 +1443,24 @@
     <img width="150" alt="myocr logo" src="assets/images/logomain.png">
 </div>
 
-<p><strong>MyOCR is a Python library designed to streamline the development and deployment of production-ready OCR systems.</strong></p>
-<p>Whether you need basic text extraction or complex structured data extraction from documents, MyOCR provides the tools to build robust and efficient pipelines.</p>
+<p><strong>MyOCR is a highly extensible and customizable framework for streamline development and deployment of production-ready OCR systems.</strong></p>
+<p>MyOCR makes it easy to train your custom models and seamlessly integrate them into your own OCR pipeline.</p>
 <h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>🚀 End-to-End &amp; Modular:</strong> Build complete OCR workflows (Detection, Classification, Recognition, etc.) by combining modular components.</li>
-<li><strong>🛠️ Extensible:</strong> Easily integrate custom models or processing logic.</li>
-<li><strong>⚡ Production Ready:</strong> Optimized for speed with ONNX Runtime support for CPU and GPU inference.</li>
-<li><strong>📊 Structured Output:</strong> Extract information into predefined JSON formats using LLM integration.</li>
-<li><strong>🔌 Multiple Usage Modes:</strong> Use as a Python library, deploy as a REST API service, or run in Docker.</li>
-</ul>
+<p><strong>⚡️ End-to-End OCR Development Framework</strong> – Designed for developers to build and integrate detection, recognition, and custom OCR models in a unified and flexible pipeline.</p>
+<p><strong>🛠️ Modular &amp; Extensible</strong> – Mix and match components - swap models, predictors, or input output processors with minimal changes.</p>
+<p><strong>🔌 Developer-Friendly by Design</strong> - Clean Python APIs, prebuilt pipelines and processors, and straightforward customization for training and inference.</p>
+<p><strong>🚀 Production-Ready Performance</strong> – ONNX runtime support for fast CPU/GPU inference, support various ways of deployment.</p>
 <h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong><a href="getting-started/installation/">Installation</a>:</strong> Set up MyOCR and download necessary models.</li>
-<li><strong><a href="getting-started/overview/">Overview</a>:</strong> Understand the core concepts (Models, Predictors, Pipelines).</li>
-<li><strong><a href="inference/local/">Inference Guide</a>:</strong> Learn how to run OCR tasks using the library.</li>
+<li><strong><a href="getting-started/overview/">Overview</a>:</strong> Understand the core concepts (Models, Predictors, Pipelines) for building your OCR capabilities.</li>
+<li><strong><a href="inference/local/">Inference Guide</a>:</strong> Learn how to run OCR tasks using MyOCR.</li>
 </ol>
-<h2 id="core-concepts-deep-dive">Core Concepts Deep Dive<a class="headerlink" href="#core-concepts-deep-dive" title="Permanent link">&para;</a></h2>
+<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong><a href="models/">Models</a>:</strong> Learn about the supported model types (ONNX, PyTorch, Custom) and architectures.</li>
-<li><strong><a href="predictors/">Predictors</a>:</strong> Understand how models are wrapped with input/output converters to <code>Predictor</code>.</li>
+<li><strong><a href="predictors/">Predictors</a>:</strong> Understand how models are wrapped with input/output processors to <code>Predictor</code>.</li>
 <li><strong><a href="pipelines/">Pipelines</a>:</strong> Explore the high-level pipelines that orchestrate predictors for end-to-end OCR.</li>
-</ul>
-<h2 id="deployment-options">Deployment Options<a class="headerlink" href="#deployment-options" title="Permanent link">&para;</a></h2>
-<p>Beyond using MyOCR as a Python library (see <a href="inference/local/">Inference Guide</a>), you can also deploy it:</p>
-<ul>
-<li><strong>As a REST API:</strong><ul>
-<li>The service is run using <code>gunicorn</code> (as configured in the Docker images) and typically listens on port 8000.</li>
-<li>For local development/testing, you might run <code>python main.py</code>, which may use a different port (check <code>main.py</code>).</li>
-<li>Endpoints: <code>GET /ping</code>, <code>POST /ocr</code> (basic OCR), <code>POST /ocr-json</code> (structured OCR).</li>
-<li>A separate UI is available: <a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a></li>
-</ul>
-</li>
-<li><strong>Using Docker:</strong><ul>
-<li>Build CPU or GPU specific images using <code>Dockerfile-infer-CPU</code> or <code>Dockerfile-infer-GPU</code>.</li>
-<li>Use the helper script for building (replace <code>[cpu|gpu]</code> and ensure <code>VERSION</code> is correct):
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># First, determine the version</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Build the desired image (cpu or gpu)</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>bash<span class="w"> </span>scripts/build_docker_image.sh<span class="w"> </span><span class="o">[</span>cpu<span class="p">|</span>gpu<span class="o">]</span>
-</code></pre></div></li>
-<li>Example run (replace <code>[cpu|gpu]</code> and <code>$VERSION</code> with actual values):
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Example for GPU image version 0.1.0</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>myocr:gpu-0.1.0
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Example for CPU image version 0.1.0</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>myocr:cpu-0.1.0
-</code></pre></div></li>
-<li>The service inside the container runs on port 8000.</li>
-</ul>
-</li>
 </ul>
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
@@ -1542,7 +1493,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2025 01:08:07">April 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
   </span>
 
     
@@ -1552,7 +1503,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 30, 2025 01:08:07">April 30, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
   </span>
 
     

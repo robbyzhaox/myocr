@@ -1304,9 +1304,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#onnx" class="md-nav__link">
+  <a href="#_4" class="md-nav__link">
     <span class="md-ellipsis">
-      默认模型 (ONNX)
+      常用模型
     </span>
   </a>
   
@@ -1318,20 +1318,95 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_5" class="md-nav__link">
     <span class="md-ellipsis">
-      配置 (自定义模型)
+      模型配置
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_6" class="md-nav__link">
     <span class="md-ellipsis">
       模型转换
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      可用模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="可用模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dbnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      文本检测 (DBNet++)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crnn" class="md-nav__link">
+    <span class="md-ellipsis">
+      文本识别 (CRNN)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      文本分类模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型性能
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模型性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      准确性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      速度
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1372,12 +1447,12 @@
 <h2 id="_2">模型加载与管理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p>MyOCR 利用 <code>myocr/modeling/model.py</code> 中定义的灵活模型加载系统。它支持加载不同格式的模型：</p>
 <ul>
-<li><strong>ONNX (<code>OrtModel</code>):</strong> 使用 ONNX Runtime (<code>onnxruntime</code>) 加载并运行优化后的模型。由于性能优势，这通常是推理的首选格式，也是默认流水线使用的主要格式。</li>
+<li><strong>ONNX (<code>OrtModel</code>):</strong> 使用 ONNX Runtime (<code>onnxruntime</code>) 加载并运行优化后的模型。由于性能优势，这通常是推理的首选格式。</li>
 <li><strong>PyTorch (<code>PyTorchModel</code>):</strong> 加载标准的 PyTorch 模型，可能利用来自 <code>torchvision</code> 等库的预定义架构。</li>
 <li><strong>自定义 PyTorch (<code>CustomModel</code>):</strong> 加载通过 YAML 配置文件定义的自定义 PyTorch 模型。这些配置使用 <code>myocr/modeling/</code> 中定义的组件来指定模型的架构，包括主干网络 (backbones)、颈部 (necks) 和头部 (heads)。</li>
 </ul>
 <p><code>ModelLoader</code> 类充当工厂，根据指定的格式 (<code>onnx</code>, <code>pt</code>, <code>custom</code>) 实例化正确的模型类型。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 示例 (概念性 - 流水线通常会自动处理)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 示例 (概念性)</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 加载用于 CPU 推理的 ONNX 模型</span>
@@ -1387,53 +1462,119 @@
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># 加载由 YAML 定义的用于 GPU 推理的自定义模型</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">custom_model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_format</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span> <span class="n">model_name_path</span><span class="o">=</span><span class="s1">&#39;path/to/your/config.yaml&#39;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">))</span>
 </code></pre></div>
-<p><strong>注意:</strong> 虽然您可以手动加载模型，但 <code>Pipeline</code> 类通常会根据其各自的配置文件（例如 <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>）自动处理所需模型的加载。</p>
 <h2 id="_3">模型架构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<p><code>myocr/modeling/</code> 目录包含了构建自定义 PyTorch 模型的基石：</p>
+<p><code>myocr/modeling/</code> 目录包含了构建自定义模型的基石：</p>
 <ul>
 <li><strong><code>architectures/</code></strong>: 定义连接主干网络、颈部和头部的整体结构（例如 <code>DBNet</code>, <code>CRNN</code>）。</li>
 <li><strong><code>backbones/</code></strong>: 包含特征提取网络（例如 <code>ResNet</code>, <code>MobileNetV3</code>）。</li>
 <li><strong><code>necks/</code></strong>: 包括特征融合模块（例如 <code>FPN</code> - 特征金字塔网络）。</li>
 <li><strong><code>heads/</code></strong>: 定义负责特定任务的最终层（例如，检测概率图、序列解码）。</li>
 </ul>
-<h3 id="onnx">默认模型 (ONNX)<a class="headerlink" href="#onnx" title="Permanent link">&para;</a></h3>
-<p>默认流水线依赖于安装过程中下载到 <code>~/.MyOCR/models/</code> 的预训练 ONNX 模型：</p>
+<h3 id="_4">常用模型<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>虽然系统很灵活，但 MyOCR 中常用的模型包括：</p>
 <ul>
-<li><strong>文本检测 (<code>dbnet++.onnx</code>):</strong> 基于 <strong>DBNet++</strong> 架构。输出指示文本存在和位置的分割图。</li>
-<li><strong>文本识别 (<code>rec.onnx</code>):</strong> 可能采用 <strong>CRNN (卷积循环神经网络)</strong> 架构或类似的序列到序列模型。使用 CTC 解码处理可变长度文本。</li>
-<li><strong>文本方向分类 (<code>cls.onnx</code>):</strong> 一个轻量级的<strong>基于 CNN 的分类器</strong>，用于预测文本方向（0 度或 180 度）。</li>
+<li><strong>文本检测:</strong> 通常基于 <strong>DBNet</strong> 或 <strong>DBNet++</strong>，使用 ResNet 结合 FPN 颈部和专门的检测头部等架构。这些模型输出指示文本存在和位置的分割图。</li>
+<li><strong>文本识别:</strong> 经常使用 <strong>CRNN (卷积循环神经网络)</strong> 架构。这些通常使用 CNN 主干网络（如 ResNet 或 VGG），然后是 BiLSTM 层和 CTC（连接时序分类）头部进行序列解码。</li>
+<li><strong>文本方向分类:</strong> 通常是更简单的基于 CNN 的分类器（例如，改编的 MobileNet 或 ResNet 变体），训练用于预测文本方向（例如，0 度或 180 度）。</li>
 </ul>
-<h2 id="_4">配置 (自定义模型)<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>自定义 PyTorch 模型使用 YAML 文件进行配置。这些文件指定：</p>
+<h2 id="_5">模型配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>自定义模型使用 YAML 文件进行配置。这些文件指定：</p>
 <ul>
 <li>整体 <code>Architecture</code>（连接主干网络、颈部、头部）。</li>
 <li>每个组件的具体参数（例如，主干网络类型、特征维度）。</li>
 <li>可选地，指向 <code>pretrained</code> 权重的路径。</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 示例 config.yaml (说明性 - 结构可能有所不同)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 示例 config.yaml (简化版)</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">Architecture</span><span class="p">:</span>
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">det</span><span class="w"> </span><span class="c1"># 或 rec, cls</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">backbone</span><span class="p">:</span>
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MobileNetV3</span>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># 如果适用，指向主干网络权重的路径</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">neck</span><span class="p">:</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DBFPN</span><span class="w"> </span><span class="c1"># 示例特征金字塔网络</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DBFPN</span>
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">out_channels</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">256</span>
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="nt">head</span><span class="p">:</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DBHead</span><span class="w"> </span><span class="c1"># 示例检测头</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DBHead</span>
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="nt">k</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50</span>
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/full_model_weights.pth</span><span class="w"> </span><span class="c1"># 可选：加载整个组合模型的权重</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">path/to/pretrained_weights.pth</span><span class="w"> </span><span class="c1"># 可选</span>
 </code></pre></div>
-<h2 id="_5">模型转换<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h2 id="_6">模型转换<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
 <p><code>CustomModel</code> 类提供了一个 <code>to_onnx</code> 方法，用于将由 YAML 配置定义的 PyTorch 模型导出为 ONNX 格式，以进行优化推理。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 示例 (概念性)</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># 假设 &#39;custom_model&#39; 是从 YAML 配置加载的 CustomModel 实例</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># 假设 &#39;custom_model&#39; 是 CustomModel 的实例</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># 并且 &#39;dummy_input&#39; 是匹配模型预期输入形状/类型的样本输入张量</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">custom_model</span><span class="o">.</span><span class="n">to_onnx</span><span class="p">(</span><span class="s1">&#39;exported_model.onnx&#39;</span><span class="p">,</span> <span class="n">dummy_input</span><span class="p">)</span>
 </code></pre></div>
-<p>这使得即使对于在 MyOCR 内使用自定义 PyTorch 框架开发的模型，也能利用 ONNX Runtime 的性能优势。 </p>
+<p>这使得即使对于在 MyOCR 内使用自定义 PyTorch 框架开发的模型，也能利用 ONNX Runtime 的性能优势。</p>
+<h2 id="_7">可用模型<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="dbnet">文本检测 (DBNet++)<a class="headerlink" href="#dbnet" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>DBNet++</strong>: 基于 DBNet 架构的最先进的文本检测模型</li>
+<li>输入：RGB 图像</li>
+<li>输出：文本区域多边形</li>
+<li>特点：<ul>
+<li>对任意形状文本的高精度</li>
+<li>快速推理速度</li>
+<li>对各种文本方向的鲁棒性</li>
+</ul>
+</li>
+<li>架构：
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 架构概述</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">Backbone</span><span class="p">:</span> <span class="n">ResNet</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">Neck</span><span class="p">:</span> <span class="n">FPN</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">Head</span><span class="p">:</span> <span class="n">DBHead</span>
+</code></pre></div></li>
+</ul>
+<h3 id="crnn">文本识别 (CRNN)<a class="headerlink" href="#crnn" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>CRNN</strong>: 用于文本识别的混合 CNN-RNN 模型</li>
+<li>输入：裁剪的文本区域</li>
+<li>输出：识别的文本</li>
+<li>特点：<ul>
+<li>支持中文和英文字符</li>
+<li>处理可变长度文本</li>
+<li>对不同字体和样式的鲁棒性</li>
+</ul>
+</li>
+<li>架构：
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 架构概述</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">Backbone</span><span class="p">:</span> <span class="n">CNN</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Neck</span><span class="p">:</span> <span class="n">BiLSTM</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">Head</span><span class="p">:</span> <span class="n">CTC</span>
+</code></pre></div></li>
+</ul>
+<h3 id="_8">文本分类模型<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>文本方向分类器</strong>: 确定文本方向</li>
+<li>输入：文本区域</li>
+<li>输出：方向角度</li>
+<li>特点：<ul>
+<li>0° 和 180° 分类</li>
+<li>帮助提高识别准确性</li>
+</ul>
+</li>
+</ul>
+<h2 id="_9">模型性能<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h3 id="_10">准确性<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>文本检测：</li>
+<li>ICDAR2015: 85.2% F1 分数</li>
+<li>
+<p>Total-Text: 82.1% F1 分数</p>
+</li>
+<li>
+<p>文本识别：</p>
+</li>
+<li>中文：92.3% 准确率</li>
+<li>英文：94.7% 准确率</li>
+</ul>
+<h3 id="_11">速度<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>在 NVIDIA T4 GPU 上：
+- 检测：每张图像约 50ms
+- 识别：每个文本区域约 20ms
+- 分类：每个区域约 10ms </p>
 
 
 
@@ -1456,7 +1597,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     
@@ -1466,7 +1607,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
   </span>
 
     
