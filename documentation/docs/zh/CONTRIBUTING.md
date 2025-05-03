@@ -8,8 +8,8 @@
 
 ## 开始贡献
 
-1.  **Fork 仓库**: 在 GitHub 上创建您自己的仓库分支 (Fork)。
-2.  **克隆您的分支**: 
+1.  **Fork 仓库**: 在 GitHub 上Fork MyOCR仓库。
+2.  **克隆您的仓库支**: 
     ```bash
     git clone https://github.com/your-username/myocr.git
     cd myocr
