@@ -1645,7 +1645,7 @@ wheels = [
 ]
 
 [[package]]
-name = "myocr"
+name = "myocr-lite"
 source = { editable = "." }
 dependencies = [
     { name = "flask" },

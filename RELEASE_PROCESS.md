@@ -4,7 +4,7 @@
 
 1. Update the version in `myocr/version.py`.
 
-3. Run the release script:
+2. Run the release script:
 
     ```bash
     ./scripts/release.sh
