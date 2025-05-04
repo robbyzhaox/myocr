@@ -10,7 +10,7 @@ English | [简体中文](./README_zh.md)
 
 MyOCR is a highly extensible and customizable framework for building OCR systems. Engineers can easily train, integrate deep learning models into custom OCR pipelines for real-world applications.
 
-<!-- Try the online demo(TBD) -->
+Try the online [demo](https://huggingface.co/spaces/robbyzhaox/myocr)
 
 ## **🌟 Key Features**:
 

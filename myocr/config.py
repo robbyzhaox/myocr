@@ -1,7 +1,5 @@
-import logging.config
-import os
 
-import yaml  # type: ignore
+import os
 
 # os.environ["LRU_CACHE_CAPACITY"] = "1"
 
@@ -22,6 +20,3 @@ def get_model_path() -> str:
 
 MODEL_PATH = get_model_path()
 
-with open(BASE_PATH + "/logging_config.yaml", "r") as f:
-    config = yaml.safe_load(f.read())
-    logging.config.dictConfig(config)

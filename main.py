@@ -1,12 +1,13 @@
 import base64
 import logging
+import logging.config
 import uuid
 from pathlib import Path
 from tempfile import gettempdir
+import yaml  # type: ignore
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
 from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
 from myocr.pipelines.response_format import InvoiceModel
 from myocr.pipelines.structured_output_pipeline import StructuredOutputOCRPipeline
@@ -17,6 +18,9 @@ logger = logging.getLogger(__name__)
 
 CORS(app, resources={r"/ocr": {"origins": "*"}, r"/ocr-json": {"origins": "*"}})
 
+with open( "logging_config.yaml", "r") as f:
+    config = yaml.safe_load(f.read())
+    logging.config.dictConfig(config)
 
 @app.route("/ping")
 def ping():
