@@ -1,4 +1,3 @@
-
 import os
 
 # os.environ["LRU_CACHE_CAPACITY"] = "1"
@@ -19,4 +18,3 @@ def get_model_path() -> str:
 
 
 MODEL_PATH = get_model_path()
-

@@ -1,4 +1,5 @@
 import logging
+
 from myocr.version import VERSION, VERSION_SHORT
 
 logger = logging.getLogger(__name__)
