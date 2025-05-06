@@ -17,9 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change the return format of bounding box
 
+## [v0.1.0-alpha.1](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.1) - 2025-05-06
+
+### Added
+- version check in releash.sh
+- add demo url to readme
+
 ### Fixed
 
-### Removed
+- fix logging issue by moving logging config out from myocr package
 
 
 ## [v0.1.0-alpha](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha) - 2025-05-04
