@@ -1,0 +1,22 @@
+# .github/workflows/trigger-hf-rebuild.yml
+name: Trigger Hugging Face Rebuild
+
+on:
+  workflow_run:
+    workflows: ["Main"]
+    types:
+      - completed
+
+jobs:
+  trigger:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Trigger Hugging Face Rebuild
+    runs-on: ubuntu-latest
+    environment:
+      name: release-new-version
+    steps:
+      - name: Trigger rebuild
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.HF_TOKEN }}" \
+            https://api.huggingface.co/spaces/robbyzhaox/myocr/rebuild
