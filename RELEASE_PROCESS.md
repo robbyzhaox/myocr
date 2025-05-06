@@ -4,7 +4,13 @@
 
 1. Update the version in `myocr/version.py`.
 
-2. Run the release script:
+2. Run prepare_changelog.py to add the version item to CHANGELOG.md automatically, then add some highlights for the changelog.
+
+    ```python
+    python scripts/prepare_changelog.py
+    ```
+
+3. Run the release script:
 
     ```bash
     ./scripts/release.sh

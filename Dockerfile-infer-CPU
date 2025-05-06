@@ -18,7 +18,7 @@ WORKDIR /app
 
 COPY myocr /app/myocr
 COPY models /app/models
-COPY main.py pyproject.toml /app/
+COPY main.py pyproject.toml logging_config.yaml  /app/
 
 RUN --mount=type=cache,target=/root/.cache/pip \
     python3 -m pip install --no-cache-dir . && \
