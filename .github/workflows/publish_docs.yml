@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'documentation/**' 
+      - 'CHANGELOG.md'
+      - 'CONTRIBUTING.md'
 
 permissions:
   contents: write
