@@ -2,8 +2,11 @@
     <h1 align="center">MyOCR - 高级OCR流程构建框架</h1>
     <img width="200" alt="myocr logo" src="https://raw.githubusercontent.com/robbyzhaox/myocr/refs/heads/main/documentation/docs/assets/images/logomain.png">
 
-[![license](https://img.shields.io/badge/license-Apache%202.0-blue)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
+[![Docs](https://img.shields.io/badge/Docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
+[![HuggingFace](https://img.shields.io/badge/HuggingFace-model-yellow?logo=huggingface&logoColor=white&labelColor=ffcc00)](https://huggingface.co/spaces/robbyzhaox/myocr)
+[![Docker](https://img.shields.io/docker/pulls/robbyzhaox/myocr?logo=docker&label=Docker%20Pulls)](https://hub.docker.com/repository/docker/robbyzhaox/myocr)
+[![PyPI](https://img.shields.io/pypi/v/myocr-kit?logo=pypi&label=Pypi)](https://pypi.org/project/myocr-kit/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)
 
 [English](./README.md) | 简体中文
 </div>
