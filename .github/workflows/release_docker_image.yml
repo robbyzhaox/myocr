@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  release-image:
+  release-image-cpu:
     if: startsWith(github.ref, 'refs/tags/v')
     name: Release Docker Image
     runs-on: ubuntu-latest
@@ -49,5 +49,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/myocr:${{ env.RELEASE_VERSION }}
-            ${{ secrets.DOCKER_USERNAME }}/myocr:latest
+            ${{ secrets.DOCKER_USERNAME }}/myocr:cpu-${{ env.RELEASE_VERSION }}
+
