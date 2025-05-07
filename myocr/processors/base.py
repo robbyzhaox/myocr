@@ -158,18 +158,25 @@ class LabelDecoder(Processor):
         # preds shape: (Time Steps, Batch Size, Num Classes)
         preds = preds.transpose(1, 0, 2)  # type: ignore
         length = preds.shape[1]
-
+        blank_label = 0
         decode_result = []
         for i in range(length):
             box = self.bounding_boxes[i]  # type: ignore
             sample_pred = preds[:, i, :]
 
             probs = softmax(sample_pred)
-            char_confidences = np.max(probs, axis=-1)
-            text_confidence = np.mean(char_confidences).item()
 
             length = sample_pred.shape[0]
             pred_indices = np.argmax(sample_pred, axis=1)
+
+            non_blank_indices = pred_indices != blank_label
+
+            char_confidences = np.max(probs, axis=-1)[non_blank_indices]
+            if len(char_confidences) > 0:
+                text_confidence = np.mean(char_confidences).item()
+            else:
+                text_confidence = 0.0
+
             text = self.translator.decode(pred_indices, length, raw=False)
             decode_result.append((text, text_confidence, box))
         return decode_result
