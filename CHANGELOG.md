@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change the return format of bounding box
 
+## [v0.1.0-alpha.3](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.3) - 2025-05-07
+
+### Fixed
+- fixed workflow for building docker image
+
 ## [v0.1.0-alpha.2](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.2) - 2025-05-07
 
 ### Added
