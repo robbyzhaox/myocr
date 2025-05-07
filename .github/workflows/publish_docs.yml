@@ -8,6 +8,7 @@ on:
       - 'documentation/**' 
       - 'CHANGELOG.md'
       - 'CONTRIBUTING.md'
+  workflow_dispatch:
 
 permissions:
   contents: write
