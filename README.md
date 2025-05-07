@@ -4,7 +4,7 @@
 
 [![Docs](https://img.shields.io/badge/Docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-model-yellow?logo=huggingface&logoColor=white&labelColor=ffcc00)](https://huggingface.co/spaces/robbyzhaox/myocr)
-[![Docker](https://img.shields.io/docker/pulls/robbyzhaox/myocr?logo=docker&label=Docker%20Pulls)](https://hub.docker.com/repository/docker/robbyzhaox/myocr)
+[![Docker](https://img.shields.io/docker/pulls/robbyzhaox/myocr?logo=docker&label=Docker%20Pulls)](https://hub.docker.com/r/robbyzhaox/myocr)
 [![PyPI](https://img.shields.io/pypi/v/myocr-kit?logo=pypi&label=Pypi)](https://pypi.org/project/myocr-kit/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue)](LICENSE)
 

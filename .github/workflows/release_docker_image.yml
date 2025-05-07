@@ -1,14 +1,11 @@
 name: Release Docker Image
 
 on:
-  workflow_run:
-    workflows: ["Main"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   release-image:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: startsWith(github.ref, 'refs/tags/v')
     name: Release Docker Image
     runs-on: ubuntu-latest
     environment:

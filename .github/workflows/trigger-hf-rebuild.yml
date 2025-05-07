@@ -1,22 +1,33 @@
-# .github/workflows/trigger-hf-rebuild.yml
 name: Trigger Hugging Face Rebuild
 
 on:
-  workflow_run:
-    workflows: ["Main"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   trigger:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    name: Trigger Hugging Face Rebuild
     runs-on: ubuntu-latest
     environment:
       name: release-new-version
     steps:
-      - name: Trigger rebuild
+      - name: Set HF_USERNAME & HF_TOKEN variable
+        env:
+          HF_USERNAME : ${{ secrets.HF_USERNAME }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.HF_TOKEN }}" \
-            https://api.huggingface.co/spaces/robbyzhaox/myocr/rebuild
+          echo "HF_USERNAME=${HF_USERNAME}" >> $GITHUB_ENV
+          echo "HF_TOKEN=${HF_TOKEN}" >> $GITHUB_ENV
+
+      - name: Configure git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+      
+      - name: Set up Git and push to Space
+        run: |
+          git clone https://huggingface.co/spaces/${HF_USERNAME}/myocr
+          cd myocr
+          git lfs install
+          git lfs track "*.onnx"
+          git add .
+          git commit --allow-empty -m "empty commit to trigger rebuild"
+          git push https://${HF_USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${HF_USERNAME}/myocr main
