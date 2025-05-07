@@ -17,6 +17,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change the return format of bounding box
 
+## [v0.1.0-alpha.2](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.2) - 2025-05-07
+
+### Added
+
+- add workflow for releasing docker image
+- update readme
+- add config for release doc manually
+
+### Fixed
+- fixed char decode for black space
+
 ## [v0.1.0-alpha.1](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.1) - 2025-05-06
 
 ### Added
