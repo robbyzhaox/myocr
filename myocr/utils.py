@@ -109,7 +109,7 @@ class LabelTranslator:
     """Translate between numeric indices and character labels"""
 
     def __init__(self, alphabet):
-        self.alphabet = alphabet + "ç"  # for `-1` index
+        self.alphabet = alphabet + " "  # for `-1` index
         self.dict = {}
         for i, char in enumerate(alphabet):
             # NOTE: 0 is reserved for 'blank' required by wrap_ctc
