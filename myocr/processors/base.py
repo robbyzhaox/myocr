@@ -4,7 +4,6 @@ from typing import List
 import cv2
 import pyclipper
 
-
 from ..base import Processor
 from ..types import NDArray, np
 

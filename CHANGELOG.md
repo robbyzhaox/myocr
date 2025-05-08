@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change the return format of bounding box
 
+## [v0.1.0-alpha.4](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.4) - 2025-05-08
+
+### Fixed
+- fixed recognized text confidence
+
 ## [v0.1.0-alpha.3](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.3) - 2025-05-07
 
 ### Fixed
