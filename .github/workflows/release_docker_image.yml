@@ -26,14 +26,9 @@ jobs:
       - name: Install gdown
         run: pip install gdown
 
-      - name: Create models directory
-        run: mkdir -p models
-      
       - name: Download models from Google Drive
         run: |
-          gdown --id 1TCu3vAXNVmPBY2KtoEBTGOE6tpma0puX -O models/cls.onnx
-          gdown --id 1b5I8Do4ODU9xE_dinDGZMraq4GDgHPH9 -O models/dbnet++.onnx
-          gdown --id 1MSF7ArwmRjM4anDiMnqhlzj1GE_J7gnX -O models/rec.onnx
+          gdown --folder 1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY --output models
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
