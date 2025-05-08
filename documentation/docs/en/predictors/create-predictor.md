@@ -45,7 +45,7 @@ class CustomResult:
         self.details = details
 
     def __repr__(self):
-        return f"CustomResult(label='{self.label}', score={self.score:.4f}, details={self.details})"
+        return f"CustomResult(label='{self.label}', score={self.score:.6f}, details={self.details})"
 
 # --- Create the Custom Processor ---
 # Example: Takes a PIL Image, outputs a CustomResult
