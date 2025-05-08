@@ -109,7 +109,7 @@ The framework provides support for Docker deployment, which can be built and run
 #### Run the Docker Container
 
 ```bash
-docker run -d -p 8000:8000 robbyzhaox/myocr:cpu-0.1.0
+docker run -d -p 8000:8000 robbyzhaox/myocr:latest
 ```
 
 #### Accessing API Endpoints (Docker)
