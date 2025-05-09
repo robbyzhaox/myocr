@@ -13,7 +13,7 @@
 
 MyOCR是一个高度可扩展和定制化的OCR系统构建框架。工程师可以轻松训练、整合深度学习模型，构建适用于实际应用场景的自定义OCR流程。
 
-尝试在线[演示](https://huggingface.co/spaces/robbyzhaox/myocr)
+尝试在线演示 [HuggingFace](https://huggingface.co/spaces/robbyzhaox/myocr) 或 [魔搭](https://modelscope.cn/studios/robbyzhao/myocr/summary)
 
 ## **🌟 核心特性**:
 
