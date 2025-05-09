@@ -109,7 +109,7 @@ print(result.to_dict())
 #### 运行Docker容器
 
 ```bash
-docker run -d -p 8000:8000 robbyzhaox/myocr:cpu-0.1.0
+docker run -d -p 8000:8000 robbyzhaox/myocr:latest
 ```
 
 #### 访问API（Docker）

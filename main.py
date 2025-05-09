@@ -34,7 +34,6 @@ pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
 
 
 def check_temp_dir():
-    """确保临时目录存在"""
     temp_dir = Path(gettempdir()) / ".temp"
     temp_dir.mkdir(exist_ok=True)
     return temp_dir
@@ -72,12 +71,12 @@ def _do_ocr(pipeline):
             if result is None:
                 return jsonify({"error": "Failed to process image, no text detected"}), 400
 
+            result.text_items = [item for item in result.text_items if item.confidence > 0.5]
             return jsonify({"data": result.to_dict()})
         except Exception as inner_error:
             logger.error(f"Error processing image: {inner_error}", exc_info=True)
             return jsonify({"error": f"Image processing error: {str(inner_error)}"}), 500
         finally:
-            # 确保清理临时文件
             if filename.exists():
                 filename.unlink()
     except Exception as e:

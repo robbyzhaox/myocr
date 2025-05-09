@@ -45,4 +45,5 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/myocr:cpu-${{ env.RELEASE_VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/myocr:latest
 
