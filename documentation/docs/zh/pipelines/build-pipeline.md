@@ -70,7 +70,7 @@ class MyDetectionOnlyPipeline(Pipeline):
 ```python
 from PIL import Image
 from typing import Optional
-from myocr.predictors.base import DetectedObjects # 导入必要的数据结构
+from myocr.types import OCRResult # 导入必要的数据结构
 
 class MyDetectionOnlyPipeline(Pipeline):
     def __init__(self, device: Device, detection_model_name: str = "dbnet++.onnx"):
@@ -84,7 +84,7 @@ class MyDetectionOnlyPipeline(Pipeline):
         self.det_predictor = Predictor(det_processor)
         logger.info(f"DetectionOnlyPipeline 使用 {detection_model_name} 在 {device.name} 上初始化完成")
 
-    def process(self, image_path: str) -> Optional[DetectedObjects]:
+    def process(self, image_path: str) -> Optional[OCRResult]:
         """处理图像文件并返回检测到的对象。"""
         # 1. 加载图像 (示例：处理路径输入)
         image = Image.open(image_path).convert("RGB")

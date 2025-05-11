@@ -71,7 +71,7 @@ def _do_ocr(pipeline):
             if result is None:
                 return jsonify({"error": "Failed to process image, no text detected"}), 400
 
-            result.text_items = [item for item in result.text_items if item.confidence > 0.5]
+            result.regions = [item for item in result.regions if item.confidence > 0.5]
             return jsonify({"data": result.to_dict()})
         except Exception as inner_error:
             logger.error(f"Error processing image: {inner_error}", exc_info=True)

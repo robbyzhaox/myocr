@@ -11,7 +11,7 @@ Predictors are typically associated with a `Model` object and a `CompositeProces
 
 *   **`myocr.base.Predictor`:** A simple wrapper that calls the `CompositeProcessor`'s input conversion, the `Model`'s forward pass, and the `CompositeProcessor`'s output conversion.
 *   **`myocr.base.CompositeProcessor`:** An abstract base class defining `preprocess` and `postprocess` methods.
-*   **`myocr.predictors.base`:** Defines common data structures like `BoundingBox`, `RectBoundingBox`, `DetectedObjects`, `TextItem`, and `RecognizedTexts` used as inputs and outputs by different processors.
+*   **`myocr.types`:** Defines common data structures like `BoundingBox`, `RectBoundingBox` and  `TextRegion` used as inputs and outputs by different processors.
 
 ## Available Predictors and Processors
 
@@ -21,21 +21,21 @@ Predictors are implicitly created when calling the `Predictor(processor)` method
 
 *   **File:** `myocr/processors/text_detection_processor.py`
 *   **Input:** `PIL.Image`
-*   **Output:** `DetectedObjects` (containing original image and list of `RectBoundingBox`)
+*   **Output:** `List[RectBoundingBox]`
 *   **Associated Model:** Typically a DBNet/DBNet++ ONNX model.
 
 ### 2. Text Direction Classification (`TextDirectionProcessor`)
 
 *   **File:** `myocr/processors/text_direction_processor.py`
-*   **Input:** `DetectedObjects`
-*   **Output:** `DetectedObjects` (with `angle` attribute updated in each `RectBoundingBox`)
+*   **Input:** `List[RectBoundingBox]`
+*   **Output:** `List[RectBoundingBox]` (with `angle` attribute updated in each `RectBoundingBox`)
 *   **Associated Model:** Typically a simple CNN classifier ONNX model.
 
 ### 3. Text Recognition (`TextRecognitionProcessor`)
 
 *   **File:** `myocr/processors/text_recognition_processor.py`
-*   **Input:** `DetectedObjects` (output from Text Direction)
-*   **Output:** `RecognizedTexts` (containing list of `TextItem`)
+*   **Input:** `List[RectBoundingBox]` (output from Text Direction)
+*   **Output:** `List[TextRegion]]`
 *   **Associated Model:** Typically a CRNN-based ONNX model.
 
 ## Usage Example (Conceptual)

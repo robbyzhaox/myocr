@@ -11,7 +11,7 @@
 
 *   **`myocr.base.Predictor`:** 一个简单的包装器，调用 `CompositeProcessor` 的输入转换、`Model` 的前向传播以及 `CompositeProcessor` 的输出转换。
 *   **`myocr.base.CompositeProcessor`:** 定义了 `preprocess` 和 `postprocess` 方法的抽象基类。
-*   **`myocr.predictors.base`:** 定义了通用的数据结构，如 `BoundingBox`、`RectBoundingBox`、`DetectedObjects`、`TextItem` 和 `RecognizedTexts`，用作不同处理器的输入和输出。
+*   **`myocr.predictors.base`:** 定义了通用的数据结构，如 `BoundingBox`、`RectBoundingBox` 和 `TextRegion`，用作不同处理器的输入和输出。
 
 ## 可用的预测器和处理器
 
@@ -21,21 +21,21 @@
 
 *   **文件:** `myocr/processors/text_detection_processor.py`
 *   **输入:** `PIL.Image`
-*   **输出:** `DetectedObjects`（包含原始图像和 `RectBoundingBox` 列表）
+*   **输出:** `List[RectBoundingBox]`（包含原始图像和 `RectBoundingBox` 列表）
 *   **关联模型:** 通常是 DBNet/DBNet++ ONNX 模型。
 
 ### 2. 文本方向分类 (`TextDirectionProcessor`)
 
 *   **文件:** `myocr/processors/text_direction_processor.py`
-*   **输入:** `DetectedObjects`
-*   **输出:** `DetectedObjects`（每个 `RectBoundingBox` 中的 `angle` 属性已更新）
+*   **输入:** `List[RectBoundingBox]`
+*   **输出:** `List[RectBoundingBox]`（每个 `RectBoundingBox` 中的 `angle` 属性已更新）
 *   **关联模型:** 通常是简单的 CNN 分类器 ONNX 模型。
 
 ### 3. 文本识别 (`TextRecognitionProcessor`)
 
 *   **文件:** `myocr/processors/text_recognition_processor.py`
-*   **输入:** `DetectedObjects`（来自文本方向分类的输出）
-*   **输出:** `RecognizedTexts`（包含 `TextItem` 列表）
+*   **输入:** `List[RectBoundingBox]`（来自文本方向分类的输出）
+*   **输出:** `List[TextRegion]]`
 *   **关联模型:** 通常是基于 CRNN 的 ONNX 模型。
 
 ## 用法示例 (概念性)

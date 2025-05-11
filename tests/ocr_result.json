@@ -1,0 +1,57 @@
+{
+	"image_info": {
+		"bytes": 308016,
+		"height": 124,
+		"width": 828
+	},
+	"regions": [{
+		"bounding_shape": {
+			"points": [{
+				"x": 455,
+				"y": 4
+			}, {
+				"x": 537,
+				"y": 4
+			}, {
+				"x": 537,
+				"y": 43
+			}, {
+				"x": 455,
+				"y": 43
+			}],
+			"rotation": 0,
+			"type": "rectangle"
+		},
+		"confidence": 0.9998435378074646,
+		"direction": "horizontal",
+		"language": "unknown",
+		"reading_order": 1,
+		"region_id": 0,
+		"text": "\u8d38\u6613\u6218"
+	}, {
+		"bounding_shape": {
+			"points": [{
+				"x": 216,
+				"y": 49
+			}, {
+				"x": 278,
+				"y": 49
+			}, {
+				"x": 278,
+				"y": 94
+			}, {
+				"x": 216,
+				"y": 94
+			}],
+			"rotation": 180,
+			"type": "rectangle"
+		},
+		"confidence": 0.9998435378074646,
+		"direction": "horizontal",
+		"language": "unknown",
+		"reading_order": 2,
+		"region_id": 0,
+		"text": "\u8d38\u6613\u6218"
+	}],
+	"version": "0.1"
+}

@@ -279,3 +279,35 @@ class BoxScaling(Processor):
         box[:, 0] = np.clip(np.round(box[:, 0] * self.scale_x), 0, self.origin_w)
         box[:, 1] = np.clip(np.round(box[:, 1] * self.scale_y), 0, self.origin_h)
         return box
+
+
+class LabelTranslator:
+    """Translate between numeric indices and character labels"""
+
+    def __init__(self, alphabet):
+        self.alphabet = alphabet + " "  # for `-1` index
+        self.dict = {}
+        for i, char in enumerate(alphabet):
+            # NOTE: 0 is reserved for 'blank' required by wrap_ctc
+            self.dict[char] = i + 1
+
+    def decode(self, t, length, raw=False):
+        """Decode a sequence of indices to a string
+
+        Args:
+            t: Sequence of indices
+            length: Length of the sequence
+            raw: Whether to perform CTC decoding (merging repeated characters)
+
+        Returns:
+            Decoded string
+        """
+        t = t[:length]
+        if raw:
+            return "".join([self.alphabet[i - 1] for i in t])
+        else:
+            char_list = []
+            for i in range(length):
+                if t[i] != 0 and (not (i > 0 and t[i - 1] == t[i])):
+                    char_list.append(self.alphabet[t[i] - 1])
+            return "".join(char_list)

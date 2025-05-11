@@ -1,6 +1,5 @@
 import time
 
-import cv2
 import numpy as np
 
 
@@ -79,59 +78,7 @@ def update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, 
     time.sleep(0.1)
 
 
-def crop_rectangle(image: np.ndarray, box, target_height=32):
-    """Crop a rectangle from an image and resize it to a target height while preserving aspect ratio"""
-    left, top, right, bottom = map(int, (box.left, box.top, box.right, box.bottom))
-
-    height, width = image.shape[:2]
-
-    left = max(0, min(left, width - 1))
-    top = max(0, min(top, height - 1))
-    right = max(left + 1, min(right, width))
-    bottom = max(top + 1, min(bottom, height))
-
-    cropped = image[top:bottom, left:right]
-    orig_height, orig_width = cropped.shape[:2]
-    aspect_ratio = orig_width / orig_height
-
-    new_width = int(target_height * aspect_ratio)
-    resized = cv2.resize(cropped, (new_width, target_height), interpolation=cv2.INTER_CUBIC)
-    return resized
-
-
 def softmax(x):
     """Compute softmax values for each set of scores in x"""
     exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))  # prevent overflow
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
-
-
-class LabelTranslator:
-    """Translate between numeric indices and character labels"""
-
-    def __init__(self, alphabet):
-        self.alphabet = alphabet + " "  # for `-1` index
-        self.dict = {}
-        for i, char in enumerate(alphabet):
-            # NOTE: 0 is reserved for 'blank' required by wrap_ctc
-            self.dict[char] = i + 1
-
-    def decode(self, t, length, raw=False):
-        """Decode a sequence of indices to a string
-
-        Args:
-            t: Sequence of indices
-            length: Length of the sequence
-            raw: Whether to perform CTC decoding (merging repeated characters)
-
-        Returns:
-            Decoded string
-        """
-        t = t[:length]
-        if raw:
-            return "".join([self.alphabet[i - 1] for i in t])
-        else:
-            char_list = []
-            for i in range(length):
-                if t[i] != 0 and (not (i > 0 and t[i - 1] == t[i])):
-                    char_list.append(self.alphabet[t[i] - 1])
-            return "".join(char_list)

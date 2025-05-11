@@ -15,12 +15,12 @@ The key to building a custom predictor is creating a custom **`CompositeProcesso
 A predictor itself is a simple wrapper (defined in `myocr.base.Predictor`). The actual work happens within its associated `CompositeProcessor` (a class inheriting from `myocr.base.CompositeProcessor`). The Processor has two main jobs:
 
 1.  **`preprocess(user_input)`:** Takes the data provided by the user or pipeline (e.g., a PIL Image) and transforms it into the precise format expected by the model's inference method (e.g., a normalized, batch-dimensioned NumPy array).
-2.  **`postprocess(model_output)`:** Takes the raw output from the model's inference method (e.g., NumPy arrays representing heatmaps or sequence probabilities) and transforms it into a user-friendly, structured format (e.g., a list of bounding boxes with text and scores, like `DetectedObjects` or `RecognizedTexts`).
+2.  **`postprocess(model_output)`:** Takes the raw output from the model's inference method (e.g., NumPy arrays representing heatmaps or sequence probabilities) and transforms it into a user-friendly, structured format (e.g., a list of bounding boxes with text and scores, like `TextRegion`).
 
 ## 2. Create a Custom `CompositeProcessor` Class
 
 1.  **Inherit:** Create a Python class that inherits from `myocr.base.CompositeProcessor`.
-2.  **Specify Types (Optional but Recommended):** Use generics to indicate the expected input type for `preprocess` and the output type for `postprocess`. For example, `CompositeProcessor[PIL.Image.Image, DetectedObjects]` means it takes a PIL Image and returns `DetectedObjects`.
+2.  **Specify Types (Optional but Recommended):** Use generics to indicate the expected input type for `preprocess` and the output type for `postprocess`. For example, `CompositeProcessor[PIL.Image.Image, List[RectBoundingBox]]` means it takes a PIL Image and returns `List[RectBoundingBox]`.
 3.  **Implement `__init__`:** Initialize any necessary parameters, such as thresholds, label mappings, or references needed during conversion.
 4.  **Implement `preprocess`:** Write the code to transform the input data into the model-ready format.
 5.  **Implement `postprocess`:** Write the code to transform the raw model output into the desired structured result.
