@@ -21,7 +21,7 @@ requires-python = ">=3.11"
 dependencies = [
     "numpy==2.2.4",
     "opencv-python-headless~=4.11.0",
-    "onnxruntime==1.21.0",
+    "onnxruntime==1.22.0",
     "flask>=3.1.0",
     "flask-cors==5.0.1",
     "PyYAML==6.0.2",
