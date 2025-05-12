@@ -1,18 +1,20 @@
 import logging
-from typing import Optional
+from typing import List, Optional, Tuple
 
 import cv2
 import numpy as np
 
 from myocr.base import CompositeProcessor
-from myocr.types import DetectedObjects, RectBoundingBox
+from myocr.types import RectBoundingBox
 
 from .base import BoxScaling, ContourToBox, ImgNormalize, ResizeToMultipleOf, ToTensor
 
 logger = logging.getLogger(__name__)
 
 
-class TextDetectionProcessor(CompositeProcessor[np.ndarray, DetectedObjects]):
+class TextDetectionProcessor(
+    CompositeProcessor[np.ndarray, Tuple[np.ndarray, List[RectBoundingBox]]]
+):
     def __init__(self, device, cls_name_mapping: dict = {}):
         super().__init__()
         self.device = device
@@ -20,27 +22,24 @@ class TextDetectionProcessor(CompositeProcessor[np.ndarray, DetectedObjects]):
         self.origin_image = None
         self.origin_w = 0
         self.origin_h = 0
+        self.resizer = ResizeToMultipleOf(32)
+        self.normalizer = ImgNormalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 
     def preprocess(self, input_data: np.ndarray) -> Optional[np.ndarray]:
-        self.origin_image = input_data
         if input_data.ndim == 3:
             self.origin_w = input_data.shape[1]
             self.origin_h = input_data.shape[0]
         else:
             raise RuntimeError("input img must have 3 dim")
-
-        image_resized = ResizeToMultipleOf(32).process(input_data)
-        image_resized = ImgNormalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]).process(
-            image_resized
-        )
+        self.origin_image = input_data
+        image_resized = self.resizer.process(input_data)
+        image_resized = self.normalizer.process(image_resized)
         image_np = ToTensor().process(image_resized)
         image_np = image_np[np.newaxis, :, :, :]
         return image_np.astype(np.float32)
 
-    def postprocess(self, internal_result: np.ndarray) -> Optional[DetectedObjects]:
-        if self.origin_image is None:
-            return None
-
+    def postprocess(self, internal_result: np.ndarray) -> Tuple[np.ndarray, List[RectBoundingBox]]:
+        assert self.origin_image is not None, "origin_image is none"
         output = internal_result[0]
         output = output[0, 0]
         logger.debug(f"text detection output shape: {output.shape}")
@@ -68,7 +67,7 @@ class TextDetectionProcessor(CompositeProcessor[np.ndarray, DetectedObjects]):
             )
             boxes.append(box)
         if not boxes:
-            return None
+            return self.origin_image, []
         # sort box
         boxes = sorted(boxes, key=lambda box: (box.top, box.left))
-        return DetectedObjects(self.origin_image, boundingBoxes=boxes)
+        return self.origin_image, boxes

@@ -66,9 +66,7 @@ def test_PadNdarray():
 
 
 def test_LabelDecoder():
-    from myocr.utils import LabelTranslator
-
-    trans = LabelTranslator("这是一个测试This is Test")
+    trans = base.LabelTranslator("这是一个测试This is Test")
 
     # 1 * 5 * 2 * 8
     data = np.array(

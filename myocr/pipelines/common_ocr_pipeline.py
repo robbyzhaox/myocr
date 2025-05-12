@@ -1,4 +1,5 @@
 import logging
+import time
 from pathlib import Path
 
 import cv2
@@ -12,6 +13,7 @@ from myocr.processors import (
     TextDirectionProcessor,
     TextRecognitionProcessor,
 )
+from myocr.types import OCRResult
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +37,7 @@ class CommonOCRPipeline(Pipeline):
         self.rec_predictor = Predictor(rec_model, TextRecognitionProcessor())
 
     def process(self, img_path: str):
+        start_time = time.time()
         orig_image = cv2.imread(img_path, cv2.IMREAD_COLOR_RGB)
         if orig_image is None:
             raise ValueError(f"path invalid: {img_path}")
@@ -43,7 +46,15 @@ class CommonOCRPipeline(Pipeline):
             return None
 
         detected = self.cls_predictor(detected)
-        rec = self.rec_predictor.predict(detected)
-        rec.original(width=orig_image.shape[1], height=orig_image.shape[0])  # type: ignore
-        logger.debug(f"recognized texts is: {rec}")
-        return rec
+        texts = self.rec_predictor.predict(detected)
+        logger.debug(f"recognized texts is: {texts}")
+
+        result = OCRResult()
+        result.image_info = {
+            "width": orig_image.shape[1],
+            "height": orig_image.shape[0],
+            "bytes": orig_image.nbytes,
+        }
+        result.regions = texts  # type: ignore
+        result.processing_time = time.time() - start_time
+        return result

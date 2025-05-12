@@ -70,7 +70,7 @@ This method defines the core logic of your pipeline. It takes the input data (e.
 from PIL import Image
 from typing import Optional
 from myocr.base import Predictor
-from myocr.types import DetectedObjects # Import necessary data structures
+from myocr.types import OCRResult # Import necessary data structures
 
 class MyDetectionOnlyPipeline(Pipeline):
     def __init__(self, device: Device, detection_model_name: str = "dbnet++.onnx"):
@@ -85,7 +85,7 @@ class MyDetectionOnlyPipeline(Pipeline):
         logger.info(f"DetectionOnlyPipeline initialized with {detection_model_name} on {device.name}")
         
 
-    def process(self, image_path: str) -> Optional[DetectedObjects]:
+    def process(self, image_path: str) -> OCRResult:
         """Processes an image file and returns detected objects."""
         # 1. Load Image (Example: handling path input)
         image = Image.open(image_path).convert("RGB")
@@ -100,8 +100,8 @@ class MyDetectionOnlyPipeline(Pipeline):
             logger.info(f"Detection successful: Found {len(detected_objects.bounding_boxes)} boxes.")
         else:
             logger.info("Detection successful: No text boxes found.")
-            
-        return detected_objects # Return the output of the detection predictor
+        
+        return buildOcrResult(detected_objects) # Return the output of the detection predictor
 ```
 
 **Example: Combining Predictors (Conceptual)**
