@@ -13,9 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduce table detection
 - Test accuracy of the OCR
 
+## [v0.1.0-beta](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-beta) - 2025-05-12
+
+### Added
+
+- Unify data structure of OCR result
+
 ### Changed
 
-- Change the return format of bounding box
+- Refactoring CommonOCRPipeline to use the new type OCRResult
+- Polish code for CommonOCRPipeline & HTTP endpoint
 
 ## [v0.1.0-alpha.4](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-alpha.4) - 2025-05-08
 
