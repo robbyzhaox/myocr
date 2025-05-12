@@ -82,3 +82,14 @@ def softmax(x):
     """Compute softmax values for each set of scores in x"""
     exp_x = np.exp(x - np.max(x, axis=-1, keepdims=True))  # prevent overflow
     return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+
+
+def extract_image_type(base64_data):
+    if base64_data.startswith("data:image/"):
+        prefix_end = base64_data.find(";base64,")
+        if prefix_end != -1:
+            return (
+                base64_data[len("data:image/") : prefix_end],
+                base64_data.split(";base64,")[-1],
+            )
+    return "png", base64_data

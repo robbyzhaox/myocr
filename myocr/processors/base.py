@@ -311,3 +311,23 @@ class LabelTranslator:
                 if t[i] != 0 and (not (i > 0 and t[i - 1] == t[i])):
                     char_list.append(self.alphabet[t[i] - 1])
             return "".join(char_list)
+
+
+def crop_rectangle(image: np.ndarray, box, target_height=32):
+    """Crop a rectangle from an image and resize it to a target height while preserving aspect ratio"""
+    left, top, right, bottom = map(int, (box[0], box[1], box[2], box[3]))
+
+    height, width = image.shape[:2]
+
+    left = max(0, min(left, width - 1))
+    top = max(0, min(top, height - 1))
+    right = max(left + 1, min(right, width))
+    bottom = max(top + 1, min(bottom, height))
+
+    cropped = image[top:bottom, left:right]
+    orig_height, orig_width = cropped.shape[:2]
+    aspect_ratio = orig_width / orig_height
+
+    new_width = int(target_height * aspect_ratio)
+    resized = cv2.resize(cropped, (new_width, target_height), interpolation=cv2.INTER_CUBIC)
+    return resized

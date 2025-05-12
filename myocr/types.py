@@ -186,6 +186,44 @@ class OCRResult:
     processing_time: float = 0.0
     custom_data: Dict[str, Any] = field(default_factory=dict)
 
+    @classmethod
+    def build(cls, image: np.ndarray, text_results: List[Tuple], time) -> "OCRResult":
+        regions: List[TextRegion] = []
+        for i, rec_text in enumerate(text_results):
+            box = rec_text[2][0]
+            bounding_shape = BoundingShape(
+                type=ShapeType.RECTANGLE,
+                points=[
+                    Point(box[0], box[1]),
+                    Point(box[2], box[1]),
+                    Point(box[2], box[3]),
+                    Point(box[0], box[3]),
+                ],
+                rotation=rec_text[2][1],
+            )
+            confidence = rec_text[1]
+            if confidence < 0.5:
+                continue
+            regions.append(
+                TextRegion(
+                    region_id=i,
+                    text=rec_text[0],
+                    bounding_shape=bounding_shape,
+                    confidence=rec_text[1],
+                )
+            )
+
+        result = cls(
+            image_info={
+                "width": image.shape[1],
+                "height": image.shape[0],
+                "bytes": image.nbytes,
+            },
+            regions=regions,
+            processing_time=time,
+        )
+        return result
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "version": self.version,

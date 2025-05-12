@@ -4,17 +4,13 @@ from typing import List, Optional, Tuple
 import cv2
 import numpy as np
 
-from myocr.base import CompositeProcessor
-from myocr.types import RectBoundingBox
-
+from ..base import CompositeProcessor
 from .base import BoxScaling, ContourToBox, ImgNormalize, ResizeToMultipleOf, ToTensor
 
 logger = logging.getLogger(__name__)
 
 
-class TextDetectionProcessor(
-    CompositeProcessor[np.ndarray, Tuple[np.ndarray, List[RectBoundingBox]]]
-):
+class TextDetectionProcessor(CompositeProcessor[np.ndarray, Tuple[np.ndarray, List[Tuple]]]):
     def __init__(self, device, cls_name_mapping: dict = {}):
         super().__init__()
         self.device = device
@@ -38,7 +34,7 @@ class TextDetectionProcessor(
         image_np = image_np[np.newaxis, :, :, :]
         return image_np.astype(np.float32)
 
-    def postprocess(self, internal_result: np.ndarray) -> Tuple[np.ndarray, List[RectBoundingBox]]:
+    def postprocess(self, internal_result: np.ndarray) -> Tuple[np.ndarray, List[Tuple]]:
         assert self.origin_image is not None, "origin_image is none"
         output = internal_result[0]
         output = output[0, 0]
@@ -58,16 +54,11 @@ class TextDetectionProcessor(
             box, score = result
             box = BoxScaling(scale_x, scale_y, self.origin_w, self.origin_h).process(box)
 
-            box = RectBoundingBox(
-                left=int(box[0][0]),
-                bottom=int(box[2][1]),
-                right=int(box[2][0]),
-                top=int(box[0][1]),
-                score=float(score),
-            )
+            # left, top, right, bottom, detection score
+            box = (int(box[0][0]), int(box[0][1]), int(box[2][0]), int(box[2][1]), float(score))
             boxes.append(box)
         if not boxes:
             return self.origin_image, []
         # sort box
-        boxes = sorted(boxes, key=lambda box: (box.top, box.left))
+        boxes = sorted(boxes, key=lambda box: (box[1], box[0]))
         return self.origin_image, boxes

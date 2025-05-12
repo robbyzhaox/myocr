@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Generic, Optional, TypeVar
 
-from myocr.modeling.model import Model
-
+from .modeling.model import Model
 from .types import NDArray
 
 """ Generic type definition """
@@ -74,9 +73,8 @@ class Predictor:
 
 class Pipeline(ABC):
     """
-    High level abstraction for doing a series of work, subclass
-
-    A pipeline can be nested to another pipeline(TBD).
+    High level abstraction for doing a series of work:
+    A pipeline accepts a ndarray of batch images and output the coresponding results
     """
 
     def __init__(self):

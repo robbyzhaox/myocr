@@ -1,9 +1,11 @@
 import logging
+from typing import Union
 
+import numpy as np
 import yaml  # type: ignore
 
-from myocr.extractor.chat_extractor import OpenAiChatExtractor
-from myocr.pipelines.common_ocr_pipeline import CommonOCRPipeline
+from ..extractor.chat_extractor import OpenAiChatExtractor
+from ..pipelines.common_ocr_pipeline import CommonOCRPipeline
 
 logger = logging.getLogger(__name__)
 
@@ -23,8 +25,8 @@ class StructuredOutputOCRPipeline(CommonOCRPipeline):
         )
         self.set_response_format(json_schema)
 
-    def process(self, img_path: str):
-        rec = super().process(img_path)
+    def process(self, img: Union[bytes, str, np.ndarray]):
+        rec = super().process(img)
         return self.extractor.extract_with_format(rec.get_content_text(), self.response_format)
 
     def set_response_format(self, json_schema):

@@ -1,19 +1,21 @@
 import logging
 import time
 from pathlib import Path
+from typing import Union
 
 import cv2
+import numpy as np
 import yaml  # type: ignore
 
-from myocr.base import Pipeline, Predictor
-from myocr.config import MODEL_PATH
-from myocr.modeling.model import ModelZoo
-from myocr.processors import (
+from ..base import Pipeline, Predictor
+from ..config import MODEL_PATH
+from ..modeling.model import ModelZoo
+from ..processors import (
     TextDetectionProcessor,
     TextDirectionProcessor,
     TextRecognitionProcessor,
 )
-from myocr.types import OCRResult
+from ..types import OCRResult
 
 logger = logging.getLogger(__name__)
 
@@ -36,11 +38,18 @@ class CommonOCRPipeline(Pipeline):
         self.cls_predictor = Predictor(cls_model, TextDirectionProcessor())
         self.rec_predictor = Predictor(rec_model, TextRecognitionProcessor())
 
-    def process(self, img_path: str):
+    def process(self, img: Union[bytes, str, np.ndarray]):
         start_time = time.time()
-        orig_image = cv2.imread(img_path, cv2.IMREAD_COLOR_RGB)
+        if isinstance(img, bytes):
+            np_arr = np.frombuffer(img, dtype=np.uint8)
+            orig_image = cv2.imdecode(np_arr, cv2.IMREAD_COLOR_RGB)
+        elif isinstance(img, str):
+            orig_image = cv2.imread(img, cv2.IMREAD_COLOR_RGB)
+        elif isinstance(img, np.ndarray):
+            orig_image = img
+
         if orig_image is None:
-            raise ValueError(f"path invalid: {img_path}")
+            raise ValueError("imgage invalid, please check")
         detected = self.dec_predictor.predict(orig_image)
         if not detected:
             return None
@@ -49,12 +58,4 @@ class CommonOCRPipeline(Pipeline):
         texts = self.rec_predictor.predict(detected)
         logger.debug(f"recognized texts is: {texts}")
 
-        result = OCRResult()
-        result.image_info = {
-            "width": orig_image.shape[1],
-            "height": orig_image.shape[0],
-            "bytes": orig_image.nbytes,
-        }
-        result.regions = texts  # type: ignore
-        result.processing_time = time.time() - start_time
-        return result
+        return OCRResult.build(orig_image, texts, time.time() - start_time)  # type: ignore

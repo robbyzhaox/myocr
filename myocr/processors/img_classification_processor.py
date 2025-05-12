@@ -3,9 +3,8 @@ from typing import Optional
 
 import numpy as np
 
-from myocr.base import CompositeProcessor
-from myocr.types import Classification
-
+from ..base import CompositeProcessor
+from ..types import Classification
 from .base import ImgCenterCrop, ImgNormalize, ImgResize, ToTensor
 
 
