@@ -51,11 +51,9 @@ class CommonOCRPipeline(Pipeline):
         if orig_image is None:
             raise ValueError("imgage invalid, please check")
         detected = self.dec_predictor.predict(orig_image)
-        if not detected:
-            return None
-
-        detected = self.cls_predictor(detected)
-        texts = self.rec_predictor.predict(detected)
-        logger.debug(f"recognized texts is: {texts}")
-
+        texts = []
+        if detected[1]:  # type: ignore
+            detected = self.cls_predictor(detected)
+            texts = self.rec_predictor.predict(detected)
+            logger.debug(f"recognized texts is: {texts}")
         return OCRResult.build(orig_image, texts, time.time() - start_time)  # type: ignore
