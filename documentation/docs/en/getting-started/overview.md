@@ -1,26 +1,13 @@
 # Overview
 
-Welcome to MyOCR! This library provides a powerful and flexible framework for building and deploying your own OCR pipelines.
+MyOCR provides a powerful and flexible framework for building and deploying your own OCR pipelines. This library is designed with production readiness and developer experience in mind, it offers a high-level component architecture for easy integration and extension.
 
-## Why MyOCR?
-
-MyOCR is designed with production readiness and developer experience in mind. Key features include:
-
-*   **End-to-End Workflow:** Seamlessly integrates text detection, direction classification, and text recognition.
-*   **Modular & Extensible:** Easily swap models, pre/post-processing steps (via `CompositeProcessor`), or entire pipelines.
-*   **Developer-Friendly:** Offers clean Python APIs and pre-built components to get started quickly.
-*   **Optimized for Production:** Leverages ONNX Runtime for high-performance CPU and GPU inference.
 
 ## Core Components
 
 MyOCR is built around several key concepts:
 
-### Components Diagram
 ![MyOCR Components](../assets/images/components.png)
-
-
-### Class Diagram
-![MyOCR Class](../assets/images/myocr_class_diagram.png)
 
 *   **Model:** Represents a neural network model. MyOCR supports loading ONNX models (`OrtModel`), standard PyTorch models (`PyTorchModel`), and custom PyTorch models defined by YAML configurations (`CustomModel`). Models handle the core computation.
     *   See the [Models Section](../models/index.md) for more details.
@@ -32,9 +19,13 @@ MyOCR is built around several key concepts:
     *   See the [Pipelines Section](../pipelines/index.md) for available pipelines.
 
 
+**Class Diagram**
+![MyOCR Class](../assets/images/myocr_class_diagram.png)
+
+
 ## Customization and Extension
 
-MyOCR's modular design allows for easy customization.
+MyOCR's modular design allows for easy customization:
 
 *   **[Adding New Models](../models/add-model.md):** Learn about the ways to introduce a new model by the model loader.
 *   **[Creating Custom Predictors](../predictors/create-predictor.md):** Learn about how to create a custom `Predictor` by `Model` and `CompositeProcessor`.

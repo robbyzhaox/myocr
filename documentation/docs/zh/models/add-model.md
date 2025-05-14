@@ -2,30 +2,8 @@
 
 MyOCR 的模块化设计允许您将新的或自定义的模型集成到系统中。该过程取决于您要添加的模型类型。
 
-## 方式一：添加预训练的 ONNX 模型
 
-这是最简单的方法，特别是如果您的模型适用于标准任务之一（检测、分类、识别），并且其输入/输出格式与现有的 `CompositeProcessor` 类兼容。
-
-1.  **放置模型文件：**
-    *   将您预训练的 `.onnx` 模型文件复制到默认模型目录 (`~/.MyOCR/models/`) 或应用程序可访问的其他位置。
-
-2.  **更新流水线配置：**
-    *   确定将使用您的模型的流水线（例如 `CommonOCRPipeline`）。
-    *   编辑其对应的 YAML 配置文件（例如 `myocr/pipelines/config/common_ocr_pipeline.yaml`）。
-    *   修改 `model:` 部分，使其指向您的新模型的文件名。如果模型位于默认目录中，则只需要文件名。如果位于其他位置，您可能需要调整 `myocr.config.MODEL_PATH` 或使用绝对路径（不太推荐）。
-
-    ```yaml
-    # myocr/pipelines/config/common_ocr_pipeline.yaml 中的示例
-    model:
-      detection: "your_new_detection_model.onnx" # 用您的模型替换默认模型
-      cls_direction: "cls.onnx" # 保留默认值或替换
-      recognition: "your_new_recognition_model.onnx" # 用您的模型替换默认模型
-    ```
-
-3.  **验证兼容性：**
-    *   确保您的 ONNX 模型的输入和输出形状/类型与流水线在该步骤使用的 `CompositeProcessor`（例如，用于检测的 `TextDetectionProcessor`）兼容。如果不兼容，您可能需要创建自定义处理器（请参阅方式三）。
-
-## 方式二：添加自定义 PyTorch 模型（架构与权重）
+## 方式一：添加自定义 PyTorch 模型（架构与权重）
 
 如果您有在 PyTorch 中定义的自定义模型（可能使用来自 `myocr.modeling` 或外部库的组件），您可以使用 MyOCR 的自定义模型加载功能将其集成。
 
@@ -83,6 +61,23 @@ MyOCR 的模块化设计允许您将新的或自定义的模型集成到系统�
 
 5.  **集成到流水线（可选）：**
     *   您可以直接使用您的自定义预测器，或将其集成到继承自 `myocr.base.Pipeline` 的自定义流水线类中。
+
+## 方式二：添加预训练的 ONNX 模型
+
+这是最简单的方法，特别是如果您的模型适用于标准任务之一（检测、分类、识别），并且其输入/输出格式与现有的 `CompositeProcessor` 类兼容。
+
+1.  **放置模型文件：**
+    *   将您预训练的 `.onnx` 模型文件复制到默认模型目录 (`~/.MyOCR/models/`) 或应用程序可访问的其他位置。
+
+2.  **加载模型**
+    ```python
+    from myocr.modeling.model import ModelLoader, Device
+
+    # Load an ONNX model for CPU inference
+    loader = ModelLoader()
+    onnx_model = loader.load(model_format='onnx', model_name_path='path/to/your/model.onnx', device=Device('cpu'))
+    ```
+其它步骤同方式一
 
 ## 方式三：加载现有的 PyTorch 模型
 

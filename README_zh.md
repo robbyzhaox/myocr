@@ -1,5 +1,5 @@
 <div align="center">
-    <h1 align="center">MyOCR - 高级OCR流程构建框架</h1>
+    <h1 align="center">MyOCR - 高级OCR方案构建框架</h1>
     <img width="200" alt="myocr logo" src="https://raw.githubusercontent.com/robbyzhaox/myocr/refs/heads/main/documentation/docs/assets/images/logomain.png">
 
 [![Docs](https://img.shields.io/badge/Docs-online-brightgreen)](https://robbyzhaox.github.io/myocr/)
@@ -11,17 +11,17 @@
 [English](./README.md) | 简体中文
 </div>
 
-MyOCR是一个高度可扩展和定制化的OCR系统构建框架。工程师可以轻松训练、整合深度学习模型，构建适用于实际应用场景的自定义OCR流程。
+MyOCR是一个高度可扩展和定制化的OCR系统构建框架。可以用于轻松训练、整合深度学习模型，构建适用于实际应用场景的自定义OCR方案。
 
-尝试在线演示 [HuggingFace](https://huggingface.co/spaces/robbyzhaox/myocr) 或 [魔搭](https://modelscope.cn/studios/robbyzhao/myocr/summary)
+尝试在线演示 [HuggingFace](https://huggingface.co/spaces/robbyzhaox/myocr) 或 [魔搭社区](https://modelscope.cn/studios/robbyzhao/myocr/summary)
 
 ## **🌟 核心特性**:
 
 **⚡️ 端到端OCR开发框架** – 专为开发者设计，可在统一灵活的流程中构建和集成检测、识别及自定义OCR模型。
 
-**🛠️ 模块化与可扩展性** – 混合搭配组件 - 只需最小改动即可替换模型、预测器或输入输出处理器。
+**🛠️ 模块化与可扩展性** – 可混合搭配组件，只需最小改动即可替换模型、预测器或输入输出处理器。
 
-**🔌 对开发者友好** - 简洁的Python API、预构建的流程和处理器，以及便捷的训练和推理定制选项。
+**🔌 对开发者友好** - 简洁的Python API、预定义的模型和组件，以及便捷的训练和推理定制选项。
 
 **🚀 生产级性能** – 支持ONNX运行时以实现快速CPU/GPU推理，支持多种部署方式。
 
@@ -66,7 +66,7 @@ mkdir -p ~/.MyOCR/models/
 ```python
 from myocr.pipelines import CommonOCRPipeline
 
-# 初始化通用OCR流程（使用GPU）
+# 初始化通用OCR流水线（使用GPU）
 pipeline = CommonOCRPipeline("cuda:0")  # 使用"cpu"进行CPU模式
 
 # 对图像执行OCR识别
@@ -91,7 +91,7 @@ from myocr.pipelines import StructuredOutputOCRPipeline
 # 定义输出数据模型，参考：
 from myocr.pipelines.response_format import InvoiceModel
 
-# 初始化结构化OCR流程
+# 初始化结构化OCR流水线
 pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
 
 # 处理图像并获取结构化数据

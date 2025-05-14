@@ -10,67 +10,11 @@ MyOCR 允许使用其基于 PyTorch 的建模组件 (`myocr.modeling`) 来训练
 *   **PyTorch Dataset 类:** 创建一个自定义的 `torch.utils.data.Dataset` 类来加载您的图像和标签，并执行必要的初始转换。
 *   **DataLoader:** 使用 `torch.utils.data.DataLoader` 来创建用于训练和验证的数据批次。
 
-```python
-# 概念性示例：自定义数据集
-import torch
-from torch.utils.data import Dataset, DataLoader
-from PIL import Image
-
-class YourOCRDataset(Dataset):
-    def __init__(self, image_paths, labels, transform=None):
-        self.image_paths = image_paths
-        self.labels = labels
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.image_paths)
-
-    def __getitem__(self, idx):
-        img_path = self.image_paths[idx]
-        label = self.labels[idx]
-        image = Image.open(img_path).convert('RGB')
-        
-        if self.transform:
-            image = self.transform(image) # 应用数据增强/预处理
-            
-        # 以您的模型/损失函数期望的格式返回图像和标签
-        return image, label 
-
-# --- 创建数据集和数据加载器 ---
-train_transform = ... # 定义训练转换（增强、张量转换、归一化）
-val_transform = ...   # 定义验证转换（张量转换、归一化）
-
-train_dataset = YourOCRDataset(train_image_paths, train_labels, transform=train_transform)
-val_dataset = YourOCRDataset(val_image_paths, val_labels, transform=val_transform)
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=4)
-val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False, num_workers=4)
-```
-
 ## 2. 配置模型架构 (YAML)
 
 *   在 YAML 配置文件（例如 `config/my_trainable_model.yaml`）中定义您要训练的模型的架构。
-*   指定来自 `myocr.modeling` 或您自定义实现的主干网络、颈部（可选）和头部组件。
 *   您可以从头开始训练，也可以为特定组件加载预训练权重（例如，在 YAML 的 `backbone` 部分指定的预训练主干网络）。
 
-```yaml
-# 示例: config/my_trainable_model.yaml
-Architecture:
-  model_type: rec # 或 det, cls
-  backbone:
-    name: ResNet # 示例
-    layers: 34
-    pretrained: true # 为主干网络加载 ImageNet 权重
-  neck:
-    name: FPN # 示例
-    out_channels: 256
-  head:
-    name: CTCHead # 用于识别的示例
-    num_classes: 9000 # 您的字符集中的类数 + 空白符
-
-# 可选: 加载整个组合模型的权重 (例如，用于微调)
-# pretrained: /path/to/your/full_model_weights.pth 
-```
 
 ## 3. 设置训练循环
 

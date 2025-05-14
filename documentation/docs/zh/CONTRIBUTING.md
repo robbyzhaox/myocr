@@ -1,15 +1,15 @@
 # 为 MyOCR 做出贡献
 
-感谢您有兴趣为 MyOCR 做出贡献！本文档提供了为该项目贡献的指南和说明。
+感谢您对 MyOCR 项目的关注！本文档提供了参与项目贡献的指南和说明。
 
 ## 行为准则
 
-参与本项目即表示您同意为每个人维护一个尊重和包容的环境。请在沟通中保持友善、体贴和建设性。
+参与本项目即表示您同意为所有参与者营造一个尊重和包容的环境。请在交流中保持友善、体贴和建设性的态度。
 
 ## 开始贡献
 
-1.  **Fork 仓库**: 在 GitHub 上Fork MyOCR仓库。
-2.  **克隆您的仓库支**: 
+1.  **Fork 仓库**: 在 GitHub 上Fork MyOCR 仓库到您的账户下。
+2.  **克隆您的仓库**: 
     ```bash
     git clone https://github.com/your-username/myocr.git
     cd myocr
@@ -18,18 +18,18 @@
     ```bash
     git remote add upstream https://github.com/robbyzhaox/myocr.git
     ```
-4.  **创建分支**: 为您的工作创建一个新分支。
+4.  **创建分支**: 为您的工作创建一个新的功能分支。
     ```bash
     git checkout -b feature/your-feature-name
     ```
 
 ## 开发环境设置
 
-1.  **安装依赖**: 
+1.  **安装依赖项**: 
     ```bash
     pip install -e ".[dev]"
     ```
-    这将在开发模式下安装软件包及其所有开发依赖项。
+    这将以开发模式安装软件包及其所有开发依赖项。
 
 2.  **设置 pre-commit 钩子** (可选但推荐): 
     ```bash

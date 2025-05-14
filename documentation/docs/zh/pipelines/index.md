@@ -4,7 +4,7 @@ MyOCR 流水线协调多个组件（预测器、模型）来执行端到端的 O
 
 ## 可用流水线
 
-### 1. `CommonOCRPipeline`
+###  `CommonOCRPipeline`
 
 定义在 `myocr/pipelines/common_ocr_pipeline.py` 中。
 
@@ -53,7 +53,7 @@ if ocr_results:
 4.  使用 `TextRecognitionPredictor` 识别每个定向区域内的文本。
 5.  返回一个结果对象，其中包含边界框、文本和可能的置信度分数（详细信息取决于 `Predictor` 的实现）。
 
-### 2. `StructuredOutputOCRPipeline`
+###  `StructuredOutputOCRPipeline`
 
 定义在 `myocr/pipelines/structured_output_pipeline.py` 中。
 
@@ -110,13 +110,6 @@ if structured_data:
 4.  LLM 尝试提取相关信息并根据模式对其进行格式化。
 5.  返回填充了提取数据的所提供 Pydantic 模型的实例。
 
-## 定制
-
-可以通过以下方式定制流水线：
-
-*   修改 `.yaml` 配置文件以使用不同的模型。
-*   创建继承自 `Pipeline` 或现有流水线的新流水线类。
-*   集成不同的预测器或提取器。
 
 ## 性能优化
 

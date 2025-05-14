@@ -14,7 +14,7 @@ MyOCR makes it easy to train your custom models and seamlessly integrate them in
 
 ## Key Features
 
-**⚡️ End-to-End OCR Development Framework** – Designed for developers to build and integrate detection, recognition, and custom OCR models in a unified and flexible pipeline.
+**⚡️ End-to-End OCR Development Framework** – Designed for developers to build and integrate detection, recognition and custom OCR models in a unified and flexible pipeline.
 
 **🛠️ Modular & Extensible** – Mix and match components - swap models, predictors, or input output processors with minimal changes.
 

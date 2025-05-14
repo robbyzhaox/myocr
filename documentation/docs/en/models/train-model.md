@@ -10,67 +10,11 @@ MyOCR allows training custom models defined using its PyTorch-based modeling com
 *   **PyTorch Dataset Class:** Create a custom `torch.utils.data.Dataset` class to load your images and labels, and perform necessary initial transformations.
 *   **DataLoader:** Use `torch.utils.data.DataLoader` to create batches of data for training and validation.
 
-```python
-# Conceptual Example: Custom Dataset
-import torch
-from torch.utils.data import Dataset, DataLoader
-from PIL import Image
-
-class YourOCRDataset(Dataset):
-    def __init__(self, image_paths, labels, transform=None):
-        self.image_paths = image_paths
-        self.labels = labels
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.image_paths)
-
-    def __getitem__(self, idx):
-        img_path = self.image_paths[idx]
-        label = self.labels[idx]
-        image = Image.open(img_path).convert('RGB')
-        
-        if self.transform:
-            image = self.transform(image) # Apply augmentations/preprocessing
-            
-        # Return image and label in the format expected by your model/loss
-        return image, label 
-
-# --- Create Datasets and DataLoaders ---
-train_transform = ... # Define training transforms (augmentations, tensor conversion, normalization)
-val_transform = ...   # Define validation transforms (tensor conversion, normalization)
-
-train_dataset = YourOCRDataset(train_image_paths, train_labels, transform=train_transform)
-val_dataset = YourOCRDataset(val_image_paths, val_labels, transform=val_transform)
-
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=4)
-val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False, num_workers=4)
-```
-
 ## 2. Configure Your Model Architecture (YAML)
 
 *   Define the architecture of the model you want to train in a YAML configuration file (e.g., `config/my_trainable_model.yaml`).
-*   Specify the backbone, neck (optional), and head components from `myocr.modeling` or your custom implementations.
 *   You might start training from scratch or load pre-trained weights for specific components (e.g., a pre-trained backbone specified within the `backbone` section of the YAML).
 
-```yaml
-# Example: config/my_trainable_model.yaml
-Architecture:
-  model_type: rec # Or det, cls
-  backbone:
-    name: ResNet # Example
-    layers: 34
-    pretrained: true # Load ImageNet weights for backbone
-  neck:
-    name: FPN # Example
-    out_channels: 256
-  head:
-    name: CTCHead # Example for recognition
-    num_classes: 9000 # Number of classes in your character set + blank
-
-# Optional: Load weights for the entire composed model (e.g., for fine-tuning)
-# pretrained: /path/to/your/full_model_weights.pth 
-```
 
 ## 3. Set Up the Training Loop
 

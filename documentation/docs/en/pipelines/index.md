@@ -4,7 +4,7 @@ MyOCR pipelines orchestrate multiple components (predictors, models) to perform 
 
 ## Available Pipelines
 
-### 1. `CommonOCRPipeline`
+###  `CommonOCRPipeline`
 
 Defined in `myocr/pipelines/common_ocr_pipeline.py`.
 
@@ -53,7 +53,7 @@ if ocr_results:
 4.  Uses `TextRecognitionPredictor` to recognize the text within each oriented region.
 5.  Returns a result object containing bounding boxes, text, and potentially confidence scores (details depend on the `Predictor` implementation).
 
-### 2. `StructuredOutputOCRPipeline`
+###  `StructuredOutputOCRPipeline`
 
 Defined in `myocr/pipelines/structured_output_pipeline.py`.
 
@@ -110,13 +110,6 @@ if structured_data:
 4.  The LLM attempts to extract the relevant information and format it according to the schema.
 5.  Returns an instance of the provided Pydantic model populated with the extracted data.
 
-## Customization
-
-Pipelines can be customized by:
-
-*   Modifying the `.yaml` configuration files to use different models.
-*   Creating new pipeline classes that inherit from `Pipeline` or existing pipelines.
-*   Integrating different predictors or extractors.
 
 ## Performance Optimization
 

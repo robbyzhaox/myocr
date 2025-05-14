@@ -33,52 +33,6 @@ The `myocr/modeling/` directory houses the building blocks for custom models:
 *   **`necks/`**: Includes feature fusion modules (e.g., `FPN` - Feature Pyramid Network).
 *   **`heads/`**: Defines the final layers responsible for specific tasks (e.g., detection probability maps, sequence decoding).
 
-### Common Models Used
-
-While the system is flexible, common models used in MyOCR include:
-
-*   **Text Detection:** Often based on **DBNet** or **DBNet++**, utilizing architectures like ResNet combined with FPN necks and specialized detection heads. These models output segmentation maps indicating text presence and location.
-*   **Text Recognition:** Frequently employs **CRNN (Convolutional Recurrent Neural Network)** architectures. These typically use CNN backbones (like ResNet or VGG) followed by BiLSTM layers and a CTC (Connectionist Temporal Classification) head for sequence decoding.
-*   **Text Direction Classification:** Usually simpler CNN-based classifiers (e.g., adapted MobileNet or ResNet variants) trained to predict text orientation (e.g., 0 or 180 degrees).
-
-## Model Configuration
-
-Custom models are configured using YAML files. These files specify:
-
-*   The overall `Architecture` (linking backbones, necks, heads).
-*   Specific parameters for each component (e.g., backbone type, feature dimensions).
-*   Optionally, a path to `pretrained` weights.
-
-```yaml
-# Example config.yaml (Simplified)
-Architecture:
-  model_type: det # or rec, cls
-  backbone:
-    name: MobileNetV3
-    scale: 0.5
-    pretrained: true
-  neck:
-    name: DBFPN
-    out_channels: 256
-  head:
-    name: DBHead
-    k: 50
-
-pretrained: path/to/pretrained_weights.pth # Optional
-```
-
-## Model Conversion
-
-The `CustomModel` class provides a `to_onnx` method to export PyTorch models defined by YAML configurations into the ONNX format for optimized inference.
-
-```python
-# Example (Conceptual)
-# Assuming 'custom_model' is an instance of CustomModel
-# and 'dummy_input' is a sample input tensor matching the model's expected input shape/type
-custom_model.to_onnx('exported_model.onnx', dummy_input)
-```
-
-This allows leveraging the performance benefits of ONNX Runtime even for models developed using the custom PyTorch framework within MyOCR.
 
 ## Available Models
 
@@ -93,7 +47,6 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
     - Robust to various text orientations
   - Architecture:
     ```python
-    # Architecture overview
     Backbone: ResNet
     Neck: FPN
     Head: DBHead
@@ -110,7 +63,6 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
     - Robust to different fonts and styles
   - Architecture:
     ```python
-    # Architecture overview
     Backbone: CNN
     Neck: BiLSTM
     Head: CTC
@@ -127,19 +79,4 @@ This allows leveraging the performance benefits of ONNX Runtime even for models 
 
 ## Model Performance
 
-### Accuracy
-
-- Text Detection:
-  - ICDAR2015: 85.2% F1-score
-  - Total-Text: 82.1% F1-score
-  
-- Text Recognition:
-  - Chinese: 92.3% accuracy
-  - English: 94.7% accuracy
-
-### Speed
-
-On NVIDIA T4 GPU:
-- Detection: ~50ms per image
-- Recognition: ~20ms per text region
-- Classification: ~10ms per region
+- coming

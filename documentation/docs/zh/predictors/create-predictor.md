@@ -25,125 +25,15 @@ MyOCR 中的预测器充当已加载 `Model`（ONNX 或 PyTorch）与最终用�
 4.  **实现 `preprocess`:** 编写代码将输入数据转换为模型就绪格式。
 5.  **实现 `postprocess`:** 编写代码将原始模型输出转换为所需的结构化结果。
 
-```python
-import logging
-from typing import Optional, Tuple, List, Any
-import numpy as np
-from PIL import Image as PILImage
-
-from myocr.base import CompositeProcessor
-# 导入任何必要的基础结构或创建您自己的结构
-from myocr.types import BoundingBox 
-
-logger = logging.getLogger(__name__)
-
-# --- 定义自定义输出结构 (示例) ---
-class CustomResult:
-    def __init__(self, label: str, score: float, details: Any):
-        self.label = label
-        self.score = score
-        self.details = details
-
-    def __repr__(self):
-        return f"CustomResult(label='{self.label}', score={self.score:.4f}, details={self.details})"
-
-# --- 创建自定义处理器 ---
-# 示例：接收 PIL 图像，输出 CustomResult
-class MyTaskProcessor(CompositeProcessor[PILImage.Image, CustomResult]):
-    def __init__(self, threshold: float = 0.5, target_size: Tuple[int, int] = (224, 224)):
-        super().__init__()
-        self.threshold = threshold
-        self.target_size = target_size
-        self.input_image_for_output = None # 如果输出转换需要，存储上下文
-        logger.info(f"MyTaskProcessor 初始化完成，阈值={threshold}, 目标尺寸={target_size}")
-
-    def preprocess(self, input_data: PILImage.Image) -> Optional[np.ndarray]:
-        """为一个假设的分类模型准备 PIL 图像。"""
-        self.input_image_for_output = input_data # 如果需要，保存以供后续使用
-        
-        # 1. 调整大小
-        image_resized = input_data.resize(self.target_size, PILImage.Resampling.BILINEAR)
-        
-        # 2. 转换为 NumPy 数组
-        image_np = np.array(image_resized).astype(np.float32)
-        
-        # 3. 归一化 (示例：简单的 /255)
-        image_np /= 255.0
-        
-        # 4. 如果需要，添加批次维度和通道维度 (例如 HWC -> NCHW)
-        if image_np.ndim == 2: # 灰度图
-            image_np = np.expand_dims(image_np, axis=-1)
-        # 假设模型需要 NCHW
-        image_np = np.expand_dims(image_np.transpose(2, 0, 1), axis=0) 
-        
-        logger.debug(f"转换后的输入图像形状: {image_np.shape}")
-        return image_np.astype(np.float32)
-        
-    def postprocess(self, internal_result: Any) -> Optional[CustomResult]:
-        """处理一个假设的分类模型的原始输出。"""
-        # 假设模型输出是一个包含 NumPy 分数数组的列表/元组
-        scores = internal_result[0] # 示例: [[0.1, 0.8, 0.1]]
-        if scores.ndim > 1: # 处理潜在的批次维度
-            scores = scores[0]
-            
-        # 1. 找到最佳预测
-        pred_index = np.argmax(scores)
-        pred_score = float(scores[pred_index])
-        
-        logger.debug(f"原始分数: {scores}, 预测索引: {pred_index}, 分数: {pred_score}")
-
-        # 2. 应用阈值
-        if pred_score < self.threshold:
-            logger.info(f"预测分数 {pred_score} 低于阈值 {self.threshold}")
-            return None # 或返回默认/否定结果
-            
-        # 3. 将索引映射到标签 (假设存在预定义的映射)
-        labels = ["猫", "狗", "其他"] # 示例标签
-        pred_label = labels[pred_index] if pred_index < len(labels) else "未知"
-        
-        # 4. 格式化为 CustomResult
-        # 包括任何额外的细节，可能使用 self.input_image_for_output
-        result = CustomResult(label=pred_label, score=pred_score, details={"原始尺寸": self.input_image_for_output.size})
-        
-        return result
-```
+**注意：**具体代码请参考已有预测器
 
 ## 3. 创建预测器实例
 
 一旦您有了自定义 `CompositeProcessor` 并加载了模型，就可以创建预测器实例。
 
-```python
-from myocr.modeling.model import ModelLoader, Device
-from PIL import Image
-from myocr.base import Predictor
-# 假设 MyTaskProcessor 如上定义
-
-# 1. 加载您的模型 (ONNX 或 自定义 PyTorch)
-model_path = "path/to/your/custom_model.onnx" # 或指向 CustomModel 的 YAML 路径
-model_format = "onnx" # 或 "custom"
-device = Device('cuda:0')
-
-loader = ModelLoader()
-model = loader.load(model_format, model_path, device)
-
-# 2. 实例化您的自定义处理器
-custom_processor = MyTaskProcessor(threshold=0.6, target_size=(256, 256)) # 如果需要，使用自定义参数
-
-# 3. 创建预测器
-custom_predictor = Predictor(custom_processor)
-
-# 4. 使用预测器
-input_image = Image.open("path/to/test_image.jpg").convert("RGB")
-prediction_result = custom_predictor.predict(input_image) # 返回 CustomResult 或 None
-
-if prediction_result:
-    print(f"预测结果: {prediction_result}")
-else:
-    print("预测失败或低于阈值。")
-```
 
 ## 4. 集成到流水线 (可选)
 
 如果您的自定义预测器是更大工作流的一部分，您可以将其集成到 [自定义流水线](./../pipelines/build-pipeline.md) 中，方法是在流水线的 `__init__` 方法中初始化它，并在流水线的 `process` 方法中调用其 `predict` 方法。
 
-通过遵循这些步骤，您可以在 MyOCR 框架内创建针对特定模型和任务的专门预测器。 
+通过这些步骤，您可以在 MyOCR 框架内创建针对特定模型和任务的预测器。 

@@ -31,6 +31,7 @@ python main.py
     ```bash
     curl http://127.0.0.1:5000/ping
     ```
+
 *   **`POST /ocr`**: Performs basic OCR on an uploaded image.
     *   **Request:** Send a `POST` request with the image as base64 encoded string.
     ```bash
@@ -41,6 +42,7 @@ python main.py
     ```
 
     *   **Response:** Returns a JSON object containing the recognized text and bounding box information (similar to the output of `CommonOCRPipeline`).
+    
 *   **`POST /ocr-json`**: Performs OCR and extracts structured information based on a schema.
     *   **Request:** Send a `POST` request with the image base64 string
         

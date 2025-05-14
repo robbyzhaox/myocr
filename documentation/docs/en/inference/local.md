@@ -11,102 +11,43 @@ The recommended way to perform end-to-end OCR is through the pipeline classes pr
 This pipeline is suitable for general OCR tasks where the goal is to extract all text and its location from an image.
 
 ```python
-import logging
 from myocr.pipelines import CommonOCRPipeline
-from myocr.modeling.model import Device
-from PIL import Image
 
-# Configure logging (optional)
-logging.basicConfig(level=logging.INFO)
+# Initialize common OCR pipeline (using GPU)
+pipeline = CommonOCRPipeline("cuda:0")  # Use "cpu" for CPU mode
 
-# --- 1. Initialization ---
-# Specify the device ('cuda:0' for GPU 0, 'cpu' for CPU)
-device = Device('cuda:0')
-
-# Initialize the pipeline
-# This will load the default models specified in 
-# myocr/pipelines/config/common_ocr_pipeline.yaml
-ocr_pipeline = CommonOCRPipeline(device=device)
-
-# --- 2. Processing ---
-image_path = 'path/to/your/document.jpg' # Or .png, .tif, etc.
-
-# Handles image loading, detection, classification, and recognition
-results = ocr_pipeline(image_path)
-
-# --- 3. Handling Results ---
-if results:
-    # Get combined text content
-    full_text = results.get_content_text()
-    print("--- Full Recognized Text ---")
-    print(full_text)
-    print("-----------------------------")
-
-    # Access individual text boxes and their properties
-    print("--- Individual Boxes ---")
-    for text_item in results.text_items:
-        box = text_item.bounding_box
-        print(f"Text: \"{text_item.text}\"")
-        print(f"  Confidence: {text_item.confidence:.4f}")
-        print(f"  Box Coords (L,T,R,B): ({box.left}, {box.top}, {box.right}, {box.bottom})") 
-        print(f"  Detection Score: {box.score:.4f}")
-        print("---")
-else:
-    logging.warning(f"No text detected in image: {image_path}")
-
+# Perform OCR recognition on an image
+result = pipeline("path/to/your/image.jpg")
+print(result)
 ```
 
 ### Structured Data Extraction with `StructuredOutputOCRPipeline`
 
 This pipeline is used when you need to extract specific information from a document and format it as JSON, based on a predefined schema.
 
-```python
-import logging
-from myocr.pipelines import StructuredOutputOCRPipeline
-from myocr.modeling.model import Device
-from pydantic import BaseModel, Field
-import os
-
-# Configure logging (optional)
-logging.basicConfig(level=logging.INFO)
-
-# --- 1. Define Output Schema ---
-# Use Pydantic to define the structure of the information you want to extract.
-class ReceiptInfo(BaseModel):
-    store_name: Optional[str] = Field(None, description="Name of the store or vendor")
-    total_amount: Optional[float] = Field(None, description="The final total amount paid")
-    transaction_date: Optional[str] = Field(None, description="Date of the transaction (YYYY-MM-DD)")
-    items: List[str] = Field([], description="List of purchased items mentioned")
-
-# --- 2. Initialization ---
-device = Device('cuda:0')
-
-# Ensure your OpenAI API Key is set (or provide directly)
-# Assumes the key is in an environment variable OPENAI_API_KEY
-# The pipeline config yaml (structured_output_pipeline.yaml) should point to this key
-if "OPENAI_API_KEY" not in os.environ:
-  logging.warning("OPENAI_API_KEY environment variable not set. LLM extraction might fail.")
-  # You might need to manually set the api_key in the config yaml or modify the pipeline code
-
-# Initialize pipeline with the device and the desired output schema
-structured_pipeline = StructuredOutputOCRPipeline(device=device, json_schema=ReceiptInfo)
-
-# --- 3. Processing ---
-image_path = 'path/to/your/receipt.png'
-
-# This process involves OCR followed by LLM-based extraction
-extracted_data = structured_pipeline(image_path)
-
-# --- 4. Handling Results ---
-if extracted_data:
-    print("--- Extracted Information (JSON) ---")
-    print(extracted_data.model_dump_json(indent=2))
-    print("-------------------------------------")
-else:
-    # This might happen if OCR found no text or the LLM failed to extract data matching the schema
-    logging.warning(f"Could not extract structured data from image: {image_path}")
-
+config chat_bot in myocr.pipelines.config.structured_output_pipeline.yaml
+```yaml
+chat_bot:
+  model: qwen2.5:14b
+  base_url: http://127.0.0.1:11434/v1
+  api_key: 'key'
 ```
+
+```python
+from pydantic import BaseModel, Field
+from myocr.pipelines import StructuredOutputOCRPipeline
+
+# Define output data model, refer to:
+from myocr.pipelines.response_format import InvoiceModel
+
+# Initialize structured OCR pipeline
+pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
+
+# Process image and get structured data
+result = pipeline("path/to/invoice.jpg")
+print(result.to_dict())
+```
+
 
 ## Direct Predictor Usage (Advanced)
 
