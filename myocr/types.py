@@ -236,6 +236,10 @@ class OCRResult:
     def from_dict(cls, data: Dict[str, Any]) -> "OCRResult":
         return cls(**data)
 
+    def get_plain_text(self, separator: str = "\n") -> str:
+        ordered = sorted(self.regions, key=lambda r: r.reading_order or float("inf"))
+        return separator.join(r.text for r in ordered)
+
 
 @dataclass
 class OCRPageResult(OCRResult):
@@ -246,10 +250,6 @@ class OCRPageResult(OCRResult):
         base = super().to_dict()
         base.update({"page_number": self.page_number, "page_info": self.page_info})
         return base
-
-    def get_plain_text(self, separator: str = "\n") -> str:
-        ordered = sorted(self.regions, key=lambda r: r.reading_order or float("inf"))
-        return separator.join(r.text for r in ordered)
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "OCRPageResult":
