@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-### Added
+## [v0.1.0](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0) - 2025-05-14
 
-- Introduce layout detection
-- Introduce table detection
-- Test accuracy of the OCR
+### Changed
+
+- Optimize the code to cope with situations of no text detection
+- Polish documentation for release
 
 ## [v0.1.0-beta](https://github.com/robbyzhaox/myocr/releases/tag/v0.1.0-beta) - 2025-05-12
 
