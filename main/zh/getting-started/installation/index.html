@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -108,7 +108,8 @@
             
   <!-- Add announcement here, including arbitrary HTML -->
   <div class="md-announce">
-    <strong>Welcome to the alpha test! 🎉 Please try it out and report any issues. 🐞</strong>
+    <strong>🎉 v0.1.0 released!</strong><br>
+    MyOCR's first public release is here — build and deploy OCR pipelines with ease.
   </div>
 
           </div>
@@ -1402,57 +1403,61 @@
 
 
 <h1 id="_1">安装指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>本指南涵盖了安装 MyOCR 及其依赖项所需的步骤。</p>
+<p>本指南介绍了安装 MyOCR 及其依赖项的必要步骤。</p>
 <h2 id="_2">系统要求<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Python:</strong> 需要 3.11 或更高版本。</li>
-<li><strong>CUDA:</strong> 推荐使用 12.6 或更高版本以进行 GPU 加速。也支持仅 CPU 模式。</li>
-<li><strong>操作系统:</strong> Linux、macOS 或 Windows。</li>
+<li><strong>CUDA:</strong> 如果需要 GPU 加速，推荐使用 12.6 或更高版本。也支持仅 CPU 模式。</li>
+<li><strong>操作系统:</strong> 支持 Linux、macOS 或 Windows。</li>
 </ul>
 <h2 id="_3">安装步骤<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ol>
 <li>
-<p><strong>克隆仓库:</strong></p>
+<p><strong>克隆代码仓库:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/robbyzhaox/myocr.git
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>myocr
 </code></pre></div>
 </li>
 <li>
-<p><strong>安装依赖:</strong></p>
+<p><strong>安装依赖项:</strong></p>
 <ul>
-<li><strong>标准用法:</strong>
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 安装软件包和必需的依赖项</span>
+<li><strong>标准安装:</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># 安装软件包及其必需的依赖项</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </code></pre></div></li>
-<li><strong>用于开发 (包括测试、代码检查等):</strong>
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 安装标准依赖项外加开发工具</span>
+<li><strong>开发环境安装 (包括测试、代码检查等工具):</strong>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># 安装标准依赖项及开发工具</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># 安装文档相关依赖项</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
 </code></pre></div></li>
 </ul>
 </li>
 <li>
 <p><strong>下载预训练模型:</strong></p>
-<p>MyOCR 的默认流水线依赖于预训练模型。这些模型需要手动下载。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 如果默认模型目录不存在，则创建它</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># 在 Linux/macOS 上:</span>
+<p>MyOCR 的默认流水线依赖于预训练模型，需要手动下载这些模型。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># 如果默认模型目录不存在，创建该目录</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># 在 Linux/macOS 系统上:</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.MyOCR/models/
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 在 Windows 上 (使用 Git Bash 或类似工具):</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># 在 Windows 系统上 (使用 Git Bash 或类似工具):</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># mkdir -p ~/AppData/Local/MyOCR/models/</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># 注意: 如果需要，请根据您的环境调整 Windows 路径。</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># 注意: 如需要，请根据您的环境调整 Windows 路径。</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># 下载模型 https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="c1"># 从以下链接下载模型: </span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="c1"># https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="c1"># 或者</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="c1"># https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j</span>
 </code></pre></div>
 <ul>
-<li><strong>注意:</strong> MyOCR 默认查找模型的位置是 <code>~/.MyOCR/models/</code>。此路径在 <code>myocr/config.py</code> 中定义。如果需要，您可以修改此配置或将模型放置在其他地方，但您需要调整流水线配置文件 (<code>myocr/pipelines/config/*.yaml</code>) 中的路径。</li>
-<li>上面的 <code>curl</code> 命令使用了 Google Drive （备用：<a href="https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j">Baidu网盘</a>）链接下载。请确保您的环境可以从这些链接下载。如果 <code>curl</code> 处理重定向或权限时出现问题，您可能需要调整命令或手动下载文件。</li>
+<li><strong>注意:</strong> MyOCR 默认从 <code>~/.MyOCR/models/</code> 目录查找模型。此路径在 <code>myocr/config.py</code> 中定义。如果需要，您可以修改此配置或将模型放在其他位置，但这样您需要相应地调整流水线配置文件 (<code>myocr/pipelines/config/*.yaml</code>) 中的路径。</li>
 </ul>
 </li>
 </ol>
 <h2 id="_4">后续步骤<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
-<p>安装完成并下载模型后，您可以继续：</p>
+<p>完成安装并下载模型后，您可以继续：</p>
 <ul>
-<li><a href="../overview/">概览</a>: 对库有一个高层次的理解。</li>
-<li><a href="../../inference/local/">推理指南</a>: 查看如何运行 OCR 任务的示例。</li>
+<li><a href="../../inference/local/">推理指南</a>: 查看使用 MyOCR 运行 OCR 任务的示例。</li>
 </ul>
 
 
@@ -1476,7 +1481,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年4月30日 01:08:07">2025年4月30日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月14日 09:19:25">2025年5月14日</span>
   </span>
 
     

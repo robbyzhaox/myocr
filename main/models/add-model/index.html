@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -108,7 +108,8 @@
             
   <!-- Add announcement here, including arbitrary HTML -->
   <div class="md-announce">
-    <strong>Welcome to the alpha test! 🎉 Please try it out and report any issues. 🐞</strong>
+    <strong>🎉 v0.1.0 released!</strong><br>
+    MyOCR's first public release is here — build and deploy OCR pipelines with ease.
   </div>
 
           </div>
@@ -775,18 +776,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#option-1-adding-a-pre-trained-onnx-model" class="md-nav__link">
+  <a href="#option-1-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 1: Adding a Pre-trained ONNX Model
+      Option 1: Adding a Custom PyTorch Model (Architecture &amp; Weights)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#option-2-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
+  <a href="#option-2-adding-a-pre-trained-onnx-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)
+      Option 2: Adding a Pre-trained ONNX Model
     </span>
   </a>
   
@@ -1354,18 +1355,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#option-1-adding-a-pre-trained-onnx-model" class="md-nav__link">
+  <a href="#option-1-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 1: Adding a Pre-trained ONNX Model
+      Option 1: Adding a Custom PyTorch Model (Architecture &amp; Weights)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#option-2-adding-a-custom-pytorch-model-architecture-weights" class="md-nav__link">
+  <a href="#option-2-adding-a-pre-trained-onnx-model" class="md-nav__link">
     <span class="md-ellipsis">
-      Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)
+      Option 2: Adding a Pre-trained ONNX Model
     </span>
   </a>
   
@@ -1414,38 +1415,8 @@
 
 <h1 id="adding-new-models">Adding New Models<a class="headerlink" href="#adding-new-models" title="Permanent link">&para;</a></h1>
 <p>MyOCR's modular design allows you to integrate new or custom models into the system. The process depends on the type of model you are adding.</p>
-<h2 id="option-1-adding-a-pre-trained-onnx-model">Option 1: Adding a Pre-trained ONNX Model<a class="headerlink" href="#option-1-adding-a-pre-trained-onnx-model" title="Permanent link">&para;</a></h2>
-<p>This is the simplest way, especially if your model fits one of the standard tasks (detection, classification, recognition) and has compatible input/output formats with existing <code>CompositeProcessor</code> classes.</p>
-<ol>
-<li>
-<p><strong>Place the Model File:</strong></p>
-<ul>
-<li>Copy your pre-trained <code>.onnx</code> model file into the default model directory (<code>~/.MyOCR/models/</code>) or another location accessible by your application.</li>
-</ul>
-</li>
-<li>
-<p><strong>Update Pipeline Configuration:</strong></p>
-<ul>
-<li>Identify the pipeline that will use your model (e.g., <code>CommonOCRPipeline</code>).</li>
-<li>Edit its corresponding YAML configuration file (e.g., <code>myocr/pipelines/config/common_ocr_pipeline.yaml</code>).</li>
-<li>Modify the <code>model:</code> section to point to your new model's filename. If the model is in the default directory, just the filename is needed. If it's elsewhere, you might need to adjust <code>myocr.config.MODEL_PATH</code> or use absolute paths (less recommended).</li>
-</ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Example in myocr/pipelines/config/common_ocr_pipeline.yaml</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">model</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">detection</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_new_detection_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Replace default with yours</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">cls_direction</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cls.onnx&quot;</span><span class="w"> </span><span class="c1"># Keep default or replace</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">recognition</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;your_new_recognition_model.onnx&quot;</span><span class="w"> </span><span class="c1"># Replace default with yours</span>
-</code></pre></div>
-</li>
-<li>
-<p><strong>Verify Compatibility:</strong></p>
-<ul>
-<li>Ensure your ONNX model's input and output shapes/types are compatible with the <code>CompositeProcessor</code> used by the pipeline for that step (e.g., <code>TextDetectionProcessor</code> for detection). If not, you might need to create a custom processor (see Option 3).</li>
-</ul>
-</li>
-</ol>
-<h2 id="option-2-adding-a-custom-pytorch-model-architecture-weights">Option 2: Adding a Custom PyTorch Model (Architecture &amp; Weights)<a class="headerlink" href="#option-2-adding-a-custom-pytorch-model-architecture-weights" title="Permanent link">&para;</a></h2>
-<p>If you have a custom model defined in PyTorch (using components potentially from <code>myocr.modeling</code> or external libraries), you can integrate it using MyOCR's custom model loading.</p>
+<h2 id="option-1-adding-a-custom-pytorch-model-architecture-weights">Option 1: Adding a Custom PyTorch Model (Architecture &amp; Weights)<a class="headerlink" href="#option-1-adding-a-custom-pytorch-model-architecture-weights" title="Permanent link">&para;</a></h2>
+<p>If you have a custom model defined in PyTorch (using components potentially from <code>myocr.modeling</code> or external libraries), you can integrate it using MyOCR's custom model loading. This will be the powerful way to define your own model.</p>
 <ol>
 <li>
 <p><strong>Define Model Architecture (if new):</strong></p>
@@ -1459,20 +1430,20 @@
 <li>Create a <code>.yaml</code> file that defines how your architecture components are connected. This file specifies the classes for the backbone, neck (optional), and head, along with their parameters.</li>
 <li>Optionally, include a <code>pretrained:</code> key pointing to a <code>.pth</code> file containing the trained weights for the entire model.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Example: config/my_custom_detector.yaml</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">Architecture</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">det</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">backbone</span><span class="p">:</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomBackbone</span><span class="w"> </span><span class="c1"># Class name under myocr.modeling.backbones</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">param1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">neck</span><span class="p">:</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomNeck</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">param2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">head</span><span class="p">:</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomHead</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">param3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value3</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/your/custom_model_weights.pth</span><span class="w"> </span><span class="c1"># Optional: Full model weights</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Example: config/my_custom_detector.yaml</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">Architecture</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">model_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">det</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">backbone</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomBackbone</span><span class="w"> </span><span class="c1"># Class name under myocr.modeling.backbones</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nt">param1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value1</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">neck</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomNeck</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">param2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value2</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="nt">head</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">YourCustomHead</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nt">param3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">value3</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nt">pretrained</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/your/custom_model_weights.pth</span><span class="w"> </span><span class="c1"># Optional: Full model weights</span>
 </code></pre></div>
 </li>
 <li>
@@ -1480,15 +1451,15 @@
 <ul>
 <li>Use the <code>ModelLoader</code> or <code>CustomModel</code> class to load your model using its YAML configuration.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">)</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">custom_model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">model_format</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="n">model_name_path</span><span class="o">=</span><span class="s1">&#39;config/my_custom_detector.yaml&#39;</span><span class="p">,</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="n">device</span><span class="o">=</span><span class="n">device</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">device</span> <span class="o">=</span> <span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cuda:0&#39;</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">custom_model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">model_format</span><span class="o">=</span><span class="s1">&#39;custom&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">model_name_path</span><span class="o">=</span><span class="s1">&#39;config/my_custom_detector.yaml&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
 </code></pre></div>
 </li>
 <li>
@@ -1496,13 +1467,13 @@
 <ul>
 <li>You will likely need a <code>CompositeProcessor</code> that matches your custom model's input pre-processing and output post-processing needs. You might be able to reuse an existing one (e.g., <code>TextDetectionProcessor</code> if your output is similar) or you may need to create a custom processor class inheriting from <code>myocr.base.CompositeProcessor</code>.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Option A: Reuse existing processor (if compatible)</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.processors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextDetectionProcessor</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">predictor</span> <span class="o">=</span> <span class="n">custom_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextDetectionProcessor</span><span class="p">(</span><span class="n">custom_model</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Option B: Create and use a custom processor</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># from my_custom_processors import MyCustomProcessor </span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># predictor = custom_model.predictor(MyCustomProcessor(...))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Option A: Reuse existing processor (if compatible)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.processors</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextDetectionProcessor</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">predictor</span> <span class="o">=</span> <span class="n">custom_model</span><span class="o">.</span><span class="n">predictor</span><span class="p">(</span><span class="n">TextDetectionProcessor</span><span class="p">(</span><span class="n">custom_model</span><span class="o">.</span><span class="n">device</span><span class="p">))</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Option B: Create and use a custom processor</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># from my_custom_processors import MyCustomProcessor </span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># predictor = custom_model.predictor(MyCustomProcessor(...))</span>
 </code></pre></div>
 </li>
 <li>
@@ -1512,11 +1483,32 @@
 </ul>
 </li>
 </ol>
+<h2 id="option-2-adding-a-pre-trained-onnx-model">Option 2: Adding a Pre-trained ONNX Model<a class="headerlink" href="#option-2-adding-a-pre-trained-onnx-model" title="Permanent link">&para;</a></h2>
+<p>This is the simplest way, you only need to put your model file to the model directory and load the model by <code>ModelLoader</code>.</p>
+<ol>
+<li>
+<p><strong>Place the Model File:</strong></p>
+<ul>
+<li>Copy your pre-trained <code>.onnx</code> model file into the default model directory (<code>~/.MyOCR/models/</code>) or another location accessible by your application.</li>
+</ul>
+</li>
+<li>
+<p><strong>Load the Model:</strong></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelLoader</span><span class="p">,</span> <span class="n">Device</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Load an ONNX model for CPU inference</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">loader</span> <span class="o">=</span> <span class="n">ModelLoader</span><span class="p">()</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">onnx_model</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">model_format</span><span class="o">=</span><span class="s1">&#39;onnx&#39;</span><span class="p">,</span> <span class="n">model_name_path</span><span class="o">=</span><span class="s1">&#39;path/to/your/model.onnx&#39;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">Device</span><span class="p">(</span><span class="s1">&#39;cpu&#39;</span><span class="p">))</span>
+</code></pre></div>
+Other steps are similar to Option 1</p>
+</li>
+</ol>
 <h2 id="option-3-load-existing-pytorch-models">Option 3: Load Existing PyTorch Models<a class="headerlink" href="#option-3-load-existing-pytorch-models" title="Permanent link">&para;</a></h2>
 <p>It's very easy to load a pre-trained PyTorch models with its weights like following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelZoo</span>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">myocr.modeling.model</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelZoo</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">model</span> <span class="o">=</span> <span class="n">ModelZoo</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="s2">&quot;resnet152&quot;</span><span class="p">,</span> <span class="s2">&quot;cuda:0&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 </code></pre></div>
+Other steps are similar to Option 1</p>
 
 
 
@@ -1539,7 +1531,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2025 09:19:25">May 14, 2025</span>
   </span>
 
     

@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -108,7 +108,8 @@
             
   <!-- Add announcement here, including arbitrary HTML -->
   <div class="md-announce">
-    <strong>Welcome to the alpha test! 🎉 Please try it out and report any issues. 🐞</strong>
+    <strong>🎉 v0.1.0 released!</strong><br>
+    MyOCR's first public release is here — build and deploy OCR pipelines with ease.
   </div>
 
           </div>
@@ -1295,18 +1296,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-commonocrpipeline" class="md-nav__link">
+  <a href="#commonocrpipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      1. CommonOCRPipeline
+      CommonOCRPipeline
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-structuredoutputocrpipeline" class="md-nav__link">
+  <a href="#structuredoutputocrpipeline" class="md-nav__link">
     <span class="md-ellipsis">
-      2. StructuredOutputOCRPipeline
+      StructuredOutputOCRPipeline
     </span>
   </a>
   
@@ -1314,15 +1315,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Customization
-    </span>
-  </a>
   
 </li>
       
@@ -1412,7 +1404,7 @@
 <h1 id="pipelines">Pipelines<a class="headerlink" href="#pipelines" title="Permanent link">&para;</a></h1>
 <p>MyOCR pipelines orchestrate multiple components (predictors, models) to perform end-to-end OCR tasks. They provide a high-level interface for processing images or documents.</p>
 <h2 id="available-pipelines">Available Pipelines<a class="headerlink" href="#available-pipelines" title="Permanent link">&para;</a></h2>
-<h3 id="1-commonocrpipeline">1. <code>CommonOCRPipeline</code><a class="headerlink" href="#1-commonocrpipeline" title="Permanent link">&para;</a></h3>
+<h3 id="commonocrpipeline"><code>CommonOCRPipeline</code><a class="headerlink" href="#commonocrpipeline" title="Permanent link">&para;</a></h3>
 <p>Defined in <code>myocr/pipelines/common_ocr_pipeline.py</code>.</p>
 <p>This pipeline performs standard OCR: text detection, optional text direction classification, and text recognition.</p>
 <p><strong>Initialization:</strong></p>
@@ -1447,7 +1439,7 @@
 <li>Uses <code>TextRecognitionPredictor</code> to recognize the text within each oriented region.</li>
 <li>Returns a result object containing bounding boxes, text, and potentially confidence scores (details depend on the <code>Predictor</code> implementation).</li>
 </ol>
-<h3 id="2-structuredoutputocrpipeline">2. <code>StructuredOutputOCRPipeline</code><a class="headerlink" href="#2-structuredoutputocrpipeline" title="Permanent link">&para;</a></h3>
+<h3 id="structuredoutputocrpipeline"><code>StructuredOutputOCRPipeline</code><a class="headerlink" href="#structuredoutputocrpipeline" title="Permanent link">&para;</a></h3>
 <p>Defined in <code>myocr/pipelines/structured_output_pipeline.py</code>.</p>
 <p>This pipeline extends <code>CommonOCRPipeline</code> by adding a step to extract structured information (e.g., JSON) from the recognized text using a large language model (LLM) via the <code>OpenAiChatExtractor</code>.</p>
 <p><strong>Initialization:</strong></p>
@@ -1489,13 +1481,6 @@
 <li>The LLM attempts to extract the relevant information and format it according to the schema.</li>
 <li>Returns an instance of the provided Pydantic model populated with the extracted data.</li>
 </ol>
-<h2 id="customization">Customization<a class="headerlink" href="#customization" title="Permanent link">&para;</a></h2>
-<p>Pipelines can be customized by:</p>
-<ul>
-<li>Modifying the <code>.yaml</code> configuration files to use different models.</li>
-<li>Creating new pipeline classes that inherit from <code>Pipeline</code> or existing pipelines.</li>
-<li>Integrating different predictors or extractors.</li>
-</ul>
 <h2 id="performance-optimization">Performance Optimization<a class="headerlink" href="#performance-optimization" title="Permanent link">&para;</a></h2>
 <h3 id="batch-processing">Batch Processing<a class="headerlink" href="#batch-processing" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Process multiple images</span>
@@ -1541,7 +1526,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 3, 2025 11:01:37">May 3, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="May 14, 2025 09:19:25">May 14, 2025</span>
   </span>
 
     

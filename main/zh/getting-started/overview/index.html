@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -108,7 +108,8 @@
             
   <!-- Add announcement here, including arbitrary HTML -->
   <div class="md-announce">
-    <strong>Welcome to the alpha test! 🎉 Please try it out and report any issues. 🐞</strong>
+    <strong>🎉 v0.1.0 released!</strong><br>
+    MyOCR's first public release is here — build and deploy OCR pipelines with ease.
   </div>
 
           </div>
@@ -623,49 +624,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#myocr" class="md-nav__link">
-    <span class="md-ellipsis">
-      为何选择 MyOCR？
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       核心组件
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="核心组件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      组件图
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      类图
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       定制与扩展
     </span>
@@ -1367,49 +1335,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#myocr" class="md-nav__link">
-    <span class="md-ellipsis">
-      为何选择 MyOCR？
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
       核心组件
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="核心组件">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      组件图
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      类图
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     <span class="md-ellipsis">
       定制与扩展
     </span>
@@ -1450,45 +1385,36 @@
 
 
 <h1 id="_1">概览<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<p>欢迎使用 MyOCR！该库提供了一个强大而灵活的框架，用于构建和部署您自己的 OCR 流水线。</p>
-<h2 id="myocr">为何选择 MyOCR？<a class="headerlink" href="#myocr" title="Permanent link">&para;</a></h2>
-<p>MyOCR 的设计兼顾了生产准备和开发者体验。主要特性包括：</p>
-<ul>
-<li><strong>端到端工作流:</strong> 无缝集成文本检测、方向分类和文本识别。</li>
-<li><strong>模块化与可扩展:</strong> 轻松替换模型、预处理/后处理步骤（通过 <code>CompositeProcessor</code>）或整个流水线。</li>
-<li><strong>开发者友好:</strong> 提供简洁的 Python API 和预构建组件，以便快速上手。</li>
-<li><strong>生产优化:</strong> 利用 ONNX Runtime 实现高性能的 CPU 和 GPU 推理。</li>
-</ul>
+<p>MyOCR 是一个功能强大且灵活的框架，专为帮助开发者构建和部署自定义 OCR 方案而设计，同时兼顾了生产可用性与开发体验。该库提供了一套高层次的组件架构，便于快速集成与扩展。</p>
 <h2 id="_2">核心组件<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<p>MyOCR 围绕几个关键概念构建：</p>
-<h3 id="_3">组件图<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>MyOCR 围绕以下关键概念构建：</p>
 <p><img alt="MyOCR 组件" src="../../../assets/images/components.png" /></p>
-<h3 id="_4">类图<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
-<p><img alt="MyOCR 类图" src="../../../assets/images/myocr_class_diagram.png" /></p>
 <ul>
-<li><strong>模型 (Model):</strong> 代表一个神经网络模型。MyOCR 支持加载 ONNX 模型 (<code>OrtModel</code>)、标准 PyTorch 模型 (<code>PyTorchModel</code>) 以及由 YAML 配置定义的自定义 PyTorch 模型 (<code>CustomModel</code>)。模型负责核心计算。<ul>
+<li><strong>模型 (Model):</strong> 表示一个神经网络模型。MyOCR 支持加载 ONNX 模型 (<code>OrtModel</code>)、标准 PyTorch 模型 (<code>PyTorchModel</code>) 以及通过 YAML 配置定义的自定义 PyTorch 模型 (<code>CustomModel</code>)。模型负责执行核心计算。<ul>
 <li>更多详情请参阅 <a href="../../models/">模型部分</a>。</li>
 </ul>
 </li>
-<li><strong>处理器 (<code>CompositeProcessor</code>):</strong> 为模型准备输入数据，并将模型的原始输出处理成更易用的格式。每个预测器都使用特定的处理器。<ul>
+<li><strong>处理器 (<code>CompositeProcessor</code>):</strong> 负责为模型准备输入数据，并将模型的原始输出转换为更易用的格式。每个预测器都配备了特定的处理器。<ul>
 <li>处理器详情请参阅 <a href="../../predictors/">预测器部分</a>。</li>
 </ul>
 </li>
-<li><strong>预测器 (Predictor):</strong> 结合一个 <code>Model</code> 和一个 <code>Processor</code> 来执行特定的推理任务（例如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
+<li><strong>预测器 (Predictor):</strong> 将一个 <code>Model</code> 和一个 <code>Processor</code> 结合起来执行特定的推理任务（如文本检测）。它提供了一个用户友好的接口，接受标准输入（如 PIL 图像）并返回处理后的结果（如边界框）。<ul>
 <li>可用预测器列表请参阅 <a href="../../predictors/">预测器部分</a>。</li>
 </ul>
 </li>
-<li><strong>流水线 (Pipeline):</strong> 协调多个 <code>Predictors</code> 来执行复杂的多步骤任务，如端到端 OCR。流水线为最常见的用例提供了最高级别的接口。<ul>
+<li><strong>流水线 (Pipeline):</strong> 协调多个 <code>Predictors</code> 来执行复杂的多步骤任务，如端到端 OCR。流水线为最常见的用例提供了最高层次的接口。<ul>
 <li>可用流水线列表请参阅 <a href="../../pipelines/">流水线部分</a>。</li>
 </ul>
 </li>
 </ul>
-<h2 id="_5">定制与扩展<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
-<p>MyOCR 的模块化设计允许轻松定制。</p>
+<p><strong>类图</strong>
+<img alt="MyOCR 类图" src="../../../assets/images/myocr_class_diagram.png" /></p>
+<h2 id="_3">定制与扩展<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>MyOCR 的模块化设计让定制变得简单：</p>
 <ul>
 <li><strong><a href="../../models/add-model/">添加新模型</a>:</strong> 了解如何通过模型加载器引入新模型。</li>
-<li><strong><a href="../../predictors/create-predictor/">创建自定义预测器</a>:</strong> 了解如何通过 <code>Model</code> 和 <code>CompositeProcessor</code> 创建自定义 <code>Predictor</code>。</li>
-<li><strong><a href="../../pipelines/build-pipeline/">构建自定义流水线</a>:</strong> 了解如何将多个 <code>Predictor</code> 组合成 <code>Pipeline</code>。</li>
+<li><strong><a href="../../predictors/create-predictor/">创建自定义预测器</a>:</strong> 了解如何利用 <code>Model</code> 和 <code>CompositeProcessor</code> 创建自定义 <code>Predictor</code>。</li>
+<li><strong><a href="../../pipelines/build-pipeline/">构建自定义流水线</a>:</strong> 了解如何将多个 <code>Predictor</code> 组合成完整的 <code>Pipeline</code>。</li>
 </ul>
 
 
@@ -1512,7 +1438,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月14日 09:19:25">2025年5月14日</span>
   </span>
 
     

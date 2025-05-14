@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.13">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
     
     
       
@@ -108,7 +108,8 @@
             
   <!-- Add announcement here, including arbitrary HTML -->
   <div class="md-announce">
-    <strong>Welcome to the alpha test! 🎉 Please try it out and report any issues. 🐞</strong>
+    <strong>🎉 v0.1.0 released!</strong><br>
+    MyOCR's first public release is here — build and deploy OCR pipelines with ease.
   </div>
 
           </div>
@@ -1093,7 +1094,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      方式一：直接运行（用于开发）
+      方式一：直接运行（适用于开发环境）
     </span>
   </a>
   
@@ -1102,7 +1103,7 @@
         <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
-      方式二：使用 Docker 部署（生产环境推荐）
+      方式二：使用 Docker 部署（推荐用于生产环境）
     </span>
   </a>
   
@@ -1336,7 +1337,7 @@
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      方式一：直接运行（用于开发）
+      方式一：直接运行（适用于开发环境）
     </span>
   </a>
   
@@ -1345,7 +1346,7 @@
         <li class="md-nav__item">
   <a href="#docker" class="md-nav__link">
     <span class="md-ellipsis">
-      方式二：使用 Docker 部署（生产环境推荐）
+      方式二：使用 Docker 部署（推荐用于生产环境）
     </span>
   </a>
   
@@ -1384,26 +1385,26 @@
 
 
 <h1 id="rest-api">通过 REST API 进行推理<a class="headerlink" href="#rest-api" title="Permanent link">&para;</a></h1>
-<p>MyOCR 提供了一个内置的 RESTful API 服务，允许您通过 HTTP 请求执行 OCR 任务。这对于将 MyOCR 集成到 Web 应用程序、微服务或从不同的编程语言访问它非常有用。</p>
-<p>您可以直接运行此 API 服务进行开发，也可以使用 Docker 进行生产部署。</p>
-<h2 id="_1">方式一：直接运行（用于开发）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<p>此方法直接在您的主机上运行 API 服务，通常适用于本地开发和测试。</p>
-<p><strong>1. 先决条件：</strong></p>
+<p>MyOCR 提供了内置的 RESTful API 服务，让您能够通过 HTTP 请求执行 OCR 任务。这对于将 MyOCR 集成到网页应用、微服务或其他编程语言中特别有用。</p>
+<p>您可以直接运行此 API 服务进行开发，或者使用 Docker 进行生产环境部署。</p>
+<h2 id="_1">方式一：直接运行（适用于开发环境）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>此方法会直接在您的主机上运行 API 服务，通常适合本地开发和测试。</p>
+<p><strong>1. 前提条件：</strong></p>
 <ul>
 <li>确保您已完成 <a href="../../getting-started/installation/">安装步骤</a>，包括安装依赖项和下载模型。</li>
-<li>确保您位于 <code>myocr</code> 项目的根目录中。</li>
+<li>确保您位于 <code>myocr</code> 项目的根目录。</li>
 </ul>
 <p><strong>2. 启动服务器：</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 使用 python 启动服务器（请检查 main.py 以了解确切的主机/端口）</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># 这可能会使用开发服务器（例如 Flask 的默认服务器）和端口（例如 5000）。</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 使用 python 启动服务器（请查看 main.py 了解确切的主机/端口配置）</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># 这可能会使用开发服务器（如 Flask 的默认服务器）和默认端口（如 5000）</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>main.py<span class="w"> </span>
 </code></pre></div>
 <ul>
 <li>服务器使用项目中定义的模型和配置。</li>
 <li>端口和主机取决于 <code>main.py</code> 的配置方式。</li>
-<li><strong>注意：</strong> 对于生产部署，建议使用 Docker 和 Gunicorn（方式二）。</li>
+<li><strong>注意：</strong> 对于生产环境部署，建议使用 Docker 和 Gunicorn（方式二）。</li>
 </ul>
-<p><strong>3. API 端点（使用示例端口 5000 - 如果需要请调整）：</strong></p>
+<p><strong>3. API 端点（示例使用端口 5000 - 请根据需要调整）：</strong></p>
 <ul>
 <li><strong><code>GET /ping</code></strong>：检查服务是否正在运行。
     <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>http://127.0.0.1:5000/ping
@@ -1412,7 +1413,7 @@
 <p><strong><code>POST /ocr</code></strong>：对上传的图像执行基本 OCR。</p>
 <ul>
 <li>
-<p><strong>请求：</strong> 发送一个 <code>POST</code> 请求，并将图像作为 base64 编码字符串。
+<p><strong>请求：</strong> 发送一个 <code>POST</code> 请求，图像以 base64 编码字符串形式提供。
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;image&quot;: &quot;BASE64_IMAGE&quot;}&#39;</span><span class="err">&#39;</span><span class="w"> </span><span class="se">\</span>
@@ -1420,10 +1421,14 @@
 </code></pre></div></p>
 </li>
 <li>
-<p><strong>响应：</strong> 返回一个 JSON 对象，其中包含识别的文本和边界框信息（类似于 <code>CommonOCRPipeline</code> 的输出）。</p>
+<p><strong>响应：</strong> 返回包含识别文本和边界框信息的 JSON 对象（类似于 <code>CommonOCRPipeline</code> 的输出）。</p>
 </li>
-<li><strong><code>POST /ocr-json</code></strong>：执行 OCR 并根据 schema 提取结构化信息。</li>
-<li><strong>请求：</strong> 发送一个 <code>POST</code> 请求，其中包含图像的 base64 字符串。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>POST /ocr-json</code></strong>：执行 OCR 并根据预定义的 schema 提取结构化信息。</p>
+<ul>
+<li><strong>请求：</strong> 发送一个 <code>POST</code> 请求，包含图像的 base64 字符串。</li>
 </ul>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
@@ -1431,38 +1436,38 @@
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span>http://127.0.0.1:5000/ocr-json
 </code></pre></div>
 <ul>
-<li><strong>响应：</strong> 返回一个符合提供的 schema 的 JSON 对象，其中填充了提取的数据。</li>
+<li><strong>响应：</strong> 返回一个符合提供 schema 的 JSON 对象，其中包含从图像中提取的数据。</li>
 </ul>
 </li>
 </ul>
-<p><strong>4. 可选 UI：</strong></p>
-<p>有一个单独的基于 Next.js 的 UI 可用于与这些端点交互：<a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a>。</p>
-<h2 id="docker">方式二：使用 Docker 部署（生产环境推荐）<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<p><strong>4. 可选用户界面：</strong></p>
+<p>有一个基于 Next.js 的独立用户界面可用于与这些 API 端点交互：<a href="https://github.com/robbyzhaox/doc-insight-ui">doc-insight-ui</a>。</p>
+<h2 id="docker">方式二：使用 Docker 部署（推荐用于生产环境）<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
 <p>Docker 提供了一个容器化环境来运行 API 服务，确保了一致性并利用 Gunicorn 提高性能。</p>
-<p><strong>1. 先决条件：</strong></p>
+<p><strong>1. 前提条件：</strong></p>
 <ul>
 <li>已安装 <a href="https://docs.docker.com/get-docker/">Docker</a>。</li>
 <li>对于 GPU 支持：已安装 <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">NVIDIA Container Toolkit</a>。</li>
-<li>在构建镜像之前，请确保模型已下载到<strong>主机</strong>上的默认位置 (<code>~/.MyOCR/models/</code>)，因为 Docker 构建过程可能会复制它们。</li>
+<li>在构建镜像前，确保已将模型下载到<strong>主机</strong>上的默认位置 (<code>~/.MyOCR/models/</code>)，因为 Docker 构建过程可能会复制这些文件。</li>
 </ul>
 <p><strong>2. 使用辅助脚本构建 Docker 镜像：</strong></p>
-<p>推荐使用提供的脚本来构建镜像。它会处理带有正确版本的标签。</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 确保脚本可执行</span>
+<p>推荐使用提供的脚本来构建镜像，它能自动处理正确的版本标签。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># 确保脚本具有执行权限</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>scripts/build_docker_image.sh
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 确定应用程序版本</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># 获取应用程序版本</span>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nv">VERSION</span><span class="o">=</span><span class="k">$(</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import myocr.version; print(myocr.version.VERSION)&#39;</span><span class="k">)</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># 构建所需的镜像（将 [cpu|gpu] 替换为 &#39;cpu&#39; 或 &#39;gpu&#39;）</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c1"># 构建所需镜像（将 [cpu|gpu] 替换为 &#39;cpu&#39; 或 &#39;gpu&#39;）</span>
 <a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>bash<span class="w"> </span>scripts/build_docker_image.sh<span class="w"> </span><span class="o">[</span>cpu<span class="p">|</span>gpu<span class="o">]</span>
 <a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
 <a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># 示例：为当前版本构建 CPU 镜像</span>
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="c1"># bash scripts/build_docker_image.sh cpu </span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># 脚本将输出最终的镜像标签（例如 myocr:cpu-0.1.0）</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="c1"># 脚本会输出最终的镜像标签（例如 myocr:cpu-0.1.0）</span>
 </code></pre></div>
 <p><strong>3. 运行 Docker 容器：</strong></p>
-<p>使用构建脚本生成的镜像标签（例如 <code>myocr:cpu-X.Y.Z</code> 或 <code>myocr:gpu-X.Y.Z</code>）。容器内的服务运行在端口 8000。</p>
+<p>使用构建脚本生成的镜像标签（如 <code>myocr:cpu-X.Y.Z</code> 或 <code>myocr:gpu-X.Y.Z</code>）。容器内的服务运行在端口 8000 上。</p>
 <ul>
 <li><strong>GPU 版本（将 $IMAGE_TAG 替换为实际标签）：</strong>
     <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># 示例: docker run -d --gpus all -p 8000:8000 --name myocr-service myocr:gpu-0.1.0</span>
@@ -1472,11 +1477,11 @@
     <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># 示例: docker run -d -p 8000:8000 --name myocr-service myocr:cpu-0.1.0</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>--name<span class="w"> </span>myocr-service<span class="w"> </span><span class="nv">$IMAGE_TAG</span>
 </code></pre></div></li>
-<li><code>-p 8000:8000</code> 标志将您主机上的端口 8000 映射到容器内的端口 8000。</li>
+<li><code>-p 8000:8000</code> 参数将主机上的端口 8000 映射到容器内的端口 8000。</li>
 </ul>
 <p><strong>4. 访问 API 端点（Docker）：</strong></p>
-<p>容器运行后，使用主机的 IP/主机名（或 <code>localhost</code>）和映射的主机端口（示例中为 8000）访问 API 端点：</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Ping 示例</span>
+<p>容器运行后，使用主机的 IP/主机名（或 <code>localhost</code>）和映射的端口（示例中为 8000）访问 API 端点：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Ping 测试</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>curl<span class="w"> </span>http://localhost:8000/ping<span class="w"> </span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># 图像 base64 编码</span>
@@ -1497,7 +1502,7 @@
 <a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">  </span>-d<span class="w"> </span><span class="s2">&quot;{\&quot;image\&quot;: \&quot;</span><span class="si">${</span><span class="nv">BASE64_IMAGE</span><span class="si">}</span><span class="s2">\&quot;}&quot;</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">  </span>http://localhost:8000/ocr-json
 </code></pre></div>
-<p>请记住将 <code>/path/to/your/image.jpg</code> 替换为您运行 <code>curl</code> 命令的机器上的实际路径。 </p>
+<p>注意：请将 <code>your_image.jpg</code> 替换为您运行 <code>curl</code> 命令的机器上实际图像文件的路径。 </p>
 
 
 
@@ -1520,7 +1525,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月3日 11:01:37">2025年5月3日</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="2025年5月14日 09:19:25">2025年5月14日</span>
   </span>
 
     
