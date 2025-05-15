@@ -43,9 +43,10 @@ This guide covers the necessary steps to install MyOCR and its dependencies.
     mkdir -p ~/.MyOCR/models/
     # On Windows (using Git Bash or similar):
     # mkdir -p ~/AppData/Local/MyOCR/models/
+    # or just create the models directory in current path
     # Note: Adjust the Windows path if needed based on your environment.
 
-    # Download models from: 
+    # Download weights from following links to models directory: 
     # https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
     # or
     # https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j

@@ -1,33 +1,46 @@
 import logging
-from typing import Union
+import os
+from pathlib import Path
+from typing import Optional, Union
 
 import numpy as np
 import yaml  # type: ignore
+from pydantic import BaseModel
 
+from ..base import Pipeline
 from ..extractor.chat_extractor import OpenAiChatExtractor
 from ..pipelines.common_ocr_pipeline import CommonOCRPipeline
 
 logger = logging.getLogger(__name__)
 
 
-class StructuredOutputOCRPipeline(CommonOCRPipeline):
+class StructuredOutputOCRPipeline(Pipeline):
     def __init__(self, device, json_schema):
-        super().__init__(device)
+        self.ocr = CommonOCRPipeline(device)
 
-        parts = __file__.split(".")[0].rsplit("/", 1)
-        with open(parts[0] + "/config/" + parts[1] + ".yaml", "r", encoding="utf-8") as f:
+        current_file = Path(__file__)
+        config_path = current_file.parent / "config" / f"{current_file.stem}.yaml"
+
+        with open(config_path, "r", encoding="utf-8") as f:
             config = yaml.safe_load(f)
 
+        model = os.getenv("CHAT_BOT_MODEL", config["chat_bot"]["model"])
+        base_url = os.getenv("CHAT_BOT_BASEURL", config["chat_bot"]["base_url"])
+        api_key = os.getenv("CHAT_BOT_APIKEY", config["chat_bot"]["api_key"])
+        logger.info(f"Init structured_output_pipeline with model:{model}, base_url:{base_url}")
         self.extractor = OpenAiChatExtractor(
-            model=config["chat_bot"]["model"],
-            base_url=config["chat_bot"]["base_url"],
-            api_key=config["chat_bot"]["api_key"],
+            model=model,
+            base_url=base_url,
+            api_key=api_key,
         )
         self.set_response_format(json_schema)
 
-    def process(self, img: Union[bytes, str, np.ndarray]):
-        rec = super().process(img)
-        return self.extractor.extract_with_format(rec.get_content_text(), self.response_format)
+    def process(self, img: Union[bytes, str, np.ndarray]) -> Optional[BaseModel]:
+        rec = self.ocr(img)
+        text = rec.get_plain_text()
+        if text is not None:
+            return self.extractor.extract_with_format(text, self.response_format)
+        return None
 
     def set_response_format(self, json_schema):
         from pydantic import BaseModel

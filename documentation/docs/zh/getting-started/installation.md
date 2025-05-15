@@ -43,9 +43,10 @@
     mkdir -p ~/.MyOCR/models/
     # 在 Windows 系统上 (使用 Git Bash 或类似工具):
     # mkdir -p ~/AppData/Local/MyOCR/models/
+    # 或者直接在当前路径创建models目录
     # 注意: 如需要，请根据您的环境调整 Windows 路径。
 
-    # 从以下链接下载模型: 
+    # 从以下链接下载模型到models目录
     # https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
     # 或者
     # https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j

@@ -27,14 +27,16 @@ Try the online demo on
 **🚀 Production-Ready Performance** – ONNX runtime support for fast CPU/GPU inference, support various ways of deployment.
 
 ## 📣 Updates
-- **🔥2025.05.12 Unify data structure OCR result**
+- **🔥2025.05.14 MyOCR v0.1.0 released**
+- **2025.05.12 Unify data structure OCR result**
 
 
 ## 🛠️ Installation
 
 ### 📦 Requirements
 - Python 3.11+
-- Optional: CUDA 12.6+ (Recommended for GPU acceleration, but CPU mode is also supported)
+- CUDA: Version 12.6 or higher is recommended for GPU acceleration. CPU-only mode is also supported.
+- Operating System: Linux, macOS, or Windows.
 
 ### 📥  Install Dependencies
 
@@ -43,17 +45,17 @@ Try the online demo on
 git clone https://github.com/robbyzhaox/myocr.git
 cd myocr
 
-# create venv
-uv venv
-
+# You can create your own venv before the following steps
 # Install dependencies
 pip install -e .
 
 # Development environment installation
 pip install -e ".[dev]"
 
-# Download pre-trained model weights
+# Download pre-trained model weights to models
+# for Linux, macOS
 mkdir -p ~/.MyOCR/models/
+# for Windows, the "models" directory can be created in the current path
 Download weights from: https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
 # Alternative download link: https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j
 ```
@@ -84,6 +86,10 @@ chat_bot:
   base_url: http://127.0.0.1:11434/v1
   api_key: 'key'
 ```
+**Note:** chat bot currently support:
+- Ollama API
+- OpenAI API
+
 
 ```python
 from pydantic import BaseModel, Field
@@ -108,6 +114,14 @@ The framework provides support for Docker deployment, which can be built and run
 
 ```bash
 docker run -d -p 8000:8000 robbyzhaox/myocr:latest
+
+# set the environment variables like following with -e option of docker run if you want use the StructuredOutputOCRPipline
+docker run -d \
+  -p 8000:8000 \
+  -e CHAT_BOT_MODEL="qwen2.5:14b" \
+  -e CHAT_BOT_BASEURL="http://127.0.0.1:11434/v1" \
+  -e CHAT_BOT_APIKEY="key" \
+  robbyzhaox/myocr:latest
 ```
 
 #### Accessing API Endpoints (Docker)

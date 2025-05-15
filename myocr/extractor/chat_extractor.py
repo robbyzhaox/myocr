@@ -9,6 +9,11 @@ logger = logging.getLogger(__name__)
 
 
 class OpenAiChatExtractor(Extractor):
+    """
+    Currently support
+        - OpenAI API
+        - Ollama API
+    """
 
     def __init__(self, model, base_url, api_key):
         from openai import OpenAI
