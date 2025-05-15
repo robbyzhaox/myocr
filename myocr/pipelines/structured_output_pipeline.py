@@ -27,7 +27,7 @@ class StructuredOutputOCRPipeline(Pipeline):
         model = os.getenv("CHAT_BOT_MODEL", config["chat_bot"]["model"])
         base_url = os.getenv("CHAT_BOT_BASEURL", config["chat_bot"]["base_url"])
         api_key = os.getenv("CHAT_BOT_APIKEY", config["chat_bot"]["api_key"])
-        print(base_url)
+        logger.info(f"Init structured_output_pipeline with model:{model}, base_url:{base_url}")
         self.extractor = OpenAiChatExtractor(
             model=model,
             base_url=base_url,
