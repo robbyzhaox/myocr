@@ -26,14 +26,16 @@ MyOCR是一个高度可扩展和定制化的OCR系统构建框架。可以用于
 **🚀 生产级性能** – 支持ONNX运行时以实现快速CPU/GPU推理，支持多种部署方式。
 
 ## 📣 更新
-- **🔥2025.05.12 统一OCR识别结果的数据结构**
+- **2025.05.14 MyOCR v0.1.0发布**
+- **2025.05.12 统一OCR识别结果的数据结构**
 
 
 ## 🛠️ 安装
 
 ### 📦 系统要求
 - Python 3.11+
-- 可选: CUDA 12.6+ (推荐用于GPU加速，但也支持CPU模式)
+- CUDA: 如果需要 GPU 加速，推荐使用 12.6 或更高版本。也支持仅 CPU 模式。
+- 操作系统: 支持 Linux、macOS 或 Windows。
 
 ### 📥 安装依赖
 
@@ -42,8 +44,7 @@ MyOCR是一个高度可扩展和定制化的OCR系统构建框架。可以用于
 git clone https://github.com/robbyzhaox/myocr.git
 cd myocr
 
-# 创建虚拟环境
-uv venv
+# 在开始下面步骤前，可以先创建虚拟环境
 
 # 安装依赖
 pip install -e .
@@ -51,8 +52,10 @@ pip install -e .
 # 安装开发环境
 pip install -e ".[dev]"
 
-# 下载预训练模型权重
+# 下载预训练模型权重到models目录
+# Linux, macOS
 mkdir -p ~/.MyOCR/models/
+# 对于Windows, 可以在当前路径创建models目录
 从以下链接下载权重: https://drive.google.com/drive/folders/1RXppgx4XA_pBX9Ll4HFgWyhECh5JtHnY
 # 备用下载链接: https://pan.baidu.com/s/122p9zqepWfbEmZPKqkzGBA?pwd=yq6j
 ```
@@ -83,6 +86,10 @@ chat_bot:
   base_url: http://127.0.0.1:11434/v1
   api_key: 'key'
 ```
+**注意:** chat bot 当前支持:
+- Ollama API
+- OpenAI API
+
 
 ```python
 from pydantic import BaseModel, Field
@@ -107,6 +114,14 @@ print(result.to_dict())
 
 ```bash
 docker run -d -p 8000:8000 robbyzhaox/myocr:latest
+
+# 如果要使用StructuredOutputOCRPipline或者/ocr-json api，请修改环境变量后使用下列命令
+docker run -d \
+  -p 8000:8000 \
+  -e CHAT_BOT_MODEL="qwen2.5:14b" \
+  -e CHAT_BOT_BASEURL="http://127.0.0.1:11434/v1" \
+  -e CHAT_BOT_APIKEY="key" \
+  robbyzhaox/myocr:latest
 ```
 
 #### 访问API（Docker）

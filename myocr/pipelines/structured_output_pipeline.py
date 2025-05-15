@@ -1,4 +1,5 @@
 import logging
+import os
 from pathlib import Path
 from typing import Optional, Union
 
@@ -23,10 +24,14 @@ class StructuredOutputOCRPipeline(Pipeline):
         with open(config_path, "r", encoding="utf-8") as f:
             config = yaml.safe_load(f)
 
+        model = os.getenv("CHAT_BOT_MODEL", config["chat_bot"]["model"])
+        base_url = os.getenv("CHAT_BOT_BASEURL", config["chat_bot"]["base_url"])
+        api_key = os.getenv("CHAT_BOT_APIKEY", config["chat_bot"]["api_key"])
+        print(base_url)
         self.extractor = OpenAiChatExtractor(
-            model=config["chat_bot"]["model"],
-            base_url=config["chat_bot"]["base_url"],
-            api_key=config["chat_bot"]["api_key"],
+            model=model,
+            base_url=base_url,
+            api_key=api_key,
         )
         self.set_response_format(json_schema)
 

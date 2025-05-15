@@ -92,6 +92,15 @@ bash scripts/build_docker_image.sh [cpu|gpu]
 
 使用构建脚本生成的镜像标签（如 `myocr:cpu-X.Y.Z` 或 `myocr:gpu-X.Y.Z`）。容器内的服务运行在端口 8000 上。
 
+!!!提示 
+    根据需要设置下列环境变量：
+    
+    CHAT_BOT_MODEL=qwen2.5:14b
+    
+    CHAT_BOT_BASEURL=http://127.0.0.1:11434/v1
+    
+    CHAT_BOT_APIKEY=key
+
 *   **GPU 版本（将 $IMAGE_TAG 替换为实际标签）：**
     ```bash
     # 示例: docker run -d --gpus all -p 8000:8000 --name myocr-service myocr:gpu-0.1.0
