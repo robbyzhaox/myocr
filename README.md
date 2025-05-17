@@ -27,8 +27,7 @@ Try the online demo on
 **🚀 Production-Ready Performance** – ONNX runtime support for fast CPU/GPU inference, support various ways of deployment.
 
 ## 📣 Updates
-- **🔥2025.05.14 MyOCR v0.1.0 released**
-- **2025.05.12 Unify data structure OCR result**
+- **🔥2025.05.17 MyOCR v0.1.1 released**
 
 
 ## 🛠️ Installation
