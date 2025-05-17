@@ -15,26 +15,27 @@ class OpenAiChatExtractor(Extractor):
         - Ollama API
     """
 
-    def __init__(self, model, base_url, api_key):
+    def __init__(self, model, base_url, api_key, sys_prompt):
         from openai import OpenAI
 
         super().__init__()
         self.model = model
         self.chat_client = OpenAI(api_key=api_key, base_url=base_url)
+        self.sys_prompt = sys_prompt
 
-    def extract_with_format(self, content, response_format: BaseModel) -> Optional[BaseModel]:
+    def extract(self, content, data_model: BaseModel) -> Optional[BaseModel]:
         logger.debug(
-            f"Extract infomation via OpanAI client with format:{response_format} from OCR content: \n{content}"
+            f"Extract infomation via OpanAI client with format:{data_model} from OCR content: \n{content}"
         )
         completion = self.chat_client.beta.chat.completions.parse(
             model=self.model,
             messages=[
                 {
                     "role": "system",
-                    "content": "You are good at extracting information from the invoice, please extract corresponding information from the given texts recognized via OCR",
+                    "content": self.sys_prompt,
                 },
                 {"role": "user", "content": content},
             ],
-            response_format=response_format,  # type: ignore
+            response_format=data_model,  # type: ignore
         )
         return completion.choices[0].message.parsed

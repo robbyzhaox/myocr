@@ -27,11 +27,10 @@ class StructuredOutputOCRPipeline(Pipeline):
         model = os.getenv("CHAT_BOT_MODEL", config["chat_bot"]["model"])
         base_url = os.getenv("CHAT_BOT_BASEURL", config["chat_bot"]["base_url"])
         api_key = os.getenv("CHAT_BOT_APIKEY", config["chat_bot"]["api_key"])
+        sys_prompt = config["chat_bot"]["sys_prompt"]
         logger.info(f"Init structured_output_pipeline with model:{model}, base_url:{base_url}")
         self.extractor = OpenAiChatExtractor(
-            model=model,
-            base_url=base_url,
-            api_key=api_key,
+            model=model, base_url=base_url, api_key=api_key, sys_prompt=sys_prompt
         )
         self.set_response_format(json_schema)
 
@@ -39,7 +38,7 @@ class StructuredOutputOCRPipeline(Pipeline):
         rec = self.ocr(img)
         text = rec.get_plain_text()
         if text is not None:
-            return self.extractor.extract_with_format(text, self.response_format)
+            return self.extractor.extract(text, self.response_format)
         return None
 
     def set_response_format(self, json_schema):

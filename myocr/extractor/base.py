@@ -4,8 +4,9 @@ from pydantic import BaseModel
 
 
 class Extractor:
-    def extract(self, content):
-        raise NotImplementedError("extract() not implemented")
+    """
+    Extract structured information with provided format from the plain text content.
+    """
 
-    def extract_with_format(self, content, response_format: BaseModel) -> Optional[BaseModel]:
-        raise NotImplementedError("extract_with_format() not implemented")
+    def extract(self, content, data_model: BaseModel) -> Optional[BaseModel]:
+        raise NotImplementedError("extract() not implemented")

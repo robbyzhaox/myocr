@@ -1,6 +1,7 @@
 name: structured_output_pipeline
 
 chat_bot:
-  model: qwen2.5:14b
-  base_url: http://192.168.0.70:11434/v1
+  model: qwen3:8b
+  base_url: http://127.0.0.1:11434/v1
   api_key: 'key'
+  sys_prompt: 'You are good at extracting information from the invoice, please extract corresponding information from the given texts recognized via OCR'
