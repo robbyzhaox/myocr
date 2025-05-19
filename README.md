@@ -94,8 +94,7 @@ chat_bot:
 from pydantic import BaseModel, Field
 from myocr.pipelines import StructuredOutputOCRPipeline
 
-# Define output data model, refer to:
-from myocr.pipelines.response_format import InvoiceModel
+# Define output data model, refer to InvoiceModel in main.py
 
 # Initialize structured OCR pipeline
 pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
@@ -153,10 +152,6 @@ API endpoints:
 - `POST /ocr-json`: Structured OCR output
 
 We also have a UI for these endpoints, please refer to [doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=robbyzhaox/myocr&type=Date)](https://www.star-history.com/#robbyzhaox/myocr&Date)
 
 
 ## 🎖 Contribution Guidelines

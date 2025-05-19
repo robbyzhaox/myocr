@@ -94,8 +94,7 @@ chat_bot:
 from pydantic import BaseModel, Field
 from myocr.pipelines import StructuredOutputOCRPipeline
 
-# 定义输出数据模型，参考：
-from myocr.pipelines.response_format import InvoiceModel
+# 定义输出数据模型，参考 main.py 中的 InvoiceModel 定义
 
 # 初始化结构化OCR流水线
 pipeline = StructuredOutputOCRPipeline("cuda:0", InvoiceModel)
@@ -153,10 +152,6 @@ API端点：
 - `POST /ocr-json`：结构化OCR输出
 
 我们还为这些端点提供了UI界面，请参考[doc-insight-ui](https://github.com/robbyzhaox/doc-insight-ui)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=robbyzhaox/myocr&type=Date)](https://www.star-history.com/#robbyzhaox/myocr&Date)
 
 
 ## 🎖 贡献指南
