@@ -43,7 +43,6 @@ class Trainer:
             running_loss = 0.0
             for data, labels in tqdm(train_loader, desc=f"Epoch {epoch+1}/{self.num_epochs}"):
                 data, labels = data.to(device), labels.to(device)
-
                 # forward
                 outputs = self.model(data)
                 loss = self.loss_fn(outputs, labels)
@@ -78,11 +77,12 @@ class Trainer:
                 val_losses.append(val_loss)
 
                 val_accuracy = 100 * correct / total
+                
                 val_accuracies.append(val_accuracy)
                 update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, epoch)
 
                 # print(
-                #     f"""Epoch {epoch+1}/{trainer.num_epochs}:
+                #     f"""Epoch {epoch+1}/{self.num_epochs}:
                 #             Train Loss: {train_loss:.4f},
                 #             Val Loss: {val_loss:.4f},
                 #             Val Acc: {val_accuracy:.2f}%"""
