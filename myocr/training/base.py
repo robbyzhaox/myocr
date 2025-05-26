@@ -77,7 +77,7 @@ class Trainer:
                 val_losses.append(val_loss)
 
                 val_accuracy = 100 * correct / total
-                
+
                 val_accuracies.append(val_accuracy)
                 update_plots(fig, ax1, ax2, train_line, val_line, train_losses, val_losses, epoch)
 
