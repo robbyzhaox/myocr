@@ -43,7 +43,7 @@ dev = [
     "wheel",
     "packaging",
     "torch>=2.5.1",
-    "torchvision==0.21.0",
+    "torchvision==0.22.1",
     "scipy==1.15.2",
     "flask>=3.1.0",
     "flask-cors==5.0.1",
