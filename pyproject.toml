@@ -26,7 +26,7 @@ dependencies = [
     "flask-cors==5.0.1",
     "PyYAML==6.0.2",
     "pyclipper~=1.3.0",
-    "openai==1.82.1",
+    "openai==1.84.0",
 ]
 license = {file = "LICENSE"}
 
